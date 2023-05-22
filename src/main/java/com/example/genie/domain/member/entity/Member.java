@@ -31,6 +31,8 @@ public class Member extends BaseEntity {
     private String accountNumber;
     private String bankName;
 
+
+
     @Builder
     public Member(String memberName, String memberLoginId, String memberPw, String memberNickName, String phoneNumber
             , String email, LocalDateTime birth, String accountNumber, String bankName) {
