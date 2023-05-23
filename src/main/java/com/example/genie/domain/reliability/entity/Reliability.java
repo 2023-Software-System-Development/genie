@@ -1,4 +1,5 @@
-package com.example.genie.domain.pot.entity;
+package com.example.genie.domain.reliability.entity;
+
 
 import com.example.genie.common.BaseEntity;
 import lombok.Getter;
@@ -9,17 +10,18 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-@Table(name = "pot")
+@Table(name = "reliability")
 @Entity
 @DynamicUpdate
-public class Pot extends BaseEntity {
+public class Reliability extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pot_id")
+    @Column(name = "reliability_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    private String history;
+    private Integer score;
+
+
 }
