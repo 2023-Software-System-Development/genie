@@ -1,4 +1,4 @@
-package com.example.genie.domain.pot.entity;
+package com.example.genie.domain.report.entity;
 
 import com.example.genie.common.BaseEntity;
 import com.example.genie.domain.member.entity.Member;
