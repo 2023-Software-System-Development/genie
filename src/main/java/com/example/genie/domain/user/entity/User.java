@@ -1,6 +1,7 @@
-package com.example.genie.domain.member.entity;
+package com.example.genie.domain.user.entity;
 
 import com.example.genie.common.BaseEntity;
+import com.example.genie.domain.reliability.entity.Reliability;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,13 +9,15 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-@Table(name = "member")
+@Table(name = "user")
 @Entity
 @DynamicUpdate
-public class Member extends BaseEntity {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,10 +34,14 @@ public class Member extends BaseEntity {
     private String accountNumber;
     private String bankName;
 
+    @OneToMany
+    @JoinColumn(name = "reliability_id")
+    private List<Reliability> reliabilities = new ArrayList<>();
+
 
 
     @Builder
-    public Member(String memberName, String memberLoginId, String memberPw, String memberNickName, String phoneNumber
+    public User(String memberName, String memberLoginId, String memberPw, String memberNickName, String phoneNumber
             , String email, LocalDateTime birth, String accountNumber, String bankName) {
         this.memberName = memberName;
         this.memberLoginId = memberLoginId;
