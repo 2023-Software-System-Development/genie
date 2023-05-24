@@ -1,5 +1,6 @@
 package com.example.genie.domain.apply.entity;
 
+import com.example.genie.common.BaseEntity;
 import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.user.entity.User;
 import lombok.Builder;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Table(name = "apply")
 @Entity
 @DynamicUpdate
-public class Apply {
+public class Apply extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,8 +33,7 @@ public class Apply {
     User applicant;
 
     @Builder
-    public Apply(Long id, State state, Pot pot, User applicant) {
-        this.id = id;
+    public Apply(State state, Pot pot, User applicant) {
         this.state = state;
         this.pot = pot;
         this.applicant = applicant;
