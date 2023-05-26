@@ -21,8 +21,8 @@ public class AuthUserService implements org.springframework.security.core.userde
             throw new UsernameNotFoundException("해당 사용자가 존재하지 않습니다.");
         }
 
-        return new CustomUserDetails(user.getId(), user.getMemberName(), user.getMemberLoginId(),
-        user.getMemberPw(), user.getMemberNickName(), user.getPhoneNumber(), user.getEmail(), user.getBirth(), user.getAccountNumber(), user.getBankName());
+        return new CustomUserDetails(user.getId(), user.getUserName(), user.getUserLoginId(),
+        user.getUserPw(), user.getUserNickName(), user.getPhoneNumber(), user.getEmail(), user.getBirth(), user.getAccountNumber(), user.getBankName());
     }
 
 }

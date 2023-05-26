@@ -1,6 +1,7 @@
 package com.example.genie.domain.pot.entity;
 
 import com.example.genie.common.BaseEntity;
+import com.example.genie.domain.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
@@ -20,6 +21,6 @@ public class Pot extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "user_id")
+    private User user;
 }
