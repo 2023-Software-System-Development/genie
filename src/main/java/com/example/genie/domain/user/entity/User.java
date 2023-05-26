@@ -21,13 +21,13 @@ public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "memeber_id")
+    @Column(name = "user_id")
     private Long id;
 
-    private String memberName;
-    private String memberLoginId;
-    private String memberPw;
-    private String memberNickName;
+    private String userName;
+    private String userLoginId;
+    private String userPw;
+    private String userNickName;
     private String phoneNumber;
     private String email;
     private LocalDateTime birth;
@@ -39,18 +39,18 @@ public class User extends BaseEntity {
     private List<Reliability> reliabilities = new ArrayList<>();
 
 
-
     @Builder
-    public User(String memberName, String memberLoginId, String memberPw, String memberNickName, String phoneNumber
-            , String email, LocalDateTime birth, String accountNumber, String bankName) {
-        this.memberName = memberName;
-        this.memberLoginId = memberLoginId;
-        this.memberPw = memberPw;
-        this.memberNickName = memberNickName;
+    public User(String userName, String userLoginId, String userPw, String userNickName, String phoneNumber, String email, LocalDateTime birth, String accountNumber, String bankName, List<Reliability> reliabilities) {
+        this.userName = userName;
+        this.userLoginId = userLoginId;
+        this.userPw = userPw;
+        this.userNickName = userNickName;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.birth = birth;
         this.accountNumber = accountNumber;
         this.bankName = bankName;
+        this.reliabilities = reliabilities;
     }
+
 }
