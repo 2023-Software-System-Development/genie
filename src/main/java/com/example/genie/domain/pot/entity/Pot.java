@@ -1,12 +1,14 @@
 package com.example.genie.domain.pot.entity;
 
 import com.example.genie.common.BaseEntity;
-import com.example.genie.domain.user.entity.User;
+import com.example.genie.domain.apply.entity.Apply;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
@@ -20,7 +22,7 @@ public class Pot extends BaseEntity {
     @Column(name = "pot_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @OneToMany(mappedBy = "pot", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<Apply> applies = new ArrayList<>();
+
 }
