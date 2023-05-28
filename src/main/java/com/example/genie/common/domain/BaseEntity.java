@@ -1,4 +1,4 @@
-package com.example.genie.common;
+package com.example.genie.common.domain;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

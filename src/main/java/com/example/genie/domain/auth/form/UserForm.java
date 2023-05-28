@@ -1,4 +1,4 @@
-package com.example.genie.domain.auth.controller;
+package com.example.genie.domain.auth.form;
 
 import com.example.genie.domain.user.entity.User;
 import lombok.Data;

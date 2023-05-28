@@ -1,6 +1,6 @@
 package com.example.genie.domain.pot.entity;
 
-import com.example.genie.common.BaseEntity;
+import com.example.genie.common.domain.BaseEntity;
 import com.example.genie.domain.apply.entity.Apply;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
