@@ -22,6 +22,4 @@ public class Reliability extends BaseEntity {
 
     private String history;
     private Integer score;
-
-
 }

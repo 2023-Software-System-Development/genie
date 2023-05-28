@@ -1,6 +1,7 @@
 package com.example.genie.domain.user.entity;
 
 import com.example.genie.common.BaseEntity;
+import com.example.genie.domain.apply.entity.Apply;
 import com.example.genie.domain.reliability.entity.Reliability;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,9 +35,12 @@ public class User extends BaseEntity {
     private String accountNumber;
     private String bankName;
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true)
     @JoinColumn(name = "reliability_id")
     private List<Reliability> reliabilities = new ArrayList<>();
+
+    @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<Apply> applies = new ArrayList<>();
 
 
     @Builder
