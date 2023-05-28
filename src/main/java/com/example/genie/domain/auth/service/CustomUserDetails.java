@@ -33,6 +33,8 @@ public class CustomUserDetails implements UserDetails, Serializable {
         return authorities;
     }
 
+    public Long getId() { return id; }
+
     @Override
     public String getPassword() {
         return userPw;

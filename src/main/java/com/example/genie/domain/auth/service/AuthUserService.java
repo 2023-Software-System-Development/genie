@@ -1,6 +1,6 @@
 package com.example.genie.domain.auth.service;
 
-import com.example.genie.domain.auth.controller.UserForm;
+import com.example.genie.domain.auth.form.UserForm;
 import com.example.genie.domain.user.entity.User;
 import com.example.genie.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

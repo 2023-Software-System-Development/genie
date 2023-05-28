@@ -1,6 +1,6 @@
 package com.example.genie.domain.chat.entity;
 
-import com.example.genie.common.BaseEntity;
+import com.example.genie.common.domain.BaseEntity;
 import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.user.entity.User;
 import lombok.Builder;

@@ -1,6 +1,6 @@
 package com.example.genie.domain.user.entity;
 
-import com.example.genie.common.BaseEntity;
+import com.example.genie.common.domain.BaseEntity;
 import com.example.genie.domain.apply.entity.Apply;
 import com.example.genie.domain.reliability.entity.Reliability;
 import lombok.Builder;
