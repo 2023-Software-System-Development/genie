@@ -2,6 +2,7 @@ package com.example.genie.domain.user.entity;
 
 import com.example.genie.common.domain.BaseEntity;
 import com.example.genie.domain.apply.entity.Apply;
+import com.example.genie.domain.auth.service.Role;
 import com.example.genie.domain.reliability.entity.Reliability;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,6 +35,7 @@ public class User extends BaseEntity {
     private LocalDateTime birth;
     private String accountNumber;
     private String bankName;
+    private Role role;
 
     @OneToMany(orphanRemoval = true)
     @JoinColumn(name = "reliability_id")
@@ -44,7 +46,7 @@ public class User extends BaseEntity {
 
 
     @Builder
-    public User(String userName, String userLoginId, String userPw, String userNickName, String phoneNumber, String email, LocalDateTime birth, String accountNumber, String bankName, List<Reliability> reliabilities) {
+    public User(String userName, String userLoginId, String userPw, String userNickName, String phoneNumber, String email, LocalDateTime birth, String accountNumber, String bankName, List<Reliability> reliabilities, Role role) {
         this.userName = userName;
         this.userLoginId = userLoginId;
         this.userPw = userPw;
@@ -55,6 +57,7 @@ public class User extends BaseEntity {
         this.accountNumber = accountNumber;
         this.bankName = bankName;
         this.reliabilities = reliabilities;
+        this.role = role;
     }
 
 }

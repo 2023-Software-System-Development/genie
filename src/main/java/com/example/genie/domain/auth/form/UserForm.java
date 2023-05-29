@@ -1,5 +1,6 @@
 package com.example.genie.domain.auth.form;
 
+import com.example.genie.domain.auth.service.Role;
 import com.example.genie.domain.user.entity.User;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -39,7 +40,9 @@ public class UserForm {
                 .email(email)
                 .birth(birth)
                 .accountNumber(accountNumber)
-                .bankName(bankName).build();
+                .bankName(bankName)
+                .role(Role.MEMBER) //회원가입으로 생성된 유저는 일단 Member 권한을 받음
+                .build();
         return user;
     }
 }

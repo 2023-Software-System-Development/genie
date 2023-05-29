@@ -1,6 +1,7 @@
 package com.example.genie.domain.auth.service;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 /*UserDetails를 구현한 커스텀 UserDetails 클래스*/
+@Getter
 @AllArgsConstructor
 public class CustomUserDetails implements UserDetails, Serializable {
     private Long id; //DB의 PK
@@ -22,14 +24,11 @@ public class CustomUserDetails implements UserDetails, Serializable {
     private LocalDateTime birth;
     private String accountNumber;
     private String bankName;
+    private Role role;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        if(id.equals("admin")){
-            authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
-        }else{
-            authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
-        }
+        authorities.add(new SimpleGrantedAuthority(role.getValue()));
         return authorities;
     }
 
