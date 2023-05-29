@@ -16,7 +16,7 @@ public class ApplyService {
     ApplyRepository applyRepository;
     UserRepository userRepository;
 
-    public Apply createApply(Long potId, Long userId){
+   /* public Apply createApply(Long potId, Long userId){
         User applicant = userRepository.getOne(userId);
         Pot pot potRepository.getOne(potId);
 
@@ -25,7 +25,7 @@ public class ApplyService {
                 .applicant(applicant)
                 .pot(pot).build();
         return applyRepository.save(apply);
-    }
+    }*/
 
 
 }
