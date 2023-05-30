@@ -1,4 +1,4 @@
-package com.example.genie;
+package com.example.genie.common.config;
 
 import com.example.genie.domain.auth.service.AuthUserService;
 import com.example.genie.domain.auth.service.CustomUserDetails;
