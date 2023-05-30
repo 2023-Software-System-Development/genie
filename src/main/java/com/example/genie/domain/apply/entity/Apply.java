@@ -6,10 +6,11 @@ import com.example.genie.domain.user.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-@Getter
+@Getter @Setter
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 @Table(name = "apply")
 @Entity
@@ -37,6 +38,10 @@ public class Apply extends BaseEntity {
         this.state = state;
         this.pot = pot;
         this.applicant = applicant;
+    }
+
+    public void changeState(State state){
+        this.state = state;
     }
 
 }
