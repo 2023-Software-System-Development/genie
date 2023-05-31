@@ -2,26 +2,25 @@ package com.example.genie.domain.pot.controller;
 
 import com.example.genie.common.util.UserUtils;
 import com.example.genie.domain.pot.form.PotCreateForm;
+import com.example.genie.domain.pot.model.PotInfoObject;
+import com.example.genie.domain.pot.model.PotObject;
 import com.example.genie.domain.pot.service.PotService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/pot")
 public class PotController {
-
-    private final UserUtils userUtils;
 
     private final PotService potService;
 
@@ -49,7 +48,28 @@ public class PotController {
         return "redirect:" + previousUrl;
     }
 
+    @PostMapping("/delete")
+    public String deletePot(@RequestParam("potId") Long potId, SessionStatus sessionStatus) {
+        potService.deletePot(potId);
 
+        sessionStatus.setComplete();
+        return "redirect:/user/login";
+    }
 
+    //메인페이지에서 보일 팟 리스트 화면
+    @GetMapping("/list")
+    public String getPotList(@RequestParam("ottType") String ottType, Model model) {
+        List<PotObject> potObjectList = potService.getPotList(ottType);
+        model.addAttribute("potlist", potObjectList);
+        return "main";
+    }
+
+    //팟 상세 정보 조회
+    @GetMapping("/{potId}")
+    public String getPot(@PathVariable Long potId, Model model){
+        PotInfoObject potInfoObject = potService.getPot(potId);
+        model.addAttribute("pot", potInfoObject);
+        return "potInfo";
+    }
 
 }

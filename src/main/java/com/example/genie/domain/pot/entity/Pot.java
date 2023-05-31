@@ -3,6 +3,7 @@ package com.example.genie.domain.pot.entity;
 import com.example.genie.common.domain.BaseEntity;
 import com.example.genie.domain.apply.entity.Apply;
 import com.example.genie.domain.pot.form.PotCreateForm;
+import com.example.genie.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -48,7 +49,9 @@ public class Pot extends BaseEntity {
 
     private LocalDateTime endDate;
 
-    private Long master_id;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User master;
 
     @Enumerated(EnumType.STRING)
     private State state;
@@ -58,14 +61,14 @@ public class Pot extends BaseEntity {
     private final List<Apply> applies = new ArrayList<>();
 
     //==생성 메서드==//
-    public static Pot createPot(PotCreateForm potCreateForm, Long userId) {
+    public static Pot createPot(PotCreateForm potCreateForm, User master) {
         Pot pot = Pot.builder()
                 .potName(potCreateForm.getPotName())
                 .ottType(potCreateForm.getOttType())
                 .price(potCreateForm.getPrice())
                 .recruit(potCreateForm.getRecruit())
                 .term(potCreateForm.getTerm())
-                .master_id(userId)
+                .master(master)
                 .state(RECRUITING)
                 .build();
 
