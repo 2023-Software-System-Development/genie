@@ -4,6 +4,7 @@ import com.example.genie.common.util.UserUtils;
 import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.pot.form.PotCreateForm;
 import com.example.genie.domain.pot.mapper.PotMapper;
+import com.example.genie.domain.pot.model.PotInfoObject;
 import com.example.genie.domain.pot.model.PotObject;
 import com.example.genie.domain.pot.repository.PotRepository;
 import com.example.genie.domain.user.entity.User;
@@ -12,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,6 +40,11 @@ public class PotService {
         return pots.stream()
                 .map(PotMapper::toPotObject)
                 .collect(Collectors.toList());
+    }
+
+    public PotInfoObject getPot(Long potId) {
+        Pot pot = potRepository.findById(potId).orElseThrow(() -> new EntityNotFoundException("Pot not found"));
+        return PotMapper.toPotInfoObject(pot);
     }
 
 

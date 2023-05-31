@@ -2,6 +2,7 @@ package com.example.genie.domain.pot.controller;
 
 import com.example.genie.common.util.UserUtils;
 import com.example.genie.domain.pot.form.PotCreateForm;
+import com.example.genie.domain.pot.model.PotInfoObject;
 import com.example.genie.domain.pot.model.PotObject;
 import com.example.genie.domain.pot.service.PotService;
 import lombok.RequiredArgsConstructor;
@@ -63,5 +64,12 @@ public class PotController {
         return "main";
     }
 
+    //팟 상세 정보 조회
+    @GetMapping("/{potId}")
+    public String getPot(@PathVariable Long potId, Model model){
+        PotInfoObject potInfoObject = potService.getPot(potId);
+        model.addAttribute("pot", potInfoObject);
+        return "potInfo";
+    }
 
 }
