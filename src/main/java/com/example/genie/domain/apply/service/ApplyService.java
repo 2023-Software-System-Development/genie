@@ -6,9 +6,10 @@ import com.example.genie.domain.apply.repository.ApplyRepository;
 import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.user.entity.User;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,13 +27,17 @@ public class ApplyService {
         return apply;
     }
 
-    public List<User> getPotApplyList(Pot pot){
-        List<Apply> appyList = applyRepository.findByPot(pot);
+    public List<User> getApplyUserList(String potId){
+        List<Apply> appyList = applyRepository.findByPot_Id(potId);
         List<User> userList = new ArrayList<>();
         for(Apply apply : appyList){
             userList.add(apply.getApplicant());
         }
         return userList;
+    }
+
+    public List<Apply> findApplyList(Pot pot, int pageNum){
+        return applyRepository.findByPot(pot, (Pageable) PageRequest.of(pageNum-1, 10));
     }
 
     public Apply appoveApply(String potId, String userId, int s){
@@ -46,8 +51,10 @@ public class ApplyService {
         return applyRepository.save(apply);
     }
 
-    public List<Apply> getApprovedApplyList(String potId){
-        List<Apply> applyList = applyRepository.findByPot_Id(potId);
+    public List<Apply> getApprovedApplyList(Pot pot){
+        List<Apply> applyList = applyRepository.findByStateAndPot(State.REJECTED, pot);
         return applyList;
     }
+
+
 }
