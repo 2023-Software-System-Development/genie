@@ -1,4 +1,4 @@
-package com.example.genie.domain.reliability;
+package com.example.genie.domain.reliability.repository;
 
 import com.example.genie.domain.reliability.entity.Reliability;
 import org.springframework.data.jpa.repository.JpaRepository;

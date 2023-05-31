@@ -1,6 +1,6 @@
 package com.example.genie.domain.reliability.Service;
 
-import com.example.genie.domain.reliability.ReliabilityRepository;
+import com.example.genie.domain.reliability.repository.ReliabilityRepository;
 import com.example.genie.domain.reliability.entity.Reliability;
 import com.example.genie.domain.user.entity.User;
 import lombok.AllArgsConstructor;
