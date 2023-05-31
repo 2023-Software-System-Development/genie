@@ -36,17 +36,13 @@ public class User extends BaseEntity {
     private String accountNumber;
     private String bankName;
     private Role role;
-
-    @OneToMany(orphanRemoval = true)
-    @JoinColumn(name = "reliability_id")
-    private List<Reliability> reliabilities = new ArrayList<>();
+    Integer reliabilityScore;
 
     @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Apply> applies = new ArrayList<>();
 
-
     @Builder
-    public User(String userName, String userLoginId, String userPw, String userNickName, String phoneNumber, String email, LocalDateTime birth, String accountNumber, String bankName, List<Reliability> reliabilities, Role role) {
+    public User(String userName, String userLoginId, String userPw, String userNickName, String phoneNumber, String email, LocalDateTime birth, String accountNumber, String bankName, Integer reliabilityScore, Role role) {
         this.userName = userName;
         this.userLoginId = userLoginId;
         this.userPw = userPw;
@@ -56,7 +52,7 @@ public class User extends BaseEntity {
         this.birth = birth;
         this.accountNumber = accountNumber;
         this.bankName = bankName;
-        this.reliabilities = reliabilities;
+        this.reliabilityScore = reliabilityScore;
         this.role = role;
     }
 
