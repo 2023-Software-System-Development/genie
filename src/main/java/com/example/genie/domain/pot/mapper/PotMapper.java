@@ -17,7 +17,7 @@ public class PotMapper {
                 .ottType(pot.getOttType())
                 .recruit(pot.getRecruit())
                 .term(pot.getTerm())
-                .masterName(pot.getMaster().getUserName())
+                .masterName(pot.getMaster().getUserNickName())
                 .masterId(pot.getMaster().getId())
                 .build();
 
@@ -28,8 +28,16 @@ public class PotMapper {
                 .potId(pot.getId())
                 .potName(pot.getPotName())
                 .ottType(pot.getOttType())
+                .price(pot.getPrice())
                 .recruit(pot.getRecruit())
+                .remain(pot.getRemain())
                 .term(pot.getTerm())
+                .ott_id(pot.getOtt_id())
+                .ott_pwd(pot.getOtt_pwd())
+                .startDate(pot.getStartDate())
+                .endDate(pot.getEndDate())
+                .masterName(pot.getMaster().getUserNickName())
+                .masterId(pot.getMaster().getId())
                 .build();
 
     }
