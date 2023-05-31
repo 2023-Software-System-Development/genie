@@ -1,4 +1,4 @@
-package com.example.genie.common.config;
+package com.example.genie;
 
 import com.example.genie.domain.auth.service.AuthUserService;
 import com.example.genie.domain.auth.service.CustomUserDetails;
@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             http.csrf().disable()// 세션을 사용하지 않고 JWT 토큰을 활용하여 진행, csrf토큰검사를 비활성화
                 .authorizeRequests() // 인증절차에 대한 설정을 진행
                 .antMatchers("/", "/user/signup", "/user/login", "/loginProc").permitAll() // 설정된 url은 인증되지 않더라도 누구든 접근 가능
-                //.anyRequest().authenticated()// 위 페이지 외 인증이 되어야 접근가능(ROLE에 상관없이)
+                .anyRequest().authenticated()// 위 페이지 외 인증이 되어야 접근가능(ROLE에 상관없이)
                 .and()
                 .formLogin().loginPage("/user/login")  // 접근이 차단된 페이지 클릭시 이동할 url
                 .loginProcessingUrl("/loginProc") // 로그인시 맵핑되는 url
