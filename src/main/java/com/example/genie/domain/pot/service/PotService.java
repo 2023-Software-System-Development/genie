@@ -20,7 +20,7 @@ public class PotService {
 
     public void createPot(Authentication authentication, PotCreateForm potCreateForm, BindingResult bindingResult) {
         User user = userUtils.getUser(authentication);
-        Pot pot = Pot.createPot(potCreateForm, user.getId());
+        Pot pot = Pot.createPot(potCreateForm, user);
         potRepository.save(pot);
     }
 

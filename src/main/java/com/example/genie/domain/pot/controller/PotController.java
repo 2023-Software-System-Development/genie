@@ -21,8 +21,6 @@ import javax.validation.Valid;
 @RequestMapping("/pot")
 public class PotController {
 
-    private final UserUtils userUtils;
-
     private final PotService potService;
 
     @GetMapping
