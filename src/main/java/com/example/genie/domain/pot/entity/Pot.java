@@ -60,18 +60,19 @@ public class Pot extends BaseEntity {
     @OneToMany(mappedBy = "pot", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Apply> applies = new ArrayList<>();
 
-    //==생성 메서드==//
-    public static Pot createPot(PotCreateForm potCreateForm, User master) {
-        Pot pot = Pot.builder()
-                .potName(potCreateForm.getPotName())
-                .ottType(potCreateForm.getOttType())
-                .price(potCreateForm.getPrice())
-                .recruit(potCreateForm.getRecruit())
-                .term(potCreateForm.getTerm())
-                .master(master)
-                .state(RECRUITING)
-                .build();
-
-        return pot;
+    @Builder
+    public Pot(String potName, String ottType, Integer price, Integer recruit, Integer term, String ott_id,
+               String ott_pwd, LocalDateTime startDate, LocalDateTime endDate, User master, State state) {
+        this.potName = potName;
+        this.ottType = ottType;
+        this.price = price;
+        this.recruit = recruit;
+        this.term = term;
+        this.ott_id = ott_id;
+        this.ott_pwd = ott_pwd;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.master = master;
+        this.state = state;
     }
 }
