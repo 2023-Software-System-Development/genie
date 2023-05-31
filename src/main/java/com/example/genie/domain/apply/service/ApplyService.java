@@ -39,9 +39,6 @@ public class ApplyService {
         return userList;
     }
 
-    public List<Apply> findApplyList(Pot pot, int pageNum){
-        return applyRepository.findByPot(pot, (Pageable) PageRequest.of(pageNum-1, 10));
-    }
 
     public Apply appoveApply(Long potId, Long userId, int s){
         Apply apply = applyRepository.findByPot_IdAndApplicant_Id(potId, userId);
