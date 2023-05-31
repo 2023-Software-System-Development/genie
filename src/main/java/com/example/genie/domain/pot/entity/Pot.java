@@ -2,7 +2,6 @@ package com.example.genie.domain.pot.entity;
 
 import com.example.genie.common.domain.BaseEntity;
 import com.example.genie.domain.apply.entity.Apply;
-import com.example.genie.domain.pot.form.PotCreateForm;
 import com.example.genie.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,8 +13,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.genie.domain.pot.entity.State.RECRUITING;
 
 @Getter
 @AllArgsConstructor
@@ -41,6 +38,8 @@ public class Pot extends BaseEntity {
 
     private Integer term;
 
+    private Integer remain;
+
     private String ott_id;
 
     private String ott_pwd;
@@ -61,13 +60,14 @@ public class Pot extends BaseEntity {
     private final List<Apply> applies = new ArrayList<>();
 
     @Builder
-    public Pot(String potName, String ottType, Integer price, Integer recruit, Integer term, String ott_id,
+    public Pot(String potName, String ottType, Integer price, Integer recruit, Integer term, Integer remain, String ott_id,
                String ott_pwd, LocalDateTime startDate, LocalDateTime endDate, User master, State state) {
         this.potName = potName;
         this.ottType = ottType;
         this.price = price;
         this.recruit = recruit;
         this.term = term;
+        this.remain = remain;
         this.ott_id = ott_id;
         this.ott_pwd = ott_pwd;
         this.startDate = startDate;
