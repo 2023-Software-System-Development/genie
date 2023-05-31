@@ -55,7 +55,6 @@ public class Pot extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private State state;
 
-
     @OneToMany(mappedBy = "pot", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Apply> applies = new ArrayList<>();
 
