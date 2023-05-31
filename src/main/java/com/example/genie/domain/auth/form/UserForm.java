@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 @Data
 public class UserForm {
@@ -15,6 +16,7 @@ public class UserForm {
     @NotBlank(message = "아이디를 입력해주세요")
     private String userLoginId;
     @NotBlank(message = "비밀번호를 입력해주세요")
+    @Size(min=8, max = 15, message = "비밀번호는 8~15자로 입렵해주세요")
     private String userPw;
     @NotBlank(message = "비밀번호를 확인해주세요")
     private String userPwCheck;
