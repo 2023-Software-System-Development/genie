@@ -1,11 +1,64 @@
-<!--마이페이지_내 팟 보기-->
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>My Page</title>
+    <style>
+        .adopt_main_table {
+            border: 3px solid black;
+            border-collapse: collapse;
+            border-radius: 10px;
+            margin: auto;
+            text-align: center;
+            width: 250px;
+            height: 200px;
+            font-family: 'Y_Spotlight', sans-serif;
+            font-weight: normal;
+            font-style: normal;
+            font-size: 12pt;
+            color: black;
+            background-color: white;
+            line-height: 22px;
+        }
+        .pic {
+            border: 3px solid black;
+            border-collapse: collapse;
+            margin: auto;
+            background-color: #e3f2fd;
+
+        }
+        .name, .ABOUT {
+            border: 3px solid black;
+            border-collapse: collapse;
+            margin: auto;
+        }
+
+    </style>
 </head>
 <body>
+<table class="adopt_main_table">
+    <tr class="pic">
+        <td>
+            <div class="small_box">넷플릭스</div>
+        </td>
+    </tr>
 
+    <tr class="name">
+        <td>
+            <span>지니</span>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <span>2023.04.03 ~ 2023.10.03</span>
+        </td>
+    </tr>
+
+    <tr class="ABOUT">
+        <td>
+            <span>진행중</span>
+        </td>
+    </tr>
+</table>
 </body>
 </html>
