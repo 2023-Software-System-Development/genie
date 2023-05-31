@@ -15,23 +15,29 @@ public class AuthUserController {
 
     @Autowired
     AuthUserService userAuthUserService;
+
+    @RequestMapping("/")
+    public String home(){
+        return "mainPage/home";
+    }
     @GetMapping("/user/login")
     public String loginForm(){
-        return "login";
+        return "user/login";
     }
 
     @GetMapping("/user/signup")
     public String singUpForm(@ModelAttribute UserForm userForm){
-        return "signUp";}
+        return "user/signup";
+    }
 
     @PostMapping("/user/signup")
     public String signUp(@Valid @ModelAttribute UserForm userForm, BindingResult bindingResult, SessionStatus sessionStatus){
         if(bindingResult.hasErrors()){
-            return "signup";
+            return "user/signup";
         }
         userAuthUserService.join(userForm, bindingResult);
         if(bindingResult.hasErrors()){
-            return "signup";
+            return "user/signup";
         }
 
         sessionStatus.setComplete();
