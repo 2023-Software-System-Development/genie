@@ -24,4 +24,8 @@ public class PotService {
         potRepository.save(pot);
     }
 
+    public void deletePot(Long potId) {
+        potRepository.deleteById(potId);
+    }
+
 }

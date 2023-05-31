@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +42,14 @@ public class PotController {
 
         // 이전 페이지로 리다이렉트
         return "redirect:" + previousUrl;
+    }
+
+    @PostMapping("/delete")
+    public String deletePot(@RequestParam("potId") Long potId, SessionStatus sessionStatus) {
+        potService.deletePot(potId);
+
+        sessionStatus.setComplete();
+        return "redirect:/user/login";
     }
 
 
