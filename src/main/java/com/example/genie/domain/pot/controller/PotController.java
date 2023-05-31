@@ -1,11 +1,12 @@
 package com.example.genie.domain.pot.controller;
 
-import com.example.genie.common.util.UserUtils;
 import com.example.genie.domain.pot.form.PotCreateForm;
 import com.example.genie.domain.pot.model.PotInfoObject;
 import com.example.genie.domain.pot.model.PotObject;
 import com.example.genie.domain.pot.service.PotService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,8 +59,9 @@ public class PotController {
 
     //메인페이지에서 보일 팟 리스트 화면
     @GetMapping("/list")
-    public String getPotList(@RequestParam("ottType") String ottType, Model model) {
-        List<PotObject> potObjectList = potService.getPotList(ottType);
+    public String getPotList(@RequestParam("ottType") String ottType, @PageableDefault(page = 0, size = 6) Pageable pageable,
+                             Model model) {
+        List<PotObject> potObjectList = potService.getPotList(ottType, pageable);
         model.addAttribute("potlist", potObjectList);
         return "main";
     }

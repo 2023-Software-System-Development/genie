@@ -9,6 +9,8 @@ import com.example.genie.domain.pot.model.PotObject;
 import com.example.genie.domain.pot.repository.PotRepository;
 import com.example.genie.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -35,8 +37,8 @@ public class PotService {
         potRepository.deleteById(potId);
     }
 
-    public List<PotObject> getPotList(String ottType) {
-        List<Pot> pots = potRepository.findListByOttType(ottType);
+    public List<PotObject> getPotList(String ottType, Pageable pageable) {
+        Page<Pot> pots = potRepository.findListByOttType(ottType, pageable);
         return pots.stream()
                 .map(PotMapper::toPotObject)
                 .collect(Collectors.toList());
