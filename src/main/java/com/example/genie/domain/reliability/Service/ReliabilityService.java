@@ -13,7 +13,7 @@ import java.util.List;
 public class ReliabilityService {
     ReliabilityRepository reliabilityRepository;
 
-    public List<Reliability> getUserReliabilities(User user){
-        return reliabilityRepository.findByUserOOrderByCreatedDateDesc();
-    }
+    //public List<Reliability> getUserReliabilities(User user){
+    //    return reliabilityRepository.findByUserOrderByCreatedDateDesc();
+    //}
 }
