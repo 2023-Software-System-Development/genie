@@ -2,7 +2,9 @@
     width: 200px; /* 이미지 버튼의 가로 크기 */
     height: 200px; /* 이미지 버튼의 세로 크기 */
 }
-.ott_netflix .ott_disney .ott_wavve .ott_watcha {
-    width: 200px; /* 이미지 버튼의 가로 크기 */
-    height: 100px; /* 이미지 버튼의 세로 크기 */
+.ott {
+    margin : 10px;
+}
+.ott_disney {
+
 }
