@@ -15,44 +15,44 @@
 
       if (ottType === "disney+") {
         optionsContainer.innerHTML = `
-        <input type="radio" name="recruit" value="01" th:field="*{recruit}" onclick="updatePrice('01')"> 1
-        <input type="radio" name="recruit" value="02" th:field="*{recruit}" onclick="updatePrice('02')"> 2
+        <input type="radio" name="recruit" value="2" th:field="*{recruit}" onclick="updatePrice('01')"> 2
+        <input type="radio" name="recruit" value="4" th:field="*{recruit}" onclick="updatePrice('02')"> 4
       `;
       } else if (ottType === "netflix") {
         optionsContainer.innerHTML = `
-        <input type="radio" name="recruit" value="11" th:field="*{recruit}" onclick="updatePrice('11')"> 1
-        <input type="radio" name="recruit" value="12" th:field="*{recruit}" onclick="updatePrice('12')"> 3
+        <input type="radio" name="recruit" value="2" th:field="*{recruit}" onclick="updatePrice('11')"> 2
+        <input type="radio" name="recruit" value="4" th:field="*{recruit}" onclick="updatePrice('12')"> 4
       `;
       } else if (ottType === "watcha") {
         optionsContainer.innerHTML = `
-        <input type="radio" name="recruit" value="21" th:field="*{recruit}" onclick="updatePrice('21')"> 1
-        <input type="radio" name="recruit" value="22" th:field="*{recruit}" onclick="updatePrice('22')"> 4
+        <input type="radio" name="recruit" value="2" th:field="*{recruit}" onclick="updatePrice('21')"> 2
+        <input type="radio" name="recruit" value="4" th:field="*{recruit}" onclick="updatePrice('22')"> 4
       `;
       } else if (ottType === "wavve") {
         optionsContainer.innerHTML = `
-        <input type="radio" name="recruit" value="31" th:field="*{recruit}" onclick="updatePrice('31')"> 1
-        <input type="radio" name="recruit" value="32" th:field="*{recruit}" onclick="updatePrice('32')"> 5
+        <input type="radio" name="recruit" value="2" th:field="*{recruit}" onclick="updatePrice('31')"> 2
+        <input type="radio" name="recruit" value="4" th:field="*{recruit}" onclick="updatePrice('32')"> 4
       `;
       }
     }
-    function updatePrice(recruit) {
+    function updatePrice(recruit1) {
       var priceField = document.getElementById("price");
 
-      if (recruit === "01") {
-        priceField.value = "100";
-      } else if (recruit === "02") {
+      if (recruit1 === "01") {
+        priceField.value = "010";
+      } else if (recruit1 === "02") {
         priceField.value = "200";
-      } else if (recruit === "11") {
+      } else if (recruit1 === "11") {
         priceField.value = "300";
-      } else if (recruit === "12") {
+      } else if (recruit1 === "12") {
         priceField.value = "400";
-      } else if (recruit === "21") {
+      } else if (recruit1 === "21") {
         priceField.value = "500";
-      } else if (recruit === "22") {
+      } else if (recruit1 === "22") {
         priceField.value = "600";
-      } else if (recruit === "31") {
+      } else if (recruit1 === "31") {
         priceField.value = "700";
-      } else if (recruit === "32") {
+      } else if (recruit1 === "32") {
         priceField.value = "800";
       }
     }
