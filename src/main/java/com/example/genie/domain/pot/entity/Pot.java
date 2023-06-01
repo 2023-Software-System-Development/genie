@@ -95,4 +95,8 @@ public class Pot extends BaseEntity {
         this.master = master;
         this.state = state;
     }
+
+    public void apporveUser(){
+        this.remain -= 1;
+    }
 }
