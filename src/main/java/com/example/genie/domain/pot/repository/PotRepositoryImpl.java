@@ -1,6 +1,7 @@
 package com.example.genie.domain.pot.repository;
 
 import com.example.genie.domain.pot.entity.Pot;
+import com.example.genie.domain.pot.entity.QPot;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
