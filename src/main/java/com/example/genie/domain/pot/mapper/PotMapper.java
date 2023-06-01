@@ -16,7 +16,9 @@ public class PotMapper {
                 .potName(pot.getPotName())
                 .ottType(pot.getOttType())
                 .recruit(pot.getRecruit())
+                .remain(pot.getRemain())
                 .term(pot.getTerm())
+                .remain(pot.getRemain())
                 .masterName(pot.getMaster().getUserNickName())
                 .masterId(pot.getMaster().getId())
                 .build();
