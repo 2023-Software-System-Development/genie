@@ -17,45 +17,44 @@
 <div th:label="pot" class="outer">
 <table>
     <thead>
-    <tr>
-        <th>
+        <tr>
             <td>
                 팟 이름
             </td>
-            <td th:text="${potInfoObject.potName}"></td>
-        </th>
-        <th>
+            <td th:text="${pot.potName}"></td>
+        </tr>
+        <tr>
             <td>
                 OTT 종류
             </td>
-            <td th:text="${potInfoObject.ottType}"></td>
-        </th>
-        <th>
+            <td th:text="${pot.ottType}"></td>
+        </tr>
+        <tr>
             <td>
                 모집인원
             </td>
-            <td th:text="${potInfoObject.recruit}"></td>
-        </th>
-        <th>
+            <td th:text="${pot.recruit}"></td>
+        </tr>
+        <tr>
             <td>
                 남은 인원
             </td>
-            <td th:text="${potInfoObject.remain}"></td>
-        </th>
-        <th>
+            <td th:text="${pot.remain}"></td>
+        </tr>
+        <tr>
             <td>
                 기간
             </td>
-            <td th:text="${potInfoObject.term}"></td>
-        </th>
+            <td th:text="${pot.term}"></td>
+        </tr>
         <!--<th>
             <td>
                 팟장 이름
             </td>
             <td th:text="${potInfoObject.masterName}"></td>
         </th>-->
-    </tr>
     </thead>
+</table>
     <!--<tbody>
     <tr th:each="pot : ${potList}">
         <td th:text="${pot.potName}"></td>
@@ -72,19 +71,19 @@
     </tr>
     </tbody>-->
     <tbody>
-        <tr th:if="${potInfoObject.ismaster eq 1}">
+        <tr th:if="${pot.isMaster}">
             <td>
-                <button type="button" class="btn btn-primary">수정하기</button>
+                <button href="/edit" type="button" class="btn btn-primary">수정하기</button>
             </td>
         </tr>
-        <tr th:if="${potInfoObject.ismaster eq 0}">
+        <tr th:if="${!pot.isMaster}">
             <td>
-                <button type="button" class="btn btn-primary">신청하기</button>
+                <button href="/pot/apply" type="button" class="btn btn-primary">신청하기</button>
             </td>
         </tr>
         <tr th:if="${ismaster eq 1 and potInfoObject.remain eq 0}">
             <td>
-                <button type="button" class="btn btn-primary">시작하기</button>
+                <button href="/start" type="button" class="btn btn-primary">시작하기</button>
             </td>
         </tr>
     </tbody>
