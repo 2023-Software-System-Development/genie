@@ -56,9 +56,6 @@
       }
     }
 
-    function resetForm() {
-      document.getElementById("myForm").reset(); // 폼 초기화
-    }
 
     function cancelForm() {
       window.location.href = "/";
@@ -67,7 +64,7 @@
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
-<form id="myForm" action="@{/pot/createPot}" th:action th:object="${potCreateForm}" method="post">
+<form action="@{/pot/createPot}" th:action th:object="${potCreateForm}" method="post">
   <div>
     <label for="potName">팟 이름</label>
     <input type="text" id="potName" name="potName" th:field="*{potName}" class="form-control" placeholder="팟 이름을 입력하세요">
