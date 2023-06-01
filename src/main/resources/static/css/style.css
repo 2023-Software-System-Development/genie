@@ -77,3 +77,25 @@
 .card border-primary mb-3 {
     margin:auto;
 }
+
+.ott_disney {
+    height:90px;
+}
+.ott_netflix {
+    height:50px;
+}
+.ott_watcha {
+    height:50px;
+}
+.ott_wavve {
+    height:50px;
+}
+
+.logo_nav {
+    margin-top: 0;
+    width:100px;
+    height:100px;
+    position: relative; /* 버튼 위치를 상대적으로 설정 */
+    top: 0px; /* 위로 20px 이동 */
+    left: 10px; /* 왼쪽으로 10px 이동 */
+}
