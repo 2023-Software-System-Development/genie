@@ -12,8 +12,11 @@
 .nav-item {
     vertical-align: bottom;
 }
+.nav-item2 {
+    margin-left: 100px;
+}
 .li-gap {
-    margin-right: 70px; /* 아래쪽에 10px의 간격을 띄웁니다 */
+    margin-right: 140px;
 }
  .error {
      color: red;
