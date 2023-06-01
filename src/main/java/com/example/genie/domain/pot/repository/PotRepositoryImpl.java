@@ -20,6 +20,7 @@ public class PotRepositoryImpl implements PotRepositoryCustom {
 
     @Override
     public Page<Pot> findListBySearch(String searchText, Pageable pageable) {
+
         List<Pot> potList = jpaQueryFactory
                 .select(QPot.pot).distinct()
                 .from(QPot.pot)
