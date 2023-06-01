@@ -75,6 +75,10 @@ public class Pot extends BaseEntity {
         this.endDate = potEditOngoingFormForm.getEndDate();
     }
 
+    public void changeState() {
+        this.state = State.ONGOING;
+    }
+
     @Builder
     public Pot(String potName, String ottType, Integer price, Integer recruit, Integer term, Integer remain, String ottId,
                String ottPw, LocalDateTime startDate, LocalDateTime endDate, User master, State state) {
