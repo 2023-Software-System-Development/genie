@@ -69,8 +69,8 @@ public class PotController {
     public String getPotList(@RequestParam("ottType") String ottType, @PageableDefault(page = 0, size = 6) Pageable pageable,
                              Model model) {
         List<PotObject> potObjectList = potService.getPotList(ottType, pageable);
-        model.addAttribute("potlist", potObjectList);
-        return "main";
+        model.addAttribute("potList", potObjectList);
+        return "mainPage/home";
     }
 
     //팟 상세 정보 조회 API
