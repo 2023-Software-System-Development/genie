@@ -112,8 +112,9 @@ public class PotController {
     }
 
     @PostMapping("/start")
-    public String getPotStarted(@RequestParam("potId") Long potId) {
+    public String getPotStarted(@RequestParam("potId") Long potId, Model model) {
         PotInfoObject potInfoObject = potService.getPotStarted(potId);
+        model.addAttribute("pot", potInfoObject);
         return "pot/potInfo";
     }
 
