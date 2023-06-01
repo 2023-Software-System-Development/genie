@@ -10,7 +10,25 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <style>
+        .login-signup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+        }
 
+        .login-signup a {
+            color: blue;
+            text-decoration: underline;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .login-signup a:first-child {
+            margin-left: 0;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -27,15 +45,18 @@
                         </div>
                     </td>
                     <td>
-                        <form th:action="@{/user/login}" class="d-flex">
-                            <button sec:authorize="isAnonymous()" class="btn btn-secondary my-2 my-sm-0" type="submit">로그인</button>
-                        </form>
-                        <form th:action="@{/user/signup}" class="d-flex">
-                            <button sec:authorize="isAnonymous()" class="btn btn-secondary my-2 my-sm-0" type="submit">회원가입</button>
-                        </form>
-                        <form th:action="@{/user/logout}" class="d-flex">
-                            <button sec:authorize="isAuthenticated()" class="btn btn-secondary my-2 my-sm-0" type="submit">로그아웃</button>
-                        </form>
+                        <div class="login-signup">
+                            <form th:action="@{/user/login}">
+                                <button sec:authorize="isAnonymous()" class="btn btn-secondary my-2 my-sm-0" type="submit">로그인</button>
+                            </form> &nbsp;
+                            <form th:action="@{/user/signup}">
+                                <button sec:authorize="isAnonymous()" class="btn btn-secondary my-2 my-sm-0" type="submit">회원가입</button>
+                            </form>
+                        </div>
+                        <div class="login-signup">                            <form th:action="@{/user/logout}" class="d-flex ml-auto">
+                                <button sec:authorize="isAuthenticated()" class="btn btn-secondary my-2 my-sm-0" type="submit">로그아웃</button>
+                            </form>
+                        </div>
                     </td>
                 </th>
                 <th>
@@ -43,23 +64,29 @@
                         <ul class="navbar-nav me-auto">
                             <li class="li-gap">
                                 <a class="nav-item" href="/">
-                                    <img class="ott_disney" src="/image/ott/disney.png" alt="disney 로고">
-                                    <span class="visually-hidden">(current)</span>
+                                    <!--<img class="ott_disney" src="/image/ott/disney.png" alt="disney 로고">-->
+                                    <span style="visibility: visible; color: blue;">Disney+</span>                                    <span class="visually-hidden">(current)</span>
                                 </a>
                             </li>
                             <li class="li-gap">
                                 <a class="nav-item" href="#">
-                                    <img class="ott_netflix" src="/image/ott/netflix.png" alt="netflix 로고">
+<!--                                    <img class="ott_netflix" src="/image/ott/netflix.png" alt="netflix 로고">-->
+                                    <span style="visibility: visible; color: red;">NETFLIX</span>                                    <span class="visually-hidden">(current)</span>
+
                                 </a>
                             </li>
                             <li class="li-gap">
                                 <a class="nav-item" href="#">
-                                    <img class="ott_watcha" src="/image/ott/watcha.png" alt="watcha 로고">
+<!--                                    <img class="ott_watcha" src="/image/ott/watcha.png" alt="watcha 로고">-->
+                                    <span style="visibility: visible; color: red;">WATCHA</span>                                    <span class="visually-hidden">(current)</span>
+
                                 </a>
                             </li>
                             <li class="li-gap">
                                 <a class="nav-item" href="#">
-                                    <img class="ott_wavve" src="/image/ott/wavve.png" alt="wavve 로고">
+<!--                                    <img class="ott_wavve" src="/image/ott/wavve.png" alt="wavve 로고">-->
+                                    <span style="visibility: visible; color: blue;">wavve</span>                                    <span class="visually-hidden">(current)</span>
+
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
