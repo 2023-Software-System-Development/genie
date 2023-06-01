@@ -19,3 +19,61 @@
      color: red;
      font-size: 8px;
  }
+
+.adopt_main_table {
+    border: 3px solid black;
+    border-collapse: collapse;
+    border-radius: 10px;
+    margin: auto;
+    text-align: center;
+    width: 250px;
+    height: 200px;
+    font-family: 'Y_Spotlight', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 12pt;
+    color: black;
+    background-color: white;
+    line-height: 22px;
+}
+.pic {
+    border: 3px solid black;
+    border-collapse: collapse;
+    margin: auto;
+    background-color: #e3f2fd;
+
+}
+.name, .ABOUT {
+    border: 3px solid black;
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.card-header {
+    text-align:center;
+}
+
+.pot_list_table {
+    /*border : none;
+    border-collapse : collapse;
+    border-radius : 10px;*/
+    margin:auto;
+    /*
+    text-align:center;
+
+    width:200px;
+    height: 170px; */
+    /*font-family: 'Y_Spotlight';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/Y_Spotlight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-size: 12pt;
+    color: Black;
+    background-color: #e8e8e8;
+    line-height: 22px;
+    table-layout: fixed;*/
+}
+
+.card border-primary mb-3 {
+    margin:auto;
+}
