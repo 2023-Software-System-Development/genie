@@ -5,16 +5,16 @@
 <body>
 <div th:label="potList">
     <tbody>
-    <div th:each="pot, i:${potList}">
+    <div th:each="pot, stat : ${potList}">
         <div class="card border-primary mb-3" style="max-width: 20rem;">
-            <div class="card-header">${pot.potName}</div>
-            <div class="card-header" >${pot.ottType}</div>
+            <div class="card-header" th:text="${pot.potName}"/>
+            <div class="card-header" th:text="${pot.ottType}"/>
             <div class="card-body">
-                구인인원 : <p class="card-title">${pot.recruit}</p>
-                현재인원 : <p class="card-title">${pot.recruit - pot.remain}</p>
-                기간 : <p class="card-title">${pot.term}</p>
+                <p class="card-title" th:text="'구인인원 :'+${pot.recruit}"/>
+                <p class="card-title" th:text="'현재인원 : '+${pot.remain}"/>
+                <p class="card-title" th:text="'기간 : '+${pot.term}"/>
             </div>
-            <br th:if="${i.count == 3}">
+            <br th:if="${stat.count == 3}">
         </div>
     </div>
     </tbody>
