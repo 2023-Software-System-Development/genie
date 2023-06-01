@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class PotEditOngoingForm {
+public class PotEditOngoingForm { //진행중
 
     private String ottId;
 
