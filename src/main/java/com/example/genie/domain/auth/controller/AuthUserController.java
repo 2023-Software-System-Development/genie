@@ -7,6 +7,7 @@ import com.example.genie.domain.pot.model.PotObject;
 import com.example.genie.domain.pot.service.PotService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,7 @@ public class AuthUserController {
     PotService potService;
     @RequestMapping("/")
     public String home(Model model, @PageableDefault(page = 0) Pageable pageable){
-        List<PotObject> potList = potService.getPotList("NetFlix", pageable);
+        Page<PotObject> potList = potService.getPotList("NetFlix", pageable);
         model.addAttribute("potList", potList);
         return "mainPage/home";
     }

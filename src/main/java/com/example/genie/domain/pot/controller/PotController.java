@@ -9,6 +9,7 @@ import com.example.genie.domain.pot.model.PotInfoObject;
 import com.example.genie.domain.pot.model.PotObject;
 import com.example.genie.domain.pot.service.PotService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
@@ -68,7 +69,7 @@ public class PotController {
     @GetMapping("/list")
     public String getPotList(@RequestParam("ottType") String ottType, @PageableDefault(page = 0, size = 6) Pageable pageable,
                              Model model) {
-        List<PotObject> potObjectList = potService.getPotList(ottType, pageable);
+        Page<PotObject> potObjectList = potService.getPotList(ottType, pageable);
         model.addAttribute("potlist", potObjectList);
         return "main";
     }
@@ -128,7 +129,7 @@ public class PotController {
 
     @PostMapping("/search")
     public String searchPot(@Valid @ModelAttribute PotSearchForm potSearchForm, BindingResult bindingResult, @PageableDefault(page = 0, size = 6) Pageable pageable, Model model) {
-        List<PotObject> potObjectList = potService.getPotListBySearch(potSearchForm, pageable);
+        Page<PotObject> potObjectList = potService.getPotListBySearch(potSearchForm, pageable);
         model.addAttribute("potList", potObjectList);
         return "mainPage/home";
     }
