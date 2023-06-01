@@ -26,10 +26,16 @@
             box-sizing: border-box;
         }
     </style>
+    <script>
+        function handleOuterClick() {
+            window.location.href = "/{potId}";
+        }
+    </script>
+
 </head>
 <body>
 <div th:label="potList" class="outer">
-    <div th:each="pot, stat : ${potList}" class="card border-primary mb-3" style="max-width: 20rem;">
+    <div th:each="pot, stat : ${potList}"  onclick="handleOuterClick()" class="card border-primary mb-3" style="max-width: 20rem;">
         <div class="row-md-4">
             <div class="card-header" th:text="${pot.potName}"></div>
             <div class="card-header" th:text="${pot.ottType}"></div>
