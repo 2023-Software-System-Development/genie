@@ -12,8 +12,8 @@ public class PotInfoObject {
     private final Integer recruit;
     private final Integer remain;
     private final Integer term;
-    private final String ott_id;
-    private final String ott_pwd;
+    private final String ottId;
+    private final String ottPw;
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
     private final String masterName;
@@ -21,7 +21,7 @@ public class PotInfoObject {
 
     @Builder
     public PotInfoObject(Long potId, String potName, String ottType, Integer price, Integer recruit, Integer remain, Integer term,
-                         String ott_id, String ott_pwd, LocalDateTime startDate, LocalDateTime endDate,
+                         String ottId, String ottPw, LocalDateTime startDate, LocalDateTime endDate,
                          String masterName, Long masterId) {
         this.potId = potId;
         this.potName = potName;
@@ -30,8 +30,8 @@ public class PotInfoObject {
         this.recruit = recruit;
         this.remain = remain;
         this.term = term;
-        this.ott_id = ott_id;
-        this.ott_pwd = ott_pwd;
+        this.ottId = ottId;
+        this.ottPw = ottPw;
         this.startDate = startDate;
         this.endDate = endDate;
         this.masterName = masterName;

@@ -1,6 +1,9 @@
 package com.example.genie.domain.pot.controller;
 
+import com.example.genie.domain.pot.entity.State;
 import com.example.genie.domain.pot.form.PotCreateForm;
+import com.example.genie.domain.pot.form.PotEditOngoingForm;
+import com.example.genie.domain.pot.form.PotEditRecruitingForm;
 import com.example.genie.domain.pot.model.PotInfoObject;
 import com.example.genie.domain.pot.model.PotObject;
 import com.example.genie.domain.pot.service.PotService;
@@ -76,4 +79,36 @@ public class PotController {
         model.addAttribute("pot", potInfoObject);
         return "pot/potInfo";
     }
+
+    //팟 수정 API (모집중)
+    @PostMapping("/edit/recruting")
+    public String editPot(@RequestParam("potId") Long potId, @Valid @ModelAttribute PotEditRecruitingForm potEditRecruitingForm, SessionStatus sessionStatus) {
+        potService.editRecruitingPot(potId, potEditRecruitingForm);
+        sessionStatus.setComplete();
+        return "user/mypage";
+    }
+
+    //팟 수정 API (진행중)
+    @PostMapping("/edit/ongoing")
+    public String editPot(@RequestParam("potId") Long potId, @Valid @ModelAttribute PotEditOngoingForm potEditOngoingForm, SessionStatus sessionStatus) {
+        potService.editOngoingPot(potId, potEditOngoingForm);
+        sessionStatus.setComplete();
+        return "user/mypage";
+    }
+
+
+    //팟 수정 화면 호출 API. 상태에 따라 보내는 화면 다르게
+    @GetMapping("/edit")
+    public String editPotForm(@RequestParam("potId") Long potId, Model model) {
+        PotInfoObject potInfoObject = potService.getPot(potId);
+        if(potService.getPotEntity(potId).getState().equals(State.RECRUITING)) {
+            model.addAttribute("pot", potInfoObject);
+            return "pot/editRecruiting";
+        }
+        else {
+            model.addAttribute("pot", potInfoObject);
+            return "pot/editOngoing";
+        }
+    }
+
 }

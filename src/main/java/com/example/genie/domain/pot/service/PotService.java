@@ -3,6 +3,8 @@ package com.example.genie.domain.pot.service;
 import com.example.genie.common.util.UserUtils;
 import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.pot.form.PotCreateForm;
+import com.example.genie.domain.pot.form.PotEditOngoingForm;
+import com.example.genie.domain.pot.form.PotEditRecruitingForm;
 import com.example.genie.domain.pot.mapper.PotMapper;
 import com.example.genie.domain.pot.model.PotInfoObject;
 import com.example.genie.domain.pot.model.PotObject;
@@ -47,6 +49,21 @@ public class PotService {
     public PotInfoObject getPot(Long potId) {
         Pot pot = potRepository.findById(potId).orElseThrow(() -> new EntityNotFoundException("Pot not found"));
         return PotMapper.toPotInfoObject(pot);
+    }
+
+    public void editRecruitingPot(Long potId, PotEditRecruitingForm potEditRecruitingForm) {
+        Pot pot = potRepository.findById(potId).orElseThrow(() -> new EntityNotFoundException("Pot not found"));
+        pot.updateRecruiting(potEditRecruitingForm);
+    }
+
+    public void editOngoingPot(Long potId, PotEditOngoingForm potEditOngoingForm) {
+        Pot pot = potRepository.findById(potId).orElseThrow(() -> new EntityNotFoundException("Pot not found"));
+        pot.updateOngoing(potEditOngoingForm);
+    }
+
+    public Pot getPotEntity(Long potId) {
+        Pot pot = potRepository.findById(potId).orElseThrow(() -> new EntityNotFoundException("Pot not found"));
+        return pot;
     }
 
 
