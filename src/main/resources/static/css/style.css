@@ -49,6 +49,27 @@
     margin: auto;
 }
 
-.card border-primary mb-3 {
-    padd
+.card-header {
+    text-align:center;
+}
+
+.pot_list_table {
+    /*border : none;
+    border-collapse : collapse;
+    border-radius : 10px;*/
+    margin:auto;
+    /*
+    text-align:center;
+
+    width:200px;
+    height: 170px; */
+    /*font-family: 'Y_Spotlight';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/Y_Spotlight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-size: 12pt;
+    color: Black;
+    background-color: #e8e8e8;
+    line-height: 22px;
+    table-layout: fixed;*/
 }
