@@ -127,10 +127,13 @@ public class PotController {
 
 
     @PostMapping("/search")
-    public String searchPot(@Valid @ModelAttribute PotSearchForm potSearchForm, @PageableDefault(page = 0, size = 6) Pageable pageable, Model model) {
+    public String searchPot(@Valid @ModelAttribute PotSearchForm potSearchForm, BindingResult bindingResult, @PageableDefault(page = 0, size = 6) Pageable pageable, Model model) {
+        System.out.println(potSearchForm.getSearchText());
         List<PotObject> potObjectList = potService.getPotListBySearch(potSearchForm, pageable);
+        System.out.println(potObjectList.get(0).getPotName());
+        System.out.println();
         model.addAttribute("potlist", potObjectList);
-        return "main";
+        return "mainPage/home";
     }
 
 
