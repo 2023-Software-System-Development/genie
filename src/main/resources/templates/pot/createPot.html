@@ -42,19 +42,19 @@
       if (recruit1 === "01") {
         priceField.value = "010";
       } else if (recruit1 === "02") {
-        priceField.value = "9,900";
+        priceField.value = "9900";
       } else if (recruit1 === "11") {
-        priceField.value = "13,500";
+        priceField.value = "13500";
       } else if (recruit1 === "12") {
-        priceField.value = "17,000";
+        priceField.value = "17000";
       } else if (recruit1 === "21") {
-        priceField.value = "10,900";
+        priceField.value = "10900";
       } else if (recruit1 === "22") {
-        priceField.value = "13,900";
+        priceField.value = "13900";
       } else if (recruit1 === "31") {
-        priceField.value = "10,900";
+        priceField.value = "10900";
       } else if (recruit1 === "32") {
-        priceField.value = "13,900";
+        priceField.value = "13900";
       }
     }
 
@@ -62,7 +62,7 @@
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
-<form action="@{/pot/createPot}" th:action th:object="${potCreateForm}" method="post">
+<form action="@{/pot}" th:action th:object="${potCreateForm}" method="post">
   <div>
     <label for="potName">팟 이름</label>
     <input type="text" id="potName" name="potName" th:field="*{potName}" class="form-control" placeholder="팟 이름을 입력하세요">
