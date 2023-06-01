@@ -1,10 +1,7 @@
 package com.example.genie.domain.pot.controller;
 
 import com.example.genie.domain.pot.entity.State;
-import com.example.genie.domain.pot.form.PotCreateForm;
-import com.example.genie.domain.pot.form.PotEditOngoingForm;
-import com.example.genie.domain.pot.form.PotEditRecruitingForm;
-import com.example.genie.domain.pot.form.PotSearchForm;
+import com.example.genie.domain.pot.form.*;
 import com.example.genie.domain.pot.model.PotInfoObject;
 import com.example.genie.domain.pot.model.PotObject;
 import com.example.genie.domain.pot.service.PotService;
@@ -121,9 +118,16 @@ public class PotController {
         }
     }
 
+    //팟 시작 시, 추가 정보 입력 화면 호출 API
+    @GetMapping("/start")
+    public String getPotStartedForm() {
+        return "pot/startPot";
+    }
+
+    //팟 시작 시, 추가 정보 입력
     @PostMapping("/start")
-    public String getPotStarted(@RequestParam("potId") Long potId) {
-        potService.getPotStarted(potId);
+    public String getPotStarted(@RequestParam("potId") Long potId, @Valid @ModelAttribute PotStartForm potStartForm,BindingResult bindingResult) {
+        potService.getPotStarted(potId, potStartForm);
         return "redirect:/pot/" + potId;
     }
 

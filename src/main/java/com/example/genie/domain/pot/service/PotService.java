@@ -2,10 +2,7 @@ package com.example.genie.domain.pot.service;
 
 import com.example.genie.common.util.UserUtils;
 import com.example.genie.domain.pot.entity.Pot;
-import com.example.genie.domain.pot.form.PotCreateForm;
-import com.example.genie.domain.pot.form.PotEditOngoingForm;
-import com.example.genie.domain.pot.form.PotEditRecruitingForm;
-import com.example.genie.domain.pot.form.PotSearchForm;
+import com.example.genie.domain.pot.form.*;
 import com.example.genie.domain.pot.mapper.PotMapper;
 import com.example.genie.domain.pot.model.PotInfoObject;
 import com.example.genie.domain.pot.model.PotObject;
@@ -63,9 +60,10 @@ public class PotService {
         return PotMapper.toPotInfoObject(pot, isMaster);
     }
 
-    public void getPotStarted(Long potId) {
+    public void getPotStarted(Long potId, PotStartForm potStartForm) {
         Pot pot = potRepository.findById(potId).orElseThrow(() -> new EntityNotFoundException("Pot not found"));
         pot.changeState();
+        pot.addAdditionalInfo(potStartForm);
     }
 
     public void editRecruitingPot(Long potId, PotEditRecruitingForm potEditRecruitingForm) {

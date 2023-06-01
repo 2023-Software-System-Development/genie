@@ -4,6 +4,7 @@ import com.example.genie.common.domain.BaseEntity;
 import com.example.genie.domain.apply.entity.Apply;
 import com.example.genie.domain.pot.form.PotEditOngoingForm;
 import com.example.genie.domain.pot.form.PotEditRecruitingForm;
+import com.example.genie.domain.pot.form.PotStartForm;
 import com.example.genie.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -73,6 +74,13 @@ public class Pot extends BaseEntity {
         this.ottPw = potEditOngoingFormForm.getOttPw();
         this.startDate = potEditOngoingFormForm.getStartDate();
         this.endDate = potEditOngoingFormForm.getEndDate();
+    }
+
+    public void addAdditionalInfo(PotStartForm potStartForm) {
+        this.ottId = potStartForm.getOttId();
+        this.ottPw = potStartForm.getOttPw();
+        this.startDate = potStartForm.getStartDate();
+        this.endDate = potStartForm.getEndDate();
     }
 
     public void changeState() {
