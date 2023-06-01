@@ -56,15 +56,16 @@ public class PotService {
                 .collect(Collectors.toList());
     }
 
-    public PotInfoObject getPot(Long potId) {
+    public PotInfoObject getPot(Authentication authentication, Long potId) {
+        User user = userUtils.getUser(authentication);
         Pot pot = potRepository.findById(potId).orElseThrow(() -> new EntityNotFoundException("Pot not found"));
-        return PotMapper.toPotInfoObject(pot);
+        boolean isMaster = user.equals(pot.getMaster());
+        return PotMapper.toPotInfoObject(pot, isMaster);
     }
 
-    public PotInfoObject getPotStarted(Long potId) {
+    public void getPotStarted(Long potId) {
         Pot pot = potRepository.findById(potId).orElseThrow(() -> new EntityNotFoundException("Pot not found"));
         pot.changeState();
-        return PotMapper.toPotInfoObject(pot);
     }
 
     public void editRecruitingPot(Long potId, PotEditRecruitingForm potEditRecruitingForm) {
