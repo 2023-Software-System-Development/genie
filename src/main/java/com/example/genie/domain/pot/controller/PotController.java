@@ -69,8 +69,8 @@ public class PotController {
     public String getPotList(@RequestParam("ottType") String ottType, @PageableDefault(page = 0, size = 6) Pageable pageable,
                              Model model) {
         List<PotObject> potObjectList = potService.getPotList(ottType, pageable);
-        model.addAttribute("potlist", potObjectList);
-        return "main";
+        model.addAttribute("potList", potObjectList);
+        return "mainPage/home";
     }
 
     //팟 상세 정보 조회 API
@@ -110,11 +110,11 @@ public class PotController {
     public String editPotForm(Authentication authentication, @RequestParam("potId") Long potId, Model model) {
         PotInfoObject potInfoObject = potService.getPot(authentication, potId);
         if(potService.getPotEntity(potId).getState().equals(State.RECRUITING)) {
-            model.addAttribute("pot", potInfoObject);
+            model.addAttribute("pot", potInfoObject); //아직 회원 모집 중일때
             return "pot/editRecruiting";
         }
         else {
-            model.addAttribute("pot", potInfoObject);
+            model.addAttribute("pot", potInfoObject); //
             return "pot/editOngoing";
         }
     }

@@ -43,7 +43,7 @@ public class PotRepositoryImpl implements PotRepositoryCustom {
 
     private BooleanBuilder containWordInPot(String word) {
         if (hasText(word)) {
-            return new BooleanBuilder(QPot.pot.potName.contains(word));
+            return new BooleanBuilder(QPot.pot.potName.containsIgnoreCase(word));
         } else {
             return new BooleanBuilder();
         }
