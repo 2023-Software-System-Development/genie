@@ -11,6 +11,7 @@ import com.example.genie.domain.pot.model.PotInfoObject;
 import com.example.genie.domain.pot.model.PotObject;
 import com.example.genie.domain.pot.repository.PotRepository;
 //import com.example.genie.domain.pot.repository.PotRepositoryCustom;
+import com.example.genie.domain.pot.repository.PotRepositoryCustom;
 import com.example.genie.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
 public class PotService {
 
     private final PotRepository potRepository;
-//    private final PotRepositoryCustom potRepositoryCustom;
+    private final PotRepositoryCustom potRepositoryCustom;
 
     private final UserUtils userUtils;
 
@@ -49,12 +50,12 @@ public class PotService {
                 .collect(Collectors.toList());
     }
 
-//    public List<PotObject> getPotListBySearch(PotSearchForm potSearchForm, Pageable pageable) {
-//        Page<Pot> pots = potRepositoryCustom.findListBySearch(potSearchForm.getSearchText(), pageable);
-//        return pots.stream()
-//                .map(PotMapper::toPotObject)
-//                .collect(Collectors.toList());
-//    }
+    public List<PotObject> getPotListBySearch(PotSearchForm potSearchForm, Pageable pageable) {
+        Page<Pot> pots = potRepositoryCustom.findListBySearch(potSearchForm.getSearchText(), pageable);
+        return pots.stream()
+                .map(PotMapper::toPotObject)
+                .collect(Collectors.toList());
+    }
 
     public PotInfoObject getPot(Authentication authentication, Long potId) {
         User user = userUtils.getUser(authentication);
