@@ -73,3 +73,7 @@
     line-height: 22px;
     table-layout: fixed;*/
 }
+
+.card border-primary mb-3 {
+    margin:auto;
+}
