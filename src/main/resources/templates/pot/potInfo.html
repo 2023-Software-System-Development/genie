@@ -73,17 +73,17 @@
     <tbody>
         <tr th:if="${pot.isMaster}">
             <td>
-                <button type="button" class="btn btn-primary">수정하기</button>
+                <button href="/edit" type="button" class="btn btn-primary">수정하기</button>
             </td>
         </tr>
         <tr th:if="${!pot.isMaster}">
             <td>
-                <button type="button" class="btn btn-primary">신청하기</button>
+                <button href="/pot/apply" type="button" class="btn btn-primary">신청하기</button>
             </td>
         </tr>
         <tr th:if="${ismaster eq 1 and potInfoObject.remain eq 0}">
             <td>
-                <button type="button" class="btn btn-primary">시작하기</button>
+                <button href="/start" type="button" class="btn btn-primary">시작하기</button>
             </td>
         </tr>
     </tbody>
