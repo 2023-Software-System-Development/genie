@@ -10,7 +10,7 @@
 <div th:label="potList">
     <tbody>
     <div class="outer">
-    <div th:each="pot, stat : ${potList}">
+        <div th:each="pot, stat : ${potList}">
             <div class="card border-primary mb-3" style="max-width: 20rem;"/>
             <div class="card-header" th:text="${pot.potName}"/>
             <div class="card-header" th:text="${pot.ottType}"/>
@@ -19,9 +19,6 @@
                 <p class="card-title" th:text="'현재인원 : '+${pot.remain}"/>
                 <p class="card-title" th:text="'기간 : '+${pot.term}"/>
             </div>
-    </div>
+        </div>
     </div>
     </tbody>
-</div>
-</body>
-</html>
