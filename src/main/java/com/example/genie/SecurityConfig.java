@@ -1,5 +1,6 @@
 package com.example.genie;
 
+import com.example.genie.domain.auth.controller.LoginAuthHandler;
 import com.example.genie.domain.auth.service.AuthUserService;
 import com.example.genie.domain.auth.service.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     AuthUserService customUserDetailsService;
 
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/css/**", "/js/**", "/img/**");
@@ -45,10 +47,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginPage("/user/login")  // 접근이 차단된 페이지 클릭시 이동할 url
                 .loginProcessingUrl("/loginProc") // 로그인시 맵핑되는 url
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/", true)
                 .usernameParameter("userLoginId")      // view form 태그 내에 로그인 할 id 에 맵핑되는 name ( form 의 name )
                 .passwordParameter("userPw")      // view form 태그 내에 로그인 할 password 에 맵핑되는 name ( form 의 name )
-                //.successHandler(successHandlerHandler()) // 로그인 성공시 실행되는 메소드
+                //.successHandler(new LoginAuthHandler()) // 로그인 성공시 실행되는 메소드
                 //.failureHandler(failureHandlerHandler()) // 로그인 실패시 실행되는 메소드
                 .permitAll()
                 .and()

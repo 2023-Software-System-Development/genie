@@ -10,6 +10,7 @@
     <title>Title</title>
 </head>
 <body>
+<div th:include="/mainPage/navigator.html"></div>
 <form action="@{/user/signup}" th:action th:object="${userForm}" method="post">
     <div>
         <label for="userName">이름</label>
