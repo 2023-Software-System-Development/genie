@@ -43,18 +43,14 @@ public class PotService {
         potRepository.deleteById(potId);
     }
 
-    public List<PotObject> getPotList(String ottType, Pageable pageable) {
+    public Page<PotObject> getPotList(String ottType, Pageable pageable) {
         Page<Pot> pots = potRepository.findListByOttType(ottType, pageable);
-        return pots.stream()
-                .map(PotMapper::toPotObject)
-                .collect(Collectors.toList());
+        return pots.map(PotMapper::toPotObject);
     }
 
-    public List<PotObject> getPotListBySearch(PotSearchForm potSearchForm, Pageable pageable) {
+    public Page<PotObject> getPotListBySearch(PotSearchForm potSearchForm, Pageable pageable) {
         Page<Pot> pots = potRepositoryCustom.findListBySearch(potSearchForm.getSearchText(), pageable);
-        return pots.stream()
-                .map(PotMapper::toPotObject)
-                .collect(Collectors.toList());
+        return pots.map(PotMapper::toPotObject);
     }
 
     public PotInfoObject getPot(Authentication authentication, Long potId) {
