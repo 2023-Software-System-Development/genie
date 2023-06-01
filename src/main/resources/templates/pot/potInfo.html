@@ -52,5 +52,8 @@
         <button type="submit" class="btn btn-secondary my-2 my-sm-0">전송</button>
     </div>
 </form>
+<div>
+    <a th:href="@{/pot}" sec:authorize="isAuthenticated()" class="btn btn-secondary my-2 my-sm-0">가입 신청하기</a>
+</div>
 </body>
 </html>
