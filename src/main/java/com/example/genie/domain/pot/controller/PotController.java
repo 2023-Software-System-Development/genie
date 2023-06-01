@@ -4,6 +4,7 @@ import com.example.genie.domain.pot.entity.State;
 import com.example.genie.domain.pot.form.PotCreateForm;
 import com.example.genie.domain.pot.form.PotEditOngoingForm;
 import com.example.genie.domain.pot.form.PotEditRecruitingForm;
+import com.example.genie.domain.pot.form.PotSearchForm;
 import com.example.genie.domain.pot.model.PotInfoObject;
 import com.example.genie.domain.pot.model.PotObject;
 import com.example.genie.domain.pot.service.PotService;
@@ -30,7 +31,7 @@ public class PotController {
 
     //팟 생성 폼을 호출하는 API
     @GetMapping
-    public String createPotForm(HttpServletRequest request, @ModelAttribute PotCreateForm potCreateForm) {
+    public String createPotForm(HttpServletRequest request) {
         // 이전 페이지 URL 저장
         String previousUrl = request.getHeader("Referer");
         request.getSession().setAttribute("previousUrl", previousUrl);
@@ -96,7 +97,6 @@ public class PotController {
         return "user/mypage";
     }
 
-
     //팟 수정 화면 호출 API. 상태에 따라 보내는 화면 다르게
     @GetMapping("/edit")
     public String editPotForm(@RequestParam("potId") Long potId, Model model) {
@@ -110,5 +110,19 @@ public class PotController {
             return "pot/editOngoing";
         }
     }
+
+    @PostMapping("/start")
+    public String getPotStarted(@RequestParam("potId") Long potId) {
+        PotInfoObject potInfoObject = potService.getPotStarted(potId);
+        return "pot/potInfo";
+    }
+
+    @PostMapping("/search")
+    public String searchPot(@Valid @ModelAttribute PotSearchForm potSearchForm, @PageableDefault(page = 0, size = 6) Pageable pageable, Model model) {
+        List<PotObject> potObjectList = potService.getPotListBySearch(potSearchForm, pageable);
+        model.addAttribute("potlist", potObjectList);
+        return "main";
+    }
+
 
 }
