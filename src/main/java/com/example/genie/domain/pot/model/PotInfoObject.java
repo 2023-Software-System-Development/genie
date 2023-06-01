@@ -1,9 +1,11 @@
 package com.example.genie.domain.pot.model;
 
 import lombok.Builder;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+@Getter
 public class PotInfoObject {
     private final Long potId;
     private final String potName;
