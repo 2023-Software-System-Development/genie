@@ -14,6 +14,7 @@
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
+<div th:label="pot" class="outer">
 <table>
     <thead>
     <tr>
@@ -21,22 +22,41 @@
             <td>
                 팟 이름
             </td>
-            <td th:text="${pot.potName}"></td>
+            <td th:text="${potInfoObject.potName}"></td>
         </th>
-        <
-        <th>OTT Type</th>
-        <th>Price</th>
-        <th>Recruit</th>
-        <th>Remain</th>
-        <th>Term</th>
-        <th>OTT ID</th>
-        <th>OTT Password</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Master Name</th>
+        <th>
+            <td>
+                OTT 종류
+            </td>
+            <td th:text="${potInfoObject.ottType}"></td>
+        </th>
+        <th>
+            <td>
+                모집인원
+            </td>
+            <td th:text="${potInfoObject.recruit}"></td>
+        </th>
+        <th>
+            <td>
+                남은 인원
+            </td>
+            <td th:text="${potInfoObject.remain}"></td>
+        </th>
+        <th>
+            <td>
+                기간
+            </td>
+            <td th:text="${potInfoObject.term}"></td>
+        </th>
+        <!--<th>
+            <td>
+                팟장 이름
+            </td>
+            <td th:text="${potInfoObject.masterName}"></td>
+        </th>-->
     </tr>
     </thead>
-    <tbody>
+    <!--<tbody>
     <tr th:each="pot : ${potList}">
         <td th:text="${pot.potName}"></td>
         <td th:text="${pot.ottType}"></td>
@@ -50,7 +70,20 @@
         <td th:text="${pot.endDate}"></td>
         <td th:text="${pot.masterName}"></td>
     </tr>
+    </tbody>-->
+    <tbody>
+        <tr th:if="${potInfoObject.ismaster eq 1}">
+            <td>
+                <button type="button" class="btn btn-primary">수정하기</button>
+            </td>
+        </tr>
+        <tr th:if="${potInfoObject.ismaster eq 0}">
+            <td>
+                <button type="button" class="btn btn-primary">신청하기</button>
+            </td>
+        </tr>
     </tbody>
 </table>
+</div>
 </body>
 </html>
