@@ -13,74 +13,74 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <table>
-                <th>
-                    <td>
-                        <div class="collapse navbar-collapse">
-                            <a class="navbar-brand" href="/">
-                                <img class="logo_nav" src="/image/logo/logo_transparent.png" alt="로고">
-                            </a>
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <table>
+        <th>
+        <td>
+            <div class="collapse navbar-collapse">
+                <a class="navbar-brand" href="/">
+                    <img class="logo_nav" src="/image/logo/logo_transparent.png" alt="로고">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </td>
+        <td>
+            <form th:action="@{/user/login}" class="d-flex">
+                <button sec:authorize="isAnonymous()" class="btn btn-secondary my-2 my-sm-0" type="submit">로그인</button>
+            </form>
+            <form th:action="@{/user/signup}" class="d-flex">
+                <button sec:authorize="isAnonymous()" class="btn btn-secondary my-2 my-sm-0" type="submit">회원가입</button>
+            </form>
+            <form th:action="@{/user/logout}" class="d-flex">
+                <button sec:authorize="isAuthenticated()" class="btn btn-secondary my-2 my-sm-0" type="submit">로그아웃</button>
+            </form>
+        </td>
+        </th>
+        <th>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                    <li class="li-gap">
+                        <a class="nav-item" href="/pot/list?ottType=DisenyPlus">
+                            <img class="ott_disney" src="/image/ott/disney.png" alt="disney 로고">
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    <li class="li-gap">
+                        <a class="nav-item" href="/pot/list?ottType=NetFlix">
+                            <img class="ott_netflix" src="/image/ott/netflix.png" alt="netflix 로고">
+                        </a>
+                    </li>
+                    <li class="li-gap">
+                        <a class="nav-item" href="/pot/list?ottType=Watcha">
+                            <img class="ott_watcha" src="/image/ott/watcha.png" alt="watcha 로고">
+                        </a>
+                    </li>
+                    <li class="li-gap">
+                        <a class="nav-item" href="/pot/list?ottType=Wavve">
+                            <img class="ott_wavve" src="/image/ott/wavve.png" alt="wavve 로고">
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Page</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Separated link</a>
                         </div>
-                    </td>
-                    <td>
-                        <form th:action="@{/user/login}" class="d-flex">
-                            <button sec:authorize="isAnonymous()" class="btn btn-secondary my-2 my-sm-0" type="submit">로그인</button>
-                        </form>
-                        <form th:action="@{/user/signup}" class="d-flex">
-                            <button sec:authorize="isAnonymous()" class="btn btn-secondary my-2 my-sm-0" type="submit">회원가입</button>
-                        </form>
-                        <form th:action="@{/user/logout}" class="d-flex">
-                            <button sec:authorize="isAuthenticated()" class="btn btn-secondary my-2 my-sm-0" type="submit">로그아웃</button>
-                        </form>
-                    </td>
-                </th>
-                <th>
-                    <div class="collapse navbar-collapse" id="navbarColor01">
-                        <ul class="navbar-nav me-auto">
-                            <li class="li-gap">
-                                <a class="nav-item" href="/pot/list?ottType=DisenyPlus">
-                                    <img class="ott_disney" src="/image/ott/disney.png" alt="disney 로고">
-                                    <span class="visually-hidden">(current)</span>
-                                </a>
-                            </li>
-                            <li class="li-gap">
-                                <a class="nav-item" href="/pot/list?ottType=NetFlix">
-                                    <img class="ott_netflix" src="/image/ott/netflix.png" alt="netflix 로고">
-                                </a>
-                            </li>
-                            <li class="li-gap">
-                                <a class="nav-item" href="/pot/list?ottType=Watcha">
-                                    <img class="ott_watcha" src="/image/ott/watcha.png" alt="watcha 로고">
-                                </a>
-                            </li>
-                            <li class="li-gap">
-                                <a class="nav-item" href="/pot/list?ottType=Wavve">
-                                    <img class="ott_wavve" src="/image/ott/wavve.png" alt="wavve 로고">
-                                </a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Page</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Separated link</a>
-                                </div>
-                            </li>
-                        </ul>
-                        <form method="post" name="potSearchForm" action="/pot/search" class="d-flex">
-                            <input name="searchText" class="form-control me-sm-3" type="text" placeholder="Search" >
-                            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                        </form>
-                    </div>
-                    </div>
-                </th>
-            </table>
-    </nav>
+                    </li>
+                </ul>
+                <form method="post" name="potSearchForm" action="/pot/search" class="d-flex">
+                    <input name="searchText" class="form-control me-sm-3" type="text" placeholder="Search" >
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+            </div>
+        </th>
+    </table>
+</nav>
 </body>
 </html>

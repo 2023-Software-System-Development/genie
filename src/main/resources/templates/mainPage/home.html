@@ -3,10 +3,7 @@
       xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/css/_variables.css">
-    <link rel="stylesheet" type="text/css" href="/css/_bootswatch.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
@@ -19,29 +16,39 @@
     <div class="pot_list_table" th:include="/mainPage/pots_list.html"></div>
 
     <div>
-        <ul class="pagination pagination-sm">
-            <li class="page-item disabled">
-                <a class="page-link" href="#">&laquo;</a>
-            </li>
-            <li class="page-item active">
-                <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">4</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">5</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">&raquo;</a>
-            </li>
-        </ul>
+            <nav style="text-align: center;">
+                <ul class="pagination pagination-sm"
+                    th:with="start=${T(java.lang.Math).floor(potList.number/10)*10 + 1},
+                    last=(${start + 9 < potList.totalPages ? start + 9 : potList.totalPages})">
+                    <li class="page-item ">
+                        <a class="page-link" th:href="@{/(page=1, ottType=${ottType})}" aria-label="First">
+                            <span aria-hidden="true">First</span>
+                        </a>
+                    </li>
+
+                    <li th:class="${potList.first} ? 'disabled'" class="page-item ">
+                        <a class="page-link" th:href="${potList.first} ? '#' :@{/pot/list(page=${potList.number}, ottType=${ottType})}" aria-label="Previous">
+                            <span aria-hidden="true">&lt;</span>
+                        </a>
+                    </li>
+
+                    <li class="page-item " th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == potList.number + 1} ? 'active'">
+                        <a class="page-link" th:text="${page}" th:href="@{/pot/list(page=${page}, ottType=${ottType})}"></a>
+                    </li>
+
+                    <li class="page-item " th:class="${potList.last} ? 'disabled'">
+                        <a class="page-link" th:href="${potList.last} ? '#' : @{/pot/list(page=${potList.number + 2}, ottType=${ottType})}" aria-label="Next">
+                            <span aria-hidden="true">&gt;</span>
+                        </a>
+                    </li>
+
+                    <li class="page-item ">
+                        <a class="page-link" th:href="@{/pot/list(page=${potList.totalPages}, ottType=${ottType})}" aria-label="Last">
+                            <span aria-hidden="true">Last</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
     </div>
 </body>
 </html>
