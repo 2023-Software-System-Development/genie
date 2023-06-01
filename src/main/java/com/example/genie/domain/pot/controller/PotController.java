@@ -25,6 +25,7 @@ public class PotController {
 
     private final PotService potService;
 
+    //팟 생성 폼을 호출하는 API
     @GetMapping
     public String createPotForm(HttpServletRequest request) {
         // 이전 페이지 URL 저장
@@ -34,6 +35,7 @@ public class PotController {
         return "pot/createPot";
     }
 
+    //팟 생성 API
     @PostMapping
     public String createPot(Authentication authentication, @Valid @ModelAttribute PotCreateForm potCreateForm, BindingResult bindingResult, HttpServletRequest request, SessionStatus sessionStatus) {
         if(bindingResult.hasErrors()){
@@ -49,15 +51,16 @@ public class PotController {
         return "redirect:" + previousUrl;
     }
 
+    //팟 삭제 API
     @PostMapping("/delete")
     public String deletePot(@RequestParam("potId") Long potId, SessionStatus sessionStatus) {
         potService.deletePot(potId);
 
         sessionStatus.setComplete();
-        return "redirect:/user/login";
+        return "user/myPage";
     }
 
-    //메인페이지에서 보일 팟 리스트 화면
+    //메인페이지에서 보일 팟 리스트 조회 API
     @GetMapping("/list")
     public String getPotList(@RequestParam("ottType") String ottType, @PageableDefault(page = 0, size = 6) Pageable pageable,
                              Model model) {
@@ -66,12 +69,11 @@ public class PotController {
         return "main";
     }
 
-    //팟 상세 정보 조회
+    //팟 상세 정보 조회 API
     @GetMapping("/{potId}")
     public String getPot(@PathVariable Long potId, Model model){
         PotInfoObject potInfoObject = potService.getPot(potId);
         model.addAttribute("pot", potInfoObject);
-        return "potInfo";
+        return "pot/potInfo";
     }
-
 }
