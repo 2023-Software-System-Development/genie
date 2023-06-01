@@ -37,7 +37,7 @@
     }
     function updatePrice(recruit) {
       var priceField = document.getElementById("price");
-      this.applyForm.price = "";
+
       if (recruit === "01") {
         priceField.value = "100";
       } else if (recruit === "02") {
@@ -60,7 +60,7 @@
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
-<form name="applyForm" action="@{/pot/createPot}" th:action th:object="${potCreateForm}" method="post">
+<form action="@{/pot/createPot}" th:action th:object="${potCreateForm}" method="post">
   <div>
     <label for="potName">팟 이름</label>
     <input type="text" id="potName" name="potName" th:field="*{potName}" class="form-control" placeholder="팟 이름을 입력하세요">
