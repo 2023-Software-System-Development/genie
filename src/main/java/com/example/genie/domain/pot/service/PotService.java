@@ -15,6 +15,7 @@ import com.example.genie.domain.pot.repository.PotRepositoryCustom;
 import com.example.genie.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,8 @@ public class PotService {
     }
 
     public Page<PotObject> getPotList(String ottType, Pageable pageable) {
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, 6); // <- Sort 추가
         Page<Pot> pots = potRepository.findListByOttType(ottType, pageable);
         return pots.map(PotMapper::toPotObject);
     }
