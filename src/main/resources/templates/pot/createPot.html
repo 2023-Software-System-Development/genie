@@ -7,8 +7,10 @@
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/_variables.css">
   <link rel="stylesheet" type="text/css" href="/css/_bootswatch.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.css" rel="stylesheet">
-  <title>팟 생성</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
+  <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
   <script>
     function updateOptions(ottType) {
       var optionsContainer = document.getElementById("recruit");
@@ -56,10 +58,6 @@
       }
     }
 
-
-    function cancelForm() {
-      window.location.href = "/";
-    }
   </script>
 </head>
 <body>
@@ -136,7 +134,7 @@
 -->
   </div>
   <div>
-    <button type="button" onclick="cancelForm()" class="btn btn-secondary my-2 my-sm-0">취소</button>
+    <button type="button" class="btn btn-secondary my-2 my-sm-0">취소</button>
     <button type="submit" class="btn btn-secondary my-2 my-sm-0">팟 생성하기</button>
   </div>
 </form>
