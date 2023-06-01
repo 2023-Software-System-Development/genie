@@ -17,45 +17,44 @@
 <div th:label="pot" class="outer">
 <table>
     <thead>
-    <tr>
-        <th>
+        <tr>
             <td>
                 팟 이름
             </td>
             <td th:text="${pot.potName}"></td>
-        </th>
-        <th>
+        </tr>
+        <tr>
             <td>
                 OTT 종류
             </td>
             <td th:text="${pot.ottType}"></td>
-        </th>
-        <th>
+        </tr>
+        <tr>
             <td>
                 모집인원
             </td>
             <td th:text="${pot.recruit}"></td>
-        </th>
-        <th>
+        </tr>
+        <tr>
             <td>
                 남은 인원
             </td>
             <td th:text="${pot.remain}"></td>
-        </th>
-        <th>
+        </tr>
+        <tr>
             <td>
                 기간
             </td>
             <td th:text="${pot.term}"></td>
-        </th>
+        </tr>
         <!--<th>
             <td>
                 팟장 이름
             </td>
             <td th:text="${potInfoObject.masterName}"></td>
         </th>-->
-    </tr>
     </thead>
+</table>
     <!--<tbody>
     <tr th:each="pot : ${potList}">
         <td th:text="${pot.potName}"></td>
@@ -72,12 +71,12 @@
     </tr>
     </tbody>-->
     <tbody>
-        <tr th:if="#{${pot.isMaster}}">
+        <tr th:if="${pot.isMaster}">
             <td>
                 <button type="button" class="btn btn-primary">수정하기</button>
             </td>
         </tr>
-        <tr th:if="#{${!pot.isMaster}}">
+        <tr th:if="${!pot.isMaster}">
             <td>
                 <button type="button" class="btn btn-primary">신청하기</button>
             </td>
