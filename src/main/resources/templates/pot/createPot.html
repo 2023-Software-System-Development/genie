@@ -11,39 +11,32 @@
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
-<form action="@{/user/add}" th:action th:object="${potForm}" method="post">
+<form action="@{/pot/createPot}" th:action th:object="${PotCreateForm}" method="post">
   <div>
-    <label for="userName">신청자 이름</label>
-    <input type="text" id="userName" th:field="*{userName}" class="form-control" placeholder="이름을 입력하세요">
-    <p th:if="${#fields.hasErrors('userName')}" th:errorclass="error" th:errors="*{userName}" />
+    <label for="potName">팟 이름</label>
+    <input type="text" id="potName" th:field="*{potName}" class="form-control" placeholder="팟 이름을 입력하세요">
+    <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
   </div>
   <div>
-    <label for="userLoginId">사용기간</label>
-    <input type="text" id="userLoginId" th:field="*{userLoginId}" class="form-control" placeholder="아이디를 입력하세요">
-    <p th:if="${#fields.hasErrors('userLoginId')}" th:errorclass="error" th:errors="*{userLoginId}" />
+    <label for="ottType">사용할 OTT 서비스 종류</label>
+    <input type="text" id="ottType" th:field="*{ottType}" class="form-control" placeholder="ott종류를 입력하세요">
+    <p th:if="${#fields.hasErrors('ottType')}" th:errorclass="error" th:errors="*{ottType}" />
   </div>
   <div>
-    <label for="userPw">사용할 OTT 서비스</label>
-    <input type="password" id="userPw" th:field="*{userPw}" class="form-control" placeholder="비밀번호를 입력하세요">
-    <p th:if="${#fields.hasErrors('userPw')}" th:errorclass="error" th:errors="*{userPw}" />
+    <label for="price">가격</label>
+    <input type="text" id="price" th:field="*{price}" class="form-control" placeholder="가격을 입력하세요">
+    <p th:if="${#fields.hasErrors('price')}" th:errorclass="error" th:errors="*{price}" />
+
   </div>
   <div>
-    <label for="userPwCheck">연락처</label>
-    <input type="password" id="userPwCheck" th:field="*{userPwCheck}" class="form-control" placeholder="비밀번호를 입력하세요">
-    <p th:if="${#fields.hasErrors('userPwCheck')}" th:errorclass="error" th:errors="*{userPwCheck}" />
+    <label for="recruit">모집 인원</label>
+    <input type="text" id="recruit" th:field="*{recruit}" class="form-control" placeholder="모집인원을 입력하세요">
+    <p th:if="${#fields.hasErrors('recruit')}" th:errorclass="error" th:errors="*{recruit}" />
   </div>
   <div>
-    <label for="userNickName">팟 이름</label>
-    <input type="text" id="userNickName" th:field="*{userNickName}" class="form-control" placeholder="닉네임 입력하세요">
-  </div>
-  <div>
-    <label for="phoneNumber">사용 인원</label>
-    <input type="text" id="phoneNumber" th:field="*{phoneNumber}" class="form-control" placeholder="전화번호를 입력하세요">
-  </div>
-  <div>
-    <label for="email">가격</label>
-    <input type="text" id="email" th:field="*{email}" class="form-control" placeholder="이메일를 입력하세요">
-    <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}" />
+    <label for="term">사용기간</label>
+    <input type="text" id="term" th:field="*{term}" class="form-control">
+    <p th:if="${#fields.hasErrors('term')}" th:errorclass="error" th:errors="*{term}" />
   </div>
   <div>
     <button type="submit" class="btn btn-secondary my-2 my-sm-0">취소</button>
