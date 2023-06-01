@@ -107,19 +107,11 @@
                         <a class="nav-item" href="#">
                             <span style="visibility: visible; color: blue;">wavve</span>
                     </li>
-                    <div class = "login-signup2">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                           aria-haspopup="true" aria-expanded="false">My Page</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
-                        </div>
-<<<<<<< HEAD
+                    <li class="li-gap">
+                        <a class="nav-item"  href="#">
+                        <span style="visibility: visible; color: black;">My Page</span>
                     </li>
+                    </div>
                 </ul>
                 <div class ="login-signup3">
                 <form method="post" name="potSearchForm" action="/pot/search" class="d-flex">
@@ -131,59 +123,5 @@
         </th>
     </table>
 </nav>
-=======
-                        <div class="login-signup">                            <form th:action="@{/user/logout}" class="d-flex ml-auto">
-                                <button sec:authorize="isAuthenticated()" class="btn btn-secondary my-2 my-sm-0" type="submit">로그아웃</button>
-                            </form>
-                        </div>
-                    </td>
-                </th>
-                <th>
-                    <div class="collapse navbar-collapse" id="navbarColor01">
-                        <ul class="navbar-nav me-auto">
-                            <li class="li-gap">
-
-                                <a class="nav-item" href="/">
-                                    <span style="visibility: visible; color: blue;">Disney+</span>
-                                </a>
-                            </li>
-                            <li class="li-gap">
-                                <a class="nav-item" href="#">
-                                    <span style="visibility: visible; color: red;">NETFLIX</span>
-
-                                </a>
-                            </li>
-                            <li class="li-gap">
-                                <a class="nav-item" href="#">
-                                    <span style="visibility: visible; color: red;">WATCHA</span>
-
-                                </a>
-                            </li>
-                            <li class="li-gap">
-                                <a class="nav-item" href="#">
-                                    <span style="visibility: visible; color: blue;">wavve</span>
-                                    
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Page</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Separated link</a>
-                                </div>
-                            </li>
-                        </ul>
-                        <form method="post" name="potSearchForm" action="/pot/search" class="d-flex">
-                            <input name="searchText" class="form-control me-sm-3" type="text" placeholder="Search" >
-                            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                        </form>
-                    </div>
-                    </div>
-                </th>
-            </table>
-    </nav>
->>>>>>> 92407c50d89402a8a64d8f694a5c2e7a2dd1e995
 </body>
 </html>
