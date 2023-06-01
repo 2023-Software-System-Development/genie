@@ -22,31 +22,31 @@
             <td>
                 팟 이름
             </td>
-            <td th:text="${potInfoObject.potName}"></td>
+            <td th:text="${pot.potName}"></td>
         </th>
         <th>
             <td>
                 OTT 종류
             </td>
-            <td th:text="${potInfoObject.ottType}"></td>
+            <td th:text="${pot.ottType}"></td>
         </th>
         <th>
             <td>
                 모집인원
             </td>
-            <td th:text="${potInfoObject.recruit}"></td>
+            <td th:text="${pot.recruit}"></td>
         </th>
         <th>
             <td>
                 남은 인원
             </td>
-            <td th:text="${potInfoObject.remain}"></td>
+            <td th:text="${pot.remain}"></td>
         </th>
         <th>
             <td>
                 기간
             </td>
-            <td th:text="${potInfoObject.term}"></td>
+            <td th:text="${pot.term}"></td>
         </th>
         <!--<th>
             <td>
@@ -72,12 +72,12 @@
     </tr>
     </tbody>-->
     <tbody>
-        <tr th:if="${potInfoObject.ismaster eq 1}">
+        <tr th:if="#{${pot.isMaster}}">
             <td>
                 <button type="button" class="btn btn-primary">수정하기</button>
             </td>
         </tr>
-        <tr th:if="${potInfoObject.ismaster eq 0}">
+        <tr th:if="#{${!pot.isMaster}}">
             <td>
                 <button type="button" class="btn btn-primary">신청하기</button>
             </td>
