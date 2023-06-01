@@ -32,8 +32,8 @@ public class PotMapper {
                 .recruit(pot.getRecruit())
                 .remain(pot.getRemain())
                 .term(pot.getTerm())
-                .ott_id(pot.getOttId())
-                .ott_pwd(pot.getOttPw())
+                .ottId(pot.getOttId())
+                .ottPw(pot.getOttPw())
                 .startDate(pot.getStartDate())
                 .endDate(pot.getEndDate())
                 .masterName(pot.getMaster().getUserNickName())
@@ -51,6 +51,7 @@ public class PotMapper {
                 .term(potCreateForm.getTerm())
                 .master(user)
                 .state(RECRUITING)
+                .remain(potCreateForm.getRecruit())
                 .build();
     }
 }
