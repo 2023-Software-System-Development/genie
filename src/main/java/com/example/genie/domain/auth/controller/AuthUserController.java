@@ -26,7 +26,7 @@ public class AuthUserController {
     AuthUserService userAuthUserService;
     PotService potService;
     @RequestMapping("/")
-    public String home(Model model, @PageableDefault(page = 0, size = 6) Pageable pageable){
+    public String home(Model model, @PageableDefault(page = 0) Pageable pageable){
         List<PotObject> potList = potService.getPotList("NetFlix", pageable);
         model.addAttribute("potList", potList);
         return "mainPage/home";
