@@ -30,6 +30,7 @@ public class AuthUserController {
     public String home(Model model, @PageableDefault(page = 0) Pageable pageable){
         Page<PotObject> potList = potService.getPotList("NetFlix", pageable);
         model.addAttribute("potList", potList);
+        model.addAttribute("ottType", "NetFlix");
         return "mainPage/home";
     }
     @GetMapping("/user/login")
