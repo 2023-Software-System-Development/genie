@@ -31,13 +31,13 @@ public class PotController {
         String previousUrl = request.getHeader("Referer");
         request.getSession().setAttribute("previousUrl", previousUrl);
 
-        return "createPot";
+        return "pot/createPot";
     }
 
     @PostMapping
     public String createPot(Authentication authentication, @Valid @ModelAttribute PotCreateForm potCreateForm, BindingResult bindingResult, HttpServletRequest request, SessionStatus sessionStatus) {
         if(bindingResult.hasErrors()){
-            return "createPot";
+            return "pot/createPot";
         }
         potService.createPot(authentication, potCreateForm, bindingResult);
 
