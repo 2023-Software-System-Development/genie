@@ -1,6 +1,9 @@
 package com.example.genie.domain.pot.controller;
 
+import com.example.genie.domain.pot.entity.State;
 import com.example.genie.domain.pot.form.PotCreateForm;
+import com.example.genie.domain.pot.form.PotEditOngoingForm;
+import com.example.genie.domain.pot.form.PotEditRecruitingForm;
 import com.example.genie.domain.pot.model.PotInfoObject;
 import com.example.genie.domain.pot.model.PotObject;
 import com.example.genie.domain.pot.service.PotService;
@@ -25,6 +28,7 @@ public class PotController {
 
     private final PotService potService;
 
+    //팟 생성 폼을 호출하는 API
     @GetMapping
     public String createPotForm(HttpServletRequest request) {
         // 이전 페이지 URL 저장
@@ -34,6 +38,7 @@ public class PotController {
         return "pot/createPot";
     }
 
+    //팟 생성 API
     @PostMapping
     public String createPot(Authentication authentication, @Valid @ModelAttribute PotCreateForm potCreateForm, BindingResult bindingResult, HttpServletRequest request, SessionStatus sessionStatus) {
         if(bindingResult.hasErrors()){
@@ -49,15 +54,16 @@ public class PotController {
         return "redirect:" + previousUrl;
     }
 
+    //팟 삭제 API
     @PostMapping("/delete")
     public String deletePot(@RequestParam("potId") Long potId, SessionStatus sessionStatus) {
         potService.deletePot(potId);
 
         sessionStatus.setComplete();
-        return "redirect:/user/login";
+        return "user/myPage";
     }
 
-    //메인페이지에서 보일 팟 리스트 화면
+    //메인페이지에서 보일 팟 리스트 조회 API
     @GetMapping("/list")
     public String getPotList(@RequestParam("ottType") String ottType, @PageableDefault(page = 0, size = 6) Pageable pageable,
                              Model model) {
@@ -66,12 +72,43 @@ public class PotController {
         return "main";
     }
 
-    //팟 상세 정보 조회
+    //팟 상세 정보 조회 API
     @GetMapping("/{potId}")
     public String getPot(@PathVariable Long potId, Model model){
         PotInfoObject potInfoObject = potService.getPot(potId);
         model.addAttribute("pot", potInfoObject);
-        return "potInfo";
+        return "pot/potInfo";
+    }
+
+    //팟 수정 API (모집중)
+    @PostMapping("/edit/recruting")
+    public String editPot(@RequestParam("potId") Long potId, @Valid @ModelAttribute PotEditRecruitingForm potEditRecruitingForm, SessionStatus sessionStatus) {
+        potService.editRecruitingPot(potId, potEditRecruitingForm);
+        sessionStatus.setComplete();
+        return "user/mypage";
+    }
+
+    //팟 수정 API (진행중)
+    @PostMapping("/edit/ongoing")
+    public String editPot(@RequestParam("potId") Long potId, @Valid @ModelAttribute PotEditOngoingForm potEditOngoingForm, SessionStatus sessionStatus) {
+        potService.editOngoingPot(potId, potEditOngoingForm);
+        sessionStatus.setComplete();
+        return "user/mypage";
+    }
+
+
+    //팟 수정 화면 호출 API. 상태에 따라 보내는 화면 다르게
+    @GetMapping("/edit")
+    public String editPotForm(@RequestParam("potId") Long potId, Model model) {
+        PotInfoObject potInfoObject = potService.getPot(potId);
+        if(potService.getPotEntity(potId).getState().equals(State.RECRUITING)) {
+            model.addAttribute("pot", potInfoObject);
+            return "pot/editRecruiting";
+        }
+        else {
+            model.addAttribute("pot", potInfoObject);
+            return "pot/editOngoing";
+        }
     }
 
 }
