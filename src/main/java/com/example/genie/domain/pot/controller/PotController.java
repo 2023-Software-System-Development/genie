@@ -68,7 +68,6 @@ public class PotController {
                              Model model) {
         Page<PotObject> potObjectList = potService.getPotList(ottType, pageable);
         model.addAttribute("potList", potObjectList);
-        model.addAttribute("ottType", ottType);
         return "mainPage/home";
     }
 
