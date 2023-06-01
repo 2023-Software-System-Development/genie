@@ -30,7 +30,7 @@ public class PotController {
 
     //팟 생성 폼을 호출하는 API
     @GetMapping
-    public String createPotForm(HttpServletRequest request) {
+    public String createPotForm(HttpServletRequest request, @ModelAttribute PotCreateForm potCreateForm) {
         // 이전 페이지 URL 저장
         String previousUrl = request.getHeader("Referer");
         request.getSession().setAttribute("previousUrl", previousUrl);

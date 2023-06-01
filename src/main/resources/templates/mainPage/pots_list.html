@@ -1,29 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/css/_variables.css">
-    <link rel="stylesheet" type="text/css" href="/css/_bootswatch.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-    <!-- 부가적인 테마 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div class="card border-primary mb-3" style="max-width: 20rem;">
-        <div class="card-header" >이름</div>
-        <div class="card-header" >OTT</div>
-        <div class="card-body" name="현재인원/구인인원">
-            구인인원 : <p class="card-title"></p>
-            현재인원 : <p class="card-title"></p>
-            기간 : <p class="card-title"></p>
+<div th:label="potList">
+    <tbody>
+    <div th:each="pot, i:${potList}">
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">${pot.potName}</div>
+            <div class="card-header" >${pot.ottType}</div>
+            <div class="card-body">
+                구인인원 : <p class="card-title">${pot.recruit}</p>
+                현재인원 : <p class="card-title">${pot.recruit - pot.remain}</p>
+                기간 : <p class="card-title">${pot.term}</p>
+            </div>
+            <br th:if="${i.count == 3}">
         </div>
     </div>
-
+    </tbody>
+</div>
 </body>
 </html>
