@@ -1,4 +1,4 @@
-package com.example.genie.domain.pot.repository;
+/*package com.example.genie.domain.pot.repository;
 
 import com.example.genie.domain.pot.entity.Pot;
 import com.querydsl.core.BooleanBuilder;
@@ -48,4 +48,4 @@ public class PotRepositoryImpl implements PotRepositoryCustom {
     private BooleanBuilder containWord(String word) {
         return containWordInPotName(word);
     }
-}
+}*/
