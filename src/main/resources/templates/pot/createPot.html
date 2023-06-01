@@ -9,10 +9,58 @@
   <link rel="stylesheet" type="text/css" href="/css/_bootswatch.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.css" rel="stylesheet">
   <title>팟 생성</title>
+  <script>
+    function updateOptions(ottType) {
+      var optionsContainer = document.getElementById("recruit");
+
+      if (ottType === "disney+") {
+        optionsContainer.innerHTML = `
+        <input type="radio" name="recruit" value="01" th:field="*{recruit}" onclick="updatePrice('01')"> 1
+        <input type="radio" name="recruit" value="02" th:field="*{recruit}" onclick="updatePrice('02')"> 2
+      `;
+      } else if (ottType === "netflix") {
+        optionsContainer.innerHTML = `
+        <input type="radio" name="recruit" value="11" th:field="*{recruit}" onclick="updatePrice('11')"> 1
+        <input type="radio" name="recruit" value="12" th:field="*{recruit}" onclick="updatePrice('12')"> 3
+      `;
+      } else if (ottType === "watcha") {
+        optionsContainer.innerHTML = `
+        <input type="radio" name="recruit" value="21" th:field="*{recruit}" onclick="updatePrice('21')"> 1
+        <input type="radio" name="recruit" value="22" th:field="*{recruit}" onclick="updatePrice('22')"> 4
+      `;
+      } else if (ottType === "wavve") {
+        optionsContainer.innerHTML = `
+        <input type="radio" name="recruit" value="31" th:field="*{recruit}" onclick="updatePrice('31')"> 1
+        <input type="radio" name="recruit" value="32" th:field="*{recruit}" onclick="updatePrice('32')"> 5
+      `;
+      }
+    }
+    function updatePrice(recruit) {
+      var priceField = document.getElementById("price");
+      this.applyForm.price = "";
+      if (recruit === "01") {
+        priceField.value = "100";
+      } else if (recruit === "02") {
+        priceField.value = "200";
+      } else if (recruit === "11") {
+        priceField.value = "300";
+      } else if (recruit === "12") {
+        priceField.value = "400";
+      } else if (recruit === "21") {
+        priceField.value = "500";
+      } else if (recruit === "22") {
+        priceField.value = "600";
+      } else if (recruit === "31") {
+        priceField.value = "700";
+      } else if (recruit === "32") {
+        priceField.value = "800";
+      }
+    }
+  </script>
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
-<form action="@{/pot/createPot}" th:action th:object="${potCreateForm}" method="post">
+<form name="applyForm" action="@{/pot/createPot}" th:action th:object="${potCreateForm}" method="post">
   <div>
     <label for="potName">팟 이름</label>
     <input type="text" id="potName" name="potName" th:field="*{potName}" class="form-control" placeholder="팟 이름을 입력하세요">
@@ -24,15 +72,27 @@
     <label for="ottType" class="mt-4">사용할 OTT 서비스 종류</label>
     <div class="form-group">
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-        <label class="form-check-label" for="optionsRadios1">
-          Option one is this and that—be sure to include why it's great
+        <input class="form-check-input" type="radio" id="ottType" name="ottType" th:field="*{ottType}" class="form-control" onclick="updateOptions('disney+')">
+        <label class="form-check-label" for="ottType">
+          disney+
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-        <label class="form-check-label" for="optionsRadios2">
-          Option two can be something else and selecting it will deselect option one
+        <input class="form-check-input" type="radio" id="ottType" name="ottType" th:field="*{ottType}" class="form-control" onclick="updateOptions('netflix')">
+        <label class="form-check-label" for="ottType">
+          netflix
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="ottType" name="ottType" th:field="*{ottType}" class="form-control" onclick="updateOptions('watcha')">
+        <label class="form-check-label" for="ottType">
+          watcha
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="ottType" name="ottType" th:field="*{ottType}" class="form-control" onclick="updateOptions('wavve')">
+        <label class="form-check-label" for="ottType">
+          wavve
         </label>
       </div>
       <!--<div class="form-check disabled">
@@ -44,29 +104,29 @@
     </div>
     </label>
   </div>
-    <input type="text" id="ottType" name="ottType" th:field="*{ottType}" class="form-control" placeholder="ott종류를 입력하세요">
-<!--
-    <p th:if="${#fields.hasErrors('ottType')}" th:errorclass="error" th:errors="*{ottType}" />
--->
+  <div>
+    <label for="recruit" class="mt-4">모집 인원</label>
+      <div id="recruit">
+        <input type="radio" name="recruit" value="1" th:field="*{recruit}"> 1
+        <input type="radio" name="recruit" value="2" th:field="*{recruit}"> 2
+      </div>
+      <!--
+        <p th:if="${#fields.hasErrors('recruit')}" th:errorclass="error" th:errors="*{recruit}" />
+    -->
   </div>
   <div>
     <label for="price">가격</label>
-    <input type="text" id="price" name="price" th:field="*{price}" class="form-control" placeholder="가격을 입력하세요">
-<!--
-    <p th:if="${#fields.hasErrors('price')}" th:errorclass="error" th:errors="*{price}" />
--->
+    <input type="text" id="price" name="price" readonly>
+    <!--
+      <input type="text" id="price" name="price" th:field="*{price}" class="form-control" placeholder="가격을 입력하세요">
+
+        <p th:if="${#fields.hasErrors('price')}" th:errorclass="error" th:errors="*{price}" />
+    -->
 
   </div>
   <div>
-    <label for="recruit">모집 인원</label>
-    <input type="text" id="recruit" name="recruit" th:field="*{recruit}" class="form-control" placeholder="모집인원을 입력하세요">
-<!--
-    <p th:if="${#fields.hasErrors('recruit')}" th:errorclass="error" th:errors="*{recruit}" />
--->
-  </div>
-  <div>
     <label for="term">사용기간</label>
-    <input type="text" id="term" name="term" th:field="*{term}" class="form-control">
+    <input type="text" id="term" name="term" th:field="*{term}" class="form-control">개월
 <!--
     <p th:if="${#fields.hasErrors('term')}" th:errorclass="error" th:errors="*{term}" />
 -->
