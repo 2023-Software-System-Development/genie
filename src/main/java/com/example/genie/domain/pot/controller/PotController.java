@@ -5,6 +5,7 @@ import com.example.genie.domain.pot.form.PotCreateForm;
 import com.example.genie.domain.pot.form.PotEditOngoingForm;
 import com.example.genie.domain.pot.form.PotEditRecruitingForm;
 import com.example.genie.domain.pot.form.PotSearchForm;
+import com.example.genie.domain.pot.model.OTT;
 import com.example.genie.domain.pot.model.PotInfoObject;
 import com.example.genie.domain.pot.model.PotObject;
 import com.example.genie.domain.pot.service.PotService;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -29,10 +31,12 @@ public class PotController {
 
     private final PotService potService;
 
+
     //팟 생성 폼을 호출하는 API
     @GetMapping
-    public String createPotForm(HttpServletRequest request) {
+    public String createPotForm(HttpServletRequest request, @ModelAttribute PotCreateForm potCreateForm, Model model) {
         // 이전 페이지 URL 저장
+        model.addAttribute("OTTList", OTT.getOTTList());
         String previousUrl = request.getHeader("Referer");
         request.getSession().setAttribute("previousUrl", previousUrl);
 
