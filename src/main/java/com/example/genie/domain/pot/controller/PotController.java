@@ -128,7 +128,6 @@ public class PotController {
 
     @PostMapping("/search")
     public String searchPot(@Valid @ModelAttribute PotSearchForm potSearchForm, BindingResult bindingResult, @PageableDefault(page = 0, size = 6) Pageable pageable, Model model) {
-
         List<PotObject> potObjectList = potService.getPotListBySearch(potSearchForm, pageable);
         model.addAttribute("potList", potObjectList);
         return "mainPage/home";
