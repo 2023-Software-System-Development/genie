@@ -18,11 +18,12 @@ public class PotInfoObject {
     private final LocalDateTime endDate;
     private final String masterName;
     private final Long masterId;
+    private final boolean isMaster;
 
     @Builder
     public PotInfoObject(Long potId, String potName, String ottType, Integer price, Integer recruit, Integer remain, Integer term,
                          String ottId, String ottPw, LocalDateTime startDate, LocalDateTime endDate,
-                         String masterName, Long masterId) {
+                         String masterName, Long masterId, boolean isMaster) {
         this.potId = potId;
         this.potName = potName;
         this.ottType = ottType;
@@ -36,6 +37,7 @@ public class PotInfoObject {
         this.endDate = endDate;
         this.masterName = masterName;
         this.masterId = masterId;
+        this.isMaster  = isMaster;
     }
 
 }
