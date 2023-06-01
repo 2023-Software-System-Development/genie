@@ -1,5 +1,4 @@
 .logo_nav {
-<<<<<<< HEAD
     width: 200px; /* 이미지 버튼의 가로 크기 */
     height: 200px; /* 이미지 버튼의 세로 크기 */
 }
@@ -7,8 +6,6 @@
     margin : 10px;
 }
 .ott_disney {
-
-=======
     width: 100px; /* 이미지 버튼의 가로 크기 */
     height: 100px; /* 이미지 버튼의 세로 크기 */
 }
@@ -17,5 +14,8 @@
 }
 .li-gap {
     margin-right: 70px; /* 아래쪽에 10px의 간격을 띄웁니다 */
->>>>>>> origin/main
 }
+ .error {
+     color: red;
+     font-size: 8px;
+ }

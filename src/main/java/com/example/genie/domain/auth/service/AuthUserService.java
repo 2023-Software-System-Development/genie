@@ -38,7 +38,7 @@ public class AuthUserService implements org.springframework.security.core.userde
     public long join(UserForm userForm, BindingResult bindingResult){
         //password 중복 검사
         if(!userForm.getUserPw().equals(userForm.getUserPwCheck())){
-            bindingResult.rejectValue("userPw", "passwordMismatch", "패스워드가 다릅니다.");
+            bindingResult.rejectValue("userPwCheck", "passwordMismatch", "패스워드가 다릅니다.");
             return -1;
         }
         //id 중복 검사
