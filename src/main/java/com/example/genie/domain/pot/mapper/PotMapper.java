@@ -23,7 +23,7 @@ public class PotMapper {
 
     }
 
-    public static PotInfoObject toPotInfoObject(Pot pot) {
+    public static PotInfoObject toPotInfoObject(Pot pot, boolean isMaster) {
         return PotInfoObject.builder()
                 .potId(pot.getId())
                 .potName(pot.getPotName())
@@ -38,6 +38,7 @@ public class PotMapper {
                 .endDate(pot.getEndDate())
                 .masterName(pot.getMaster().getUserNickName())
                 .masterId(pot.getMaster().getId())
+                .isMaster(isMaster)
                 .build();
 
     }
