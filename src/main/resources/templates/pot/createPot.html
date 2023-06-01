@@ -55,11 +55,19 @@
         priceField.value = "13,900";
       }
     }
+
+    function resetForm() {
+      document.getElementById("myForm").reset(); // 폼 초기화
+    }
+
+    function cancelForm() {
+      window.location.href = "/";
+    }
   </script>
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
-<form action="@{/pot/createPot}" th:action th:object="${potCreateForm}" method="post">
+<form id="myForm" action="@{/pot/createPot}" th:action th:object="${potCreateForm}" method="post">
   <div>
     <label for="potName">팟 이름</label>
     <input type="text" id="potName" name="potName" th:field="*{potName}" class="form-control" placeholder="팟 이름을 입력하세요">
@@ -106,8 +114,8 @@
   <div>
     <label for="recruit" class="mt-4">모집 인원</label>
       <div id="recruit">
-        <input type="radio" name="recruit" value="1" th:field="*{recruit}"> 1
-        <input type="radio" name="recruit" value="2" th:field="*{recruit}"> 2
+        <!--<input type="radio" name="recruit" value="1" th:field="*{recruit}"> 1
+        <input type="radio" name="recruit" value="2" th:field="*{recruit}"> 2-->
       </div>
       <!--
         <p th:if="${#fields.hasErrors('recruit')}" th:errorclass="error" th:errors="*{recruit}" />
@@ -131,7 +139,7 @@
 -->
   </div>
   <div>
-    <button type="submit" class="btn btn-secondary my-2 my-sm-0">취소</button>
+    <button type="button" onclick="cancelForm()" class="btn btn-secondary my-2 my-sm-0">취소</button>
     <button type="submit" class="btn btn-secondary my-2 my-sm-0">팟 생성하기</button>
   </div>
 </form>
