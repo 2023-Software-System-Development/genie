@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface PotRepository extends JpaRepository<Pot, Long> {
 
-    @Query(value = "SELECT * FROM pot p WHERE p.ott_type = :ottType AND p.state = :RECRUITING", nativeQuery = true)
+    @Query(value = "SELECT * FROM pot p WHERE p.ott_type = :ottType AND p.state = 'RECRUITING'", nativeQuery = true)
     Page<Pot> findListByOttType(String ottType, Pageable pageable);
 
 }
