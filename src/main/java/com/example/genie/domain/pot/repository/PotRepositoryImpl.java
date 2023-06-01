@@ -23,12 +23,11 @@ public class PotRepositoryImpl implements PotRepositoryCustom {
         List<Pot> potList = jpaQueryFactory
                 .select(QPot.pot).distinct()
                 .from(QPot.pot)
-                .where(containWord(searchText))
+                .where(containWordInPot(searchText))
                 .orderBy(QPot.pot.createdDate.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize() + 1)
                 .fetch();
-
         return getPageImpl(potList, pageable);
     }
 
@@ -42,11 +41,11 @@ public class PotRepositoryImpl implements PotRepositoryCustom {
         return new PageImpl<>(list, pageable, list.size());
     }
 
-    private BooleanBuilder containWordInPotName(String word) {
-        if(hasText(word)) return new BooleanBuilder(QPot.pot.potName.contains(word));
-        else return new BooleanBuilder();
-    }
-    private BooleanBuilder containWord(String word) {
-        return containWordInPotName(word);
+    private BooleanBuilder containWordInPot(String word) {
+        if (hasText(word)) {
+            return new BooleanBuilder(QPot.pot.potName.contains(word));
+        } else {
+            return new BooleanBuilder();
+        }
     }
 }

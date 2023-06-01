@@ -1,9 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/_variables.css">
+    <link rel="stylesheet" type="text/css" href="/css/_bootswatch.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -66,12 +73,10 @@
                                 </div>
                             </li>
                         </ul>
-                        <form th:action="@{/pot/search}" name="searchForm" class="d-flex">
-                            <input name="searchText" class="form-control me-sm-3" type="search" placeholder="Search" >
-
+                        <form method="post" name="potSearchForm" action="/pot/search" class="d-flex">
+                            <input name="searchText" class="form-control me-sm-3" type="text" placeholder="Search" >
                             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                         </form>
-
                     </div>
                     </div>
                 </th>

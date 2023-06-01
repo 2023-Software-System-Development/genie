@@ -14,6 +14,37 @@
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
-
+<table>
+    <thead>
+    <tr>
+        <th>Pot Name</th>
+        <th>OTT Type</th>
+        <th>Price</th>
+        <th>Recruit</th>
+        <th>Remain</th>
+        <th>Term</th>
+        <th>OTT ID</th>
+        <th>OTT Password</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Master Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="pot : ${potList}">
+        <td th:text="${pot.potName}"></td>
+        <td th:text="${pot.ottType}"></td>
+        <td th:text="${pot.price}"></td>
+        <td th:text="${pot.recruit}"></td>
+        <td th:text="${pot.remain}"></td>
+        <td th:text="${pot.term}"></td>
+        <td th:text="${pot.ottId}"></td>
+        <td th:text="${pot.ottPw}"></td>
+        <td th:text="${pot.startDate}"></td>
+        <td th:text="${pot.endDate}"></td>
+        <td th:text="${pot.masterName}"></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
