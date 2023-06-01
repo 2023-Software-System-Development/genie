@@ -19,3 +19,36 @@
      color: red;
      font-size: 8px;
  }
+
+.adopt_main_table {
+    border: 3px solid black;
+    border-collapse: collapse;
+    border-radius: 10px;
+    margin: auto;
+    text-align: center;
+    width: 250px;
+    height: 200px;
+    font-family: 'Y_Spotlight', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 12pt;
+    color: black;
+    background-color: white;
+    line-height: 22px;
+}
+.pic {
+    border: 3px solid black;
+    border-collapse: collapse;
+    margin: auto;
+    background-color: #e3f2fd;
+
+}
+.name, .ABOUT {
+    border: 3px solid black;
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.card border-primary mb-3 {
+    padd
+}
