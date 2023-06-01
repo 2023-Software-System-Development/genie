@@ -2,22 +2,33 @@ package com.example.genie.domain.auth.controller;
 
 import com.example.genie.domain.auth.form.UserForm;
 import com.example.genie.domain.auth.service.AuthUserService;
+import com.example.genie.domain.pot.entity.Pot;
+import com.example.genie.domain.pot.model.PotObject;
+import com.example.genie.domain.pot.service.PotService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
+import java.util.List;
 
+@AllArgsConstructor
 @Controller
 public class AuthUserController {
 
     @Autowired
     AuthUserService userAuthUserService;
-
+    PotService potService;
     @RequestMapping("/")
-    public String home(){
+    public String home(Model model, @PageableDefault(page = 0, size = 6) Pageable pageable){
+        List<PotObject> potList = potService.getPotList("NetFlix", pageable);
+        model.addAttribute("potList", potList);
         return "mainPage/home";
     }
     @GetMapping("/user/login")

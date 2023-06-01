@@ -1,10 +1,12 @@
 package com.example.genie.domain.pot.model;
 
 import lombok.Builder;
+import lombok.Getter;
 
+@Getter
 public class PotObject {
 
-    private final Long potId;
+    public final Long potId;
     private final String potName;
     private final String ottType;
     private final Integer recruit;
