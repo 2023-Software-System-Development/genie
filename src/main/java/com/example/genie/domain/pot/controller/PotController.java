@@ -124,12 +124,13 @@ public class PotController {
         return "redirect:/pot/" + potId;
     }
 
-    @PostMapping("/search")
-    public String searchPot(@Valid @ModelAttribute PotSearchForm potSearchForm, @PageableDefault(page = 0, size = 6) Pageable pageable, Model model) {
-        List<PotObject> potObjectList = potService.getPotListBySearch(potSearchForm, pageable);
-        model.addAttribute("potlist", potObjectList);
-        return "main";
-    }
+//
+//    @PostMapping("/search")
+//    public String searchPot(@Valid @ModelAttribute PotSearchForm potSearchForm, @PageableDefault(page = 0, size = 6) Pageable pageable, Model model) {
+//        List<PotObject> potObjectList = potService.getPotListBySearch(potSearchForm, pageable);
+//        model.addAttribute("potlist", potObjectList);
+//        return "main";
+//    }
 
 
 }
