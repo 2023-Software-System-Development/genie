@@ -26,7 +26,7 @@ public class PotController {
     private final PotService potService;
 
     @GetMapping
-    public String createPotForm(HttpServletRequest request) {
+    public String createPotForm(HttpServletRequest request, @ModelAttribute PotCreateForm potCreateForm) {
         // 이전 페이지 URL 저장
         String previousUrl = request.getHeader("Referer");
         request.getSession().setAttribute("previousUrl", previousUrl);

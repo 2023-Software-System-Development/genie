@@ -11,7 +11,7 @@
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
-<form action="@{/pot/createPot}" th:action th:object="${PotCreateForm}" method="post">
+<form action="@{/pot/createPot}" th:action th:object="${potCreateForm}" method="post">
   <div>
     <label for="potName">팟 이름</label>
     <input type="text" id="potName" name="potName" th:field="*{potName}" class="form-control" placeholder="팟 이름을 입력하세요">
