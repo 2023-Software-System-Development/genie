@@ -68,5 +68,19 @@
         </td>
     </tr>
 </table>
+<div>
+    <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="row-md-4">
+            <div class="card-header" th:text="${user}"></div>
+            <div class="card-header" th:text="${pot.ottType}"></div>
+            <div class="card-header" th:text="${pot.ottType}"></div>
+            <div class="card-body">
+                <p class="card-title" th:text="'구인인원 : ' + ${pot.recruit}"></p>
+                <p class="card-title" th:text="'현재인원 : ' + ${pot.remain}"></p>
+                <p class="card-title" th:text="'기간 : ' + ${pot.term}"></p>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
