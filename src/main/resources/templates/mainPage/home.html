@@ -16,7 +16,7 @@
     </div>
     <div class="pot_list_table" th:include="/mainPage/pots_list.html"></div>
 
-    <div>
+    <div class="">
             <nav style="text-align: center;">
                 <ul class="pagination pagination-sm"
                     th:with="start=${T(java.lang.Math).floor(potList.number/10)*10 + 1},
