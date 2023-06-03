@@ -81,7 +81,7 @@ public class PotController {
     }
 
     //팟 수정 API (모집중)
-    @PostMapping("/edit/recruting")
+    @PostMapping("/edit/recruiting")
     public String editPot(@RequestParam("potId") Long potId, @Valid @ModelAttribute PotEditRecruitingForm potEditRecruitingForm, BindingResult bindingResult, SessionStatus sessionStatus) {
         if(bindingResult.hasErrors()){
             return "pot/editRecruiting";

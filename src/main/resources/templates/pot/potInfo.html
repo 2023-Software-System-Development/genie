@@ -10,7 +10,20 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
+    <script>
+        function redirectToEdit() {
+            window.location.href = "/delete";
+        }
+        function redirectToDelete() {
+            window.location.href = "/edit/recruiting";
+        }
+        function redirectToApply() {
+            window.location.href = "/pot/apply";
+        }
+        function redirectToStart() {
+            window.location.href = "/start";
+        }
+    </script>
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
@@ -73,17 +86,18 @@
     <tbody>
         <tr th:if="${pot.isMaster}">
             <td>
-                <button href="/edit" type="button" class="btn btn-primary">수정하기</button>
+                <button onclick="redirectToEdit()" type="button" class="btn btn-primary">수정하기</button>
+                <button onclick="redirectToDelete()" type="button" class="btn btn-primary">삭제하기</button>
             </td>
         </tr>
         <tr th:if="${!pot.isMaster}">
             <td>
-                <button href="/pot/apply" type="button" class="btn btn-primary">신청하기</button>
+                <button onclick="redirectToApply()" type="button" class="btn btn-primary">신청하기</button>
             </td>
         </tr>
         <tr th:if="${ismaster eq 1 and potInfoObject.remain eq 0}">
             <td>
-                <button href="/start" type="button" class="btn btn-primary">시작하기</button>
+                <button onclick="redirectToStart()" type="button" class="btn btn-primary">시작하기</button>
             </td>
         </tr>
     </tbody>
