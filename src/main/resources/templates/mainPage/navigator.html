@@ -86,25 +86,24 @@
                 <ul class="navbar-nav me-auto">
                     <li class="li-gap">
                         <div class="nav-item2">
-                        <a class="nav-item" href="/">
+                        <a class="nav-item" href="/pot/list?ottType=DisneyPlus" >
                             <span style="visibility: visible; color: blue;">Disney+</span>
                         </a>
                         </div>
                     </li>
                     <li class="li-gap">
-                        <a class="nav-item" href="#">
+                        <a class="nav-item" href="/pot/list?ottType=NetFlix">
                             <span style="visibility: visible; color: red;">NETFLIX</span>
-
                         </a>
                     </li>
                     <li class="li-gap">
-                        <a class="nav-item" href="#">
+                        <a class="nav-item" href="/pot/list?ottType=Watcha">
                             <span style="visibility: visible; color: red;">WATCHA</span>
 
                         </a>
                     </li>
                     <li class="li-gap">
-                        <a class="nav-item" href="#">
+                        <a class="nav-item" href="/pot/list?ottType=Wavve">
                             <span style="visibility: visible; color: blue;">wavve</span>
                         </a>
                     </li>
@@ -116,6 +115,11 @@
                 </ul>
                 <div class ="login-signup3">
                 <form method="post" name="potSearchForm" action="/pot/search" class="d-flex">
+                    <select name="searchType">
+                        <option value="1">팟 이름</option>
+                        <option value="2">남은 인원</option>
+                        <option value="3">기간</option>
+                    </select>
                     <input name="searchText" class="form-control me-sm-3" type="text" placeholder="Search">
                     <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                 </form>
