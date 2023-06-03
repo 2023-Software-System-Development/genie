@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @font-face {
+            font-family: 'Y_Spotlight';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/Y_Spotlight.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .myPage_mini {
+            border: 1px solid black;
+            border-collapse: collapse;
+            border-radius: 10px;
+            text-align: center;
+            width: 50px;
+            height: 200px;
+            font-family: 'Y_Spotlight';
+            font-size: 12pt;
+            color: black;
+            background-color: white;
+            line-height: 22px;
+        }
+
+        .pic {
+
+        }
+
+        .write, .comment, .scrap, .correction {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        /* 추가 스타일 */
+        .myPage_mini .comment {
+            background-color: #f2f2f2;
+        }
+
+        .myPage_mini .correction:nth-child(3) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <table style="width:10%" class="myPage_mini">
+        <tr class="comment">
+            <td>
+                <a href="@{/}">내 정보</a>
+            </td>
+        </tr>
+        <tr class="correction">
+            <td>
+                <a class="nav-link" href="@{/}">내 팟 보기</a>
+            </td>
+        </tr>
+        <tr class="correction">
+            <td>
+                <a class="nav-link" href="@{/}">회원 신고</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

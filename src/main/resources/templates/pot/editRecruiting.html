@@ -15,7 +15,7 @@
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
-<form action="@{/edit}" th:action th:object="${PotEditOngoingForm}" method="post">
+<form action="@{/edit/recruiting}" th:action th:object="${potEditRecruitingForm}" method="post">
   <div>
     <label for="potName">OTT id</label>
     <input type="text" id="potName" name="potName" th:field="*{potName}" class="form-control" th:value="potName">

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        /* 공통 스타일 */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td {
+            padding: 10px;
+            /*border: 1px solid #000000;*/
+        }
+        th {
+            padding: 10px;
+            font-weight: bold;
+            text-align: center;
+            /*border: 1px solid #000000;*/
+        }
+        tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+        tr:nth-child(odd) {
+            background-color: #F2F2F2;
+        }
+
+        /* 테이블 1 스타일 */
+        .table1 {
+            background-color: #848484;
+            margin-bottom: 10px;
+        }
+
+        /* 테이블 2 스타일 */
+        .table2 {
+            background-color: #848484;
+        }
+    </style>
+</head>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <table style="width:50%; border: 1px solid #FFFFFF;">
+        <tr>
+            <td style="width:50%;">
+                <!-- 테이블 2 -->
+                <table class="table2">
+                    <tr>
+                        <th width="50%" bgcolor="#FBEFFB">아이디</th>
+                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
+                    </tr>
+                    <tr>
+                        <th width="50%" bgcolor="#FBEFFB">이름</th>
+                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
+                    </tr>
+                    <tr>
+                        <th width="50%" bgcolor="#FBEFFB">닉네임</th>
+                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
+                    </tr>
+                    <tr>
+                        <th width="50%" bgcolor="#FBEFFB">생년월일</th>
+                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
+                    </tr>
+                    <tr>
+                        <th width="50%" bgcolor="#FBEFFB">성별</th>
+                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
+                    </tr>
+                    <tr>
+                        <th width="50%" bgcolor="#FBEFFB">전화번호</th>
+                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
+                    </tr>
+                    <tr>
+                        <th width="50%" bgcolor="#FBEFFB">이메일 주소</th>
+                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
+                    </tr>
+                    <tr>
+                        <th width="50%" bgcolor="#FBEFFB">계좌 정보</th>
+                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
+                    </tr>
+                </table>
+            </td>
+
+            <td style="width:50%;vertical-align: top;">
+                <!-- 테이블 1 -->
+                <table class="table1">
+                    <tr>
+                        <th width="50%" bgcolor="#E0F8F7">신뢰도</th>
+                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
+                    </tr>
+                    <tr>
+                        <th width="50%" bgcolor="#E0F8F7">회원가입</th>
+                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
+                    </tr>
+                    <tr>
+                        <th width="50%" bgcolor="#E0F8F7">[넷플릭스 6개월]</th>
+                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
