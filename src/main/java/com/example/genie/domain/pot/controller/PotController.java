@@ -23,9 +23,15 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/pot")
+@SessionAttributes("potSearchForm")
 public class PotController {
 
     private final PotService potService;
+
+    @ModelAttribute
+    public PotSearchForm potSearchForm(){
+        return new PotSearchForm();
+    }
 
 
     //팟 생성 폼을 호출하는 API
@@ -63,12 +69,17 @@ public class PotController {
     }
 
     //메인페이지에서 보일 팟 리스트 조회 API
-    @GetMapping("/list")
-    public String getPotList(@RequestParam("ottType") String ottType, @PageableDefault(page = 0, size = 6) Pageable pageable,
+    @RequestMapping("/list")
+    public String getPotList(@RequestParam(value = "ottType", required = false) String ottType, @ModelAttribute PotSearchForm potSearchForm, @PageableDefault(page = 0, size = 6) Pageable pageable,
                              Model model) {
+        if(ottType != null){//만약 네비게이션에서 오티티 타입 클릭하면 potSearchForm 초기화
+            potSearchForm.setOttType(ottType);
+            potSearchForm.setSearchText(null);
+            potSearchForm.setSearchType(null);
+        }
+
         Page<PotObject> potObjectList = potService.getPotList(ottType, pageable);
         model.addAttribute("potList", potObjectList);
-        model.addAttribute("ottType", ottType);
         return "mainPage/home";
     }
 
@@ -133,7 +144,9 @@ public class PotController {
 
 
     @PostMapping("/search")
-    public String searchPot(@Valid @ModelAttribute PotSearchForm potSearchForm, BindingResult bindingResult, @PageableDefault(page = 0, size = 6) Pageable pageable, Model model) {
+    public String searchPot(@Valid @ModelAttribute PotSearchForm potSearchForm, @RequestParam(name = "ottType", required = false) String ottType, BindingResult bindingResult, @PageableDefault(page = 0, size = 6) Pageable pageable, Model model) {
+        potSearchForm.setOttType(ottType);
+        System.out.println(potSearchForm.getOttType());
         Page<PotObject> potObjectList = potService.getPotListBySearch(potSearchForm, pageable);
         model.addAttribute("potList", potObjectList);
         return "mainPage/home";
