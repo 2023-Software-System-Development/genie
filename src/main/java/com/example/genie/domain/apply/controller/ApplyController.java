@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -29,13 +30,15 @@ public class ApplyController {
 
     //팟에 가입 신청(신청 버튼 누르면 동작)
     @RequestMapping("/pot/apply")
-    public String createApply(@RequestParam Long potId, Authentication authentication){
+    public String createApply(@RequestParam Long potId, Authentication authentication, Model model, RedirectAttributes redirectAttributes){
         User user = userUtils.getUser(authentication);
         Apply apply = applyService.createApply(user, potId);
-        if(apply == null){
-            return "detail";
+        if(apply == null){ //이미 가입 신청한 팟
+            redirectAttributes.addAttribute("alreadyApply", true);
+            return "redirect:/pot/"+potId;
         }
-        return "redirect:/"; //성공하면 메인 화면으로 돌아감
+        redirectAttributes.addAttribute("applySuccess", true);
+        return "redirect:/pot/"+potId; //상세 페이지로 리다이렉트
     }
 
     @GetMapping("/pot/apply/users")
@@ -50,7 +53,6 @@ public class ApplyController {
     @GetMapping("/pot/apply/approve")
     public String appoveApply(@RequestParam Long potId, @RequestParam Long userId, @RequestParam int state, HttpServletRequest request, Model model){
         //1. Apply 상태 변경
-
         try {
             applyService.appoveApply(potId, userId, state);
         } catch (PotAlreadyFullException e) {

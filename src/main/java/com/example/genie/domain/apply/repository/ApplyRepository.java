@@ -9,8 +9,6 @@ import java.util.List;
 public interface ApplyRepository extends JpaRepository<Apply, Long> {
 
     public List<Apply> findByPot_Id(Long potId);
-    //public List<Apply> findByPot(Pot pot, Pageable pageable);
     public Apply findByPot_IdAndApplicant_Id(Long potId, Long userId);
     public List<Apply> findByStateAndPot(State state, Pot pot);
-    //public int deleteByStateAndPot(State state, Pot pot);
 }

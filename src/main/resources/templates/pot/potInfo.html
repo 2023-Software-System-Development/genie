@@ -17,8 +17,8 @@
         function redirectToDelete(potId) {
             window.location.href = "/pot/delete?potId=" + potId;
         }
-        function redirectToApply() {
-            window.location.href = "/pot/apply";
+        function redirectToApply(potId) {
+            window.location.href = "/pot/apply?potId=" + potId;
         }
         function redirectToStart() {
             window.location.href = "/start";
@@ -26,6 +26,16 @@
     </script>
 </head>
 <body>
+<th:block th:if="${param.alreadyApply}">
+    <script>
+        top.alert("이미 가입 신청이 완료된 팟 입니다.");
+    </script>
+</th:block>
+<th:block th:if="${param.applySuccess}">
+    <script>
+        top.alert("가입 신청이 완료되었습니다.");
+    </script>
+</th:block>
 <div th:include="/mainPage/navigator.html"></div>
 <div th:label="pot" class="outer">
 <table>
@@ -95,7 +105,7 @@
     </tr>
     <tr th:if="${!pot.isMaster}">
         <td>
-            <button onclick="redirectToApply()" type="button" class="btn btn-primary">신청하기</button>
+            <button th:onclick="'redirectToApply('+${pot.potId}+')'" type="button" class="btn btn-primary">신청하기</button>
         </td>
     </tr>
     <tr th:if="${pot.isMaster && pot.remain == 0}">
