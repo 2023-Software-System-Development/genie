@@ -27,9 +27,16 @@ public class ApplyService {
     //Apply 생성
     public Apply createApply(User user, Long potId){
         Pot pot = potRepository.findById(potId).orElseThrow(() -> new EntityNotFoundException("Pot not found"));
+        if(getApply(potId, user.getId())!=null){ //이미 가입 신청한 팟
+            return null;
+        }
         Apply apply = Apply.builder().state(State.APPLY).applicant(user).pot(pot).build();
         applyRepository.save(apply);
         return apply;
+    }
+
+    public Apply getApply(Long potId, Long userId){
+        return applyRepository.findByPot_IdAndApplicant_Id(potId, userId);
     }
 
     public List<User> getApplyUserList(Long potId){

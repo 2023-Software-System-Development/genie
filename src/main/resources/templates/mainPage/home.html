@@ -21,29 +21,29 @@
                     th:with="start=${T(java.lang.Math).floor(potList.number/10)*10 + 1},
                     last=(${start + 9 < potList.totalPages ? start + 9 : potList.totalPages})">
                     <li class="page-item ">
-                        <a class="page-link" th:href="@{/(page=1, ottType=${potSearchForm.ottType})}" aria-label="First">
+                        <a class="page-link" th:href="@{/(page=1)}" aria-label="First">
                             <span aria-hidden="true">First</span>
                         </a>
                     </li>
 
                     <li th:class="${potList.first} ? 'disabled'" class="page-item ">
-                        <a class="page-link" th:href="${potList.first} ? '#' :@{/pot/list(page=${potList.number}, ottType=${potSearchForm.ottType})}" aria-label="Previous">
+                        <a class="page-link" th:href="${potList.first} ? '#' :@{/pot/list(page=${potList.number})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
 
                     <li class="page-item " th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == potList.number + 1} ? 'active'">
-                        <a class="page-link" th:text="${page}" th:href="@{/pot/list(page=${page}, ottType=${potSearchForm.ottType})}"></a>
+                        <a class="page-link" th:text="${page}" th:href="@{/pot/list(page=${page})}"></a>
                     </li>
 
                     <li class="page-item " th:class="${potList.last} ? 'disabled'">
-                        <a class="page-link" th:href="${potList.last} ? '#' : @{/pot/list(page=${potList.number + 2}, ottType=${potSearchForm.ottType})}" aria-label="Next">
+                        <a class="page-link" th:href="${potList.last} ? '#' : @{/pot/list(page=${potList.number + 2})}" aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
 
                     <li class="page-item ">
-                        <a class="page-link" th:href="@{/pot/list(page=${potList.totalPages}, ottType=${potSearchForm.ottType})}" aria-label="Last">
+                        <a class="page-link" th:href="@{/pot/list(page=${potList.totalPages})}" aria-label="Last">
                             <span aria-hidden="true">Last</span>
                         </a>
                     </li>
