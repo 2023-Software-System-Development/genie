@@ -78,7 +78,7 @@ public class PotController {
             potSearchForm.setSearchType(null);
         }
 
-        Page<PotObject> potObjectList = potService.getPotList(ottType, pageable);
+        Page<PotObject> potObjectList = potService.getPotListBySearch(potSearchForm, pageable);
         model.addAttribute("potList", potObjectList);
         return "mainPage/home";
     }
@@ -141,16 +141,5 @@ public class PotController {
         potService.getPotStarted(potId, potStartForm);
         return "redirect:/pot/" + potId;
     }
-
-
-    @PostMapping("/search")
-    public String searchPot(@Valid @ModelAttribute PotSearchForm potSearchForm, @RequestParam(name = "ottType", required = false) String ottType, BindingResult bindingResult, @PageableDefault(page = 0, size = 6) Pageable pageable, Model model) {
-        potSearchForm.setOttType(ottType);
-        System.out.println(potSearchForm.getOttType());
-        Page<PotObject> potObjectList = potService.getPotListBySearch(potSearchForm, pageable);
-        model.addAttribute("potList", potObjectList);
-        return "mainPage/home";
-    }
-
 
 }

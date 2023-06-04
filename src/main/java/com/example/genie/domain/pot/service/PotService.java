@@ -49,7 +49,7 @@ public class PotService {
     }
 
     public Page<PotObject> getPotListBySearch(PotSearchForm potSearchForm, Pageable pageable) {
-        Page<Pot> pots = potRepositoryCustom.findListBySearch(potSearchForm.getSearchText(), pageable);
+        Page<Pot> pots = potRepositoryCustom.findListBySearch(potSearchForm, pageable);
         return pots.map(PotMapper::toPotObject);
     }
 
