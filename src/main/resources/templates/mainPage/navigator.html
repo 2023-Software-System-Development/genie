@@ -87,24 +87,24 @@
                     <li class="li-gap">
                         <div class="nav-item2">
                         <a class="nav-item" href="/pot/list?ottType=DisneyPlus" >
-                            <span style="visibility: visible; color: blue;">Disney+</span>
+                            <span style="visibility: visible; color: white; font-size: x-large">Disney+</span>
                         </a>
                         </div>
                     </li>
                     <li class="li-gap">
                         <a class="nav-item" href="/pot/list?ottType=NetFlix">
-                            <span style="visibility: visible; color: red;">NETFLIX</span>
+                            <span style="visibility: visible; color: white; font-size: x-large">NETFLIX</span>
                         </a>
                     </li>
                     <li class="li-gap">
                         <a class="nav-item" href="/pot/list?ottType=Watcha">
-                            <span style="visibility: visible; color: red;">WATCHA</span>
+                            <span style="visibility: visible; color: white; font-size: x-large">WATCHA</span>
 
                         </a>
                     </li>
                     <li class="li-gap">
                         <a class="nav-item" href="/pot/list?ottType=Wavve">
-                            <span style="visibility: visible; color: blue;">wavve</span>
+                            <span style="visibility: visible; color: white; font-size: x-large">wavve</span>
                         </a>
                     </li>
                     <li class="li-gap">
@@ -114,13 +114,14 @@
                     </li>
                 </ul>
                 <div class ="login-signup3">
-                <form method="post" name="potSearchForm" action="/pot/search" class="d-flex">
-                    <select name="searchType">
-                        <option value="1">팟 이름</option>
-                        <option value="2">남은 인원</option>
-                        <option value="3">기간</option>
+                <form method="post" name="potSearchForm" action="/pot/list" class="d-flex">
+                    <select class="form-select"  style="width: fit-content" name="searchType">
+                        <option value="potName">팟 이름</option>
+                        <option value="remain">남은 인원</option>
+                        <option value="term">기간</option>
                     </select>
-                    <input name="searchText" class="form-control me-sm-3" type="text" placeholder="Search">
+                    <input name="searchText" class="form-control me-sm-3" type="text" th:value="${potSearchForm.searchText}" placeholder="Search">
+                    <input type="hidden" th:value="${potSearchForm.ottType}">
                     <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </div>
