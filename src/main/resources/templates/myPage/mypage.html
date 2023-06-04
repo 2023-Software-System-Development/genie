@@ -18,6 +18,9 @@
             text-align: center;
             /*border: 1px solid #000000;*/
         }
+        .small-text {
+            font-size: 12px;
+        }
         tr:nth-child(even) {
             background-color: #ffffff;
         }
@@ -45,54 +48,54 @@
                 <!-- 테이블 2 -->
                 <table class="table2">
                     <tr>
-                        <th width="50%" bgcolor="#FBEFFB">아이디</th>
+                        <th width="50%" bgcolor="#D8D8D8">아이디</th>
                         <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
                     </tr>
                     <tr>
-                        <th width="50%" bgcolor="#FBEFFB">이름</th>
+                        <th width="50%" bgcolor="#D8D8D8">이름</th>
                         <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
                     </tr>
                     <tr>
-                        <th width="50%" bgcolor="#FBEFFB">닉네임</th>
+                        <th width="50%" bgcolor="#D8D8D8">닉네임</th>
                         <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
                     </tr>
                     <tr>
-                        <th width="50%" bgcolor="#FBEFFB">생년월일</th>
+                        <th width="50%" bgcolor="#D8D8D8">생년월일</th>
                         <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
                     </tr>
                     <tr>
-                        <th width="50%" bgcolor="#FBEFFB">성별</th>
+                        <th width="50%" bgcolor="#D8D8D8">성별</th>
                         <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
                     </tr>
                     <tr>
-                        <th width="50%" bgcolor="#FBEFFB">전화번호</th>
+                        <th width="50%" bgcolor="#D8D8D8">전화번호</th>
                         <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
                     </tr>
                     <tr>
-                        <th width="50%" bgcolor="#FBEFFB">이메일 주소</th>
+                        <th width="50%" bgcolor="#D8D8D8">이메일 주소</th>
                         <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
                     </tr>
                     <tr>
-                        <th width="50%" bgcolor="#FBEFFB">계좌 정보</th>
+                        <th width="50%" bgcolor="#D8D8D8">계좌 정보</th>
                         <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
                     </tr>
                 </table>
             </td>
 
-            <td style="width:50%;vertical-align: top;">
+            <td style="width:25%;vertical-align: top;">
                 <!-- 테이블 1 -->
                 <table class="table1">
                     <tr>
-                        <th width="50%" bgcolor="#E0F8F7">신뢰도</th>
-                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
+                        <th width="50%" bgcolor="#D8D8D8">신뢰도 : </th>
+                        <td width="50%" bgcolor="#D8D8D8" th:text="${/}">55</td>
                     </tr>
                     <tr>
-                        <th width="50%" bgcolor="#E0F8F7">회원가입</th>
-                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
+                        <th width="50%" bgcolor="#F2F2F2" class="small-text">회원가입 : </th>
+                        <td width="50%" bgcolor="#F2F2F2" class="small-text"> + 50</td>
                     </tr>
                     <tr>
-                        <th width="50%" bgcolor="#E0F8F7">[넷플릭스 6개월]</th>
-                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
+                        <th width="50%" bgcolor="#F2F2F2" class="small-text">넷플릭스 6개월 : </th>
+                        <td width="50%" bgcolor="#F2F2F2" th:text="${/}" class="small-text"> + 5</td>
                     </tr>
                 </table>
             </td>
