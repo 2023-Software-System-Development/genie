@@ -2,6 +2,7 @@ package com.example.genie.domain.pot.entity;
 
 import com.example.genie.common.domain.BaseEntity;
 import com.example.genie.domain.apply.entity.Apply;
+import com.example.genie.domain.interest.entity.Interest;
 import com.example.genie.domain.pot.form.PotEditOngoingForm;
 import com.example.genie.domain.pot.form.PotEditRecruitingForm;
 import com.example.genie.domain.pot.form.PotStartForm;
@@ -60,6 +61,9 @@ public class Pot extends BaseEntity {
 
     @OneToMany(mappedBy = "pot", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Apply> applies = new ArrayList<>();
+
+    @OneToMany(mappedBy = "pot", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<Interest> interests = new ArrayList<>();
 
     public void updateRecruiting(PotEditRecruitingForm potEditRecruitingForm) {
         this.potName = potEditRecruitingForm.getPotName();
