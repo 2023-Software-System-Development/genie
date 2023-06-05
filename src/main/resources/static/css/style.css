@@ -107,3 +107,10 @@
     top: 0px; /* 위로 20px 이동 */
     left: 10px; /* 왼쪽으로 10px 이동 */
 }
+
+.table table-hover {
+    vertical-align: middle;
+    margin:auto;
+    text-align: center;
+
+}

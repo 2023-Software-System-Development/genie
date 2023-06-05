@@ -1,103 +1,90 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="UTF-8">
-    <style>
-        /* 공통 스타일 */
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        td {
-            padding: 10px;
-            /*border: 1px solid #000000;*/
-        }
-        th {
-            padding: 10px;
-            font-weight: bold;
-            text-align: center;
-            /*border: 1px solid #000000;*/
-        }
-        tr:nth-child(even) {
-            background-color: #ffffff;
-        }
-        tr:nth-child(odd) {
-            background-color: #F2F2F2;
-        }
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
+  <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <style>
+    /* 스타일 코드 */
 
-        /* 테이블 1 스타일 */
-        .table1 {
-            background-color: #848484;
-            margin-bottom: 10px;
-        }
+    /* 공통 스타일 */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    td {
+      padding: 10px;
+    }
+    th {
+      padding: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .small-text {
+      font-size: 12px;
+    }
+    tr:nth-child(even) {
+      background-color: #ffffff;
+    }
+    tr:nth-child(odd) {
+      background-color: #F2F2F2;
+    }
 
-        /* 테이블 2 스타일 */
-        .table2 {
-            background-color: #848484;
-        }
-    </style>
+    /* 테이블 1 스타일 */
+    .table1 {
+      background-color: #848484;
+      margin-bottom: 10px;
+    }
+
+    /* 테이블 2 스타일 */
+    .table2 {
+      background-color: #848484;
+    }
+
+    /* 마이페이지 미니 테이블 스타일 */
+    .myPage_mini {
+      border: 1px solid black;
+      border-collapse: collapse;
+      border-radius: 10px;
+      text-align: center;
+      width: 50px;
+      height: 200px;
+      font-family: 'Y_Spotlight';
+      font-size: 12pt;
+      color: black;
+      background-color: white;
+      line-height: 22px;
+    }
+
+    .myPage_mini .comment {
+      background-color: #f2f2f2;
+    }
+
+    .myPage_mini .correction:nth-child(3) {
+      background-color: #f2f2f2;
+    }
+
+    /* 추가 스타일 */
+
+  </style>
 </head>
 <body>
 <div th:fragment="content" th:remove="tag">
-    <table style="width:50%; border: 1px solid #FFFFFF;">
-        <tr>
-            <td style="width:50%;">
-                <!-- 테이블 2 -->
-                <table class="table2">
-                    <tr>
-                        <th width="50%" bgcolor="#FBEFFB">아이디</th>
-                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
-                    </tr>
-                    <tr>
-                        <th width="50%" bgcolor="#FBEFFB">이름</th>
-                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
-                    </tr>
-                    <tr>
-                        <th width="50%" bgcolor="#FBEFFB">닉네임</th>
-                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
-                    </tr>
-                    <tr>
-                        <th width="50%" bgcolor="#FBEFFB">생년월일</th>
-                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
-                    </tr>
-                    <tr>
-                        <th width="50%" bgcolor="#FBEFFB">성별</th>
-                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
-                    </tr>
-                    <tr>
-                        <th width="50%" bgcolor="#FBEFFB">전화번호</th>
-                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
-                    </tr>
-                    <tr>
-                        <th width="50%" bgcolor="#FBEFFB">이메일 주소</th>
-                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
-                    </tr>
-                    <tr>
-                        <th width="50%" bgcolor="#FBEFFB">계좌 정보</th>
-                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
-                    </tr>
-                </table>
-            </td>
-
-            <td style="width:50%;vertical-align: top;">
-                <!-- 테이블 1 -->
-                <table class="table1">
-                    <tr>
-                        <th width="50%" bgcolor="#E0F8F7">신뢰도</th>
-                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
-                    </tr>
-                    <tr>
-                        <th width="50%" bgcolor="#E0F8F7">회원가입</th>
-                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
-                    </tr>
-                    <tr>
-                        <th width="50%" bgcolor="#E0F8F7">[넷플릭스 6개월]</th>
-                        <td width="50%" bgcolor="ffffff" th:text="${/}"></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+  <table style="width:100%;">
+    <tr>
+      <td style="width:20%;">
+        <!-- 왼쪽 테이블: mypage_mini.html -->
+        <div th:include="/myPage/mypage_mini.html"></div>
+      </td>
+      <td style="width:80%;">
+        <!-- 오른쪽 테이블: mypage_info.html -->
+        <div th:include="/myPage/mypage_info.html"></div>
+      </td>
+    </tr>
+  </table>
 </div>
 </body>
 </html>

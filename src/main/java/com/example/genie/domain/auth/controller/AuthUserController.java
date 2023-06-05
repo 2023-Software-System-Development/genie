@@ -28,15 +28,15 @@ public class AuthUserController {
     AuthUserService userAuthUserService;
     PotService potService;
 
-    @ModelAttribute
+    /*@ModelAttribute
     public PotSearchForm potSearchForm(){
         return new PotSearchForm();
-    }
-
+    }*/
     @RequestMapping("/")
     public String home(Model model, @ModelAttribute PotSearchForm potSearchForm, @PageableDefault(page = 0) Pageable pageable){
         Page<PotObject> potList = potService.getPotListBySearch(potSearchForm, pageable);
         model.addAttribute("potList", potList);
+        model.addAttribute(potSearchForm);
         return "mainPage/home";
     }
     @GetMapping("/user/login")
@@ -62,4 +62,6 @@ public class AuthUserController {
         sessionStatus.setComplete();
         return "redirect:/user/login";
     }
+
+
 }

@@ -38,36 +38,41 @@
 </th:block>
 <div th:include="/mainPage/navigator.html"></div>
 <div th:label="pot" class="outer">
-<table>
+<table class="table table-hover">
     <thead>
+        <tr span=2 class="table-primary">
+            <th scope="row">
+                팟 상세정보
+            </th>
+        </tr>
         <tr>
-            <td>
+            <th scope="row">
                 팟 이름
-            </td>
+            </th>
             <td th:text="${pot.potName}"></td>
         </tr>
         <tr>
-            <td>
+            <th scope="row">
                 OTT 종류
-            </td>
+            </th>
             <td th:text="${pot.ottType}"></td>
         </tr>
         <tr>
-            <td>
+            <th scope="row">
                 모집인원
-            </td>
+            </th>
             <td th:text="${pot.recruit}"></td>
         </tr>
         <tr>
-            <td>
+            <th scope="row">
                 남은 인원
-            </td>
+            </th>
             <td th:text="${pot.remain}"></td>
         </tr>
         <tr>
-            <td>
+            <th scope="row">
                 기간
-            </td>
+            </th>
             <td th:text="${pot.term}"></td>
         </tr>
         <!--<th>
@@ -97,7 +102,7 @@
     <tr th:if="${pot.isMaster}">
         <td>
             <button th:onclick="'redirectToEdit(' + ${pot.potId} + ')'" type="button" class="btn btn-primary">수정하기</button>
-            <form action="/pot/delete" method="post" style="display: inline;">
+            <form action="/pot/delete" method="post" style="display: inline; margin:auto;">
                 <input type="hidden" name="potId" th:value="${pot.potId}" />
                 <button type="submit" class="btn btn-primary">삭제하기</button>
             </form>

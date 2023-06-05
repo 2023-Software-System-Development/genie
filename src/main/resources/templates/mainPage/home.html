@@ -8,8 +8,8 @@
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
-<body>
-    <div th:include="/mainPage/navigator.html"></div>
+<body><div th:include="/mainPage/navigator.html"></div>
+
     &nbsp; &nbsp;
     <div>
         <a th:href="@{/pot}" sec:authorize="isAuthenticated()" class="btn btn-secondary my-2 my-sm-0">팟 생성</a>
