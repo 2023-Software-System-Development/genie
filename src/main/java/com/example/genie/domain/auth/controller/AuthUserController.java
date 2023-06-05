@@ -3,6 +3,7 @@ package com.example.genie.domain.auth.controller;
 import com.example.genie.domain.auth.form.UserForm;
 import com.example.genie.domain.auth.service.AuthUserService;
 import com.example.genie.domain.pot.entity.Pot;
+import com.example.genie.domain.pot.form.PotSearchForm;
 import com.example.genie.domain.pot.model.PotObject;
 import com.example.genie.domain.pot.service.PotService;
 import lombok.AllArgsConstructor;
@@ -27,8 +28,9 @@ public class AuthUserController {
     AuthUserService userAuthUserService;
     PotService potService;
     @RequestMapping("/")
-    public String home(Model model, @PageableDefault(page = 0) Pageable pageable){
+    public String home(Model model, @ModelAttribute PotSearchForm potSearchForm, @PageableDefault(page = 0) Pageable pageable){
         Page<PotObject> potList = potService.getPotList("NetFlix", pageable);
+        potSearchForm.setOttType("NetFlix");
         model.addAttribute("potList", potList);
         model.addAttribute("ottType", "NetFlix");
         return "mainPage/home";
