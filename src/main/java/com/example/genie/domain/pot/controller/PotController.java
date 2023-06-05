@@ -76,10 +76,13 @@ public class PotController {
             potSearchForm.setOttType(ottType);
             potSearchForm.setSearchText(null);
             potSearchForm.setSearchType(null);
+            model.addAttribute("potList", potService.getPotList(ottType, pageable));
+        }else{
+            System.out.println("원래 있던거: "+potSearchForm.getOttType()+potSearchForm.getSearchType());
+            Page<PotObject> potObjectList = potService.getPotListBySearch(potSearchForm, pageable);
+            model.addAttribute("potList", potObjectList);
         }
 
-        Page<PotObject> potObjectList = potService.getPotListBySearch(potSearchForm, pageable);
-        model.addAttribute("potList", potObjectList);
         return "mainPage/home";
     }
 

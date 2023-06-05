@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
             http.csrf().disable()// 세션을 사용하지 않고 JWT 토큰을 활용하여 진행, csrf토큰검사를 비활성화
                 .authorizeRequests() // 인증절차에 대한 설정을 진행
-                .antMatchers("/", "/user/signup", "/user/login", "/loginProc").permitAll() // 설정된 url은 인증되지 않더라도 누구든 접근 가능
+                .antMatchers("/", "/user/signup", "/user/login", "/loginProc", "/pot/list").permitAll() // 설정된 url은 인증되지 않더라도 누구든 접근 가능
                 .anyRequest().authenticated()// 위 페이지 외 인증이 되어야 접근가능(ROLE에 상관없이)
                 .and()
                 .formLogin().loginPage("/user/login")  // 접근이 차단된 페이지 클릭시 이동할 url

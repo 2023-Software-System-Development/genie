@@ -27,12 +27,16 @@ public class AuthUserController {
     @Autowired
     AuthUserService userAuthUserService;
     PotService potService;
+
+    @ModelAttribute
+    public PotSearchForm potSearchForm(){
+        return new PotSearchForm();
+    }
+
     @RequestMapping("/")
     public String home(Model model, @ModelAttribute PotSearchForm potSearchForm, @PageableDefault(page = 0) Pageable pageable){
-        Page<PotObject> potList = potService.getPotList("NetFlix", pageable);
-        potSearchForm.setOttType("NetFlix");
+        Page<PotObject> potList = potService.getPotListBySearch(potSearchForm, pageable);
         model.addAttribute("potList", potList);
-        model.addAttribute("ottType", "NetFlix");
         return "mainPage/home";
     }
     @GetMapping("/user/login")

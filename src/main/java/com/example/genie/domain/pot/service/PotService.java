@@ -49,6 +49,8 @@ public class PotService {
     }
 
     public Page<PotObject> getPotListBySearch(PotSearchForm potSearchForm, Pageable pageable) {
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, 6); // <- Sort 추가
         Page<Pot> pots = potRepositoryCustom.findListBySearch(potSearchForm, pageable);
         return pots.map(PotMapper::toPotObject);
     }
