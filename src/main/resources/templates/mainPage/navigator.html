@@ -108,7 +108,7 @@
                         </a>
                     </li>
                     <li class="li-gap">
-                        <a class="nav-item"  href="#">
+                        <a class="nav-item"  href="/user/myPage">
                         <span style="visibility: visible; color: black;">My Page</span>
                         </a>
                     </li>
@@ -120,8 +120,8 @@
                         <option value="remain">남은 인원</option>
                         <option value="term">기간</option>
                     </select>
-                    <input name="searchText" class="form-control me-sm-3" type="text" th:value="${potSearchForm.searchText}" placeholder="Search">
-                    <input type="hidden" th:value="${potSearchForm.ottType}">
+                    <input name="searchText" class="form-control me-sm-3" type="text" placeholder="Search">
+                   <!-- <input type="hidden" name="ottType" ${potSearchForm.ottType}">-->
                     <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </div>
