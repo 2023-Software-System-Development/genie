@@ -3,6 +3,7 @@ package com.example.genie.domain.interest.entity;
 import com.example.genie.common.domain.BaseEntity;
 import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.user.entity.User;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
@@ -28,4 +29,10 @@ public class Interest extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     User user;
+
+    @Builder
+    public Interest (User user, Pot pot) {
+        this.user = user;
+        this.pot = pot;
+    }
 }
