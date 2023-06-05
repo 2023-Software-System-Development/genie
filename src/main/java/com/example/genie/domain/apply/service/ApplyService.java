@@ -40,7 +40,7 @@ public class ApplyService {
     }
 
     public List<User> getApplyUserList(Long potId){
-        List<Apply> appyList = applyRepository.findByPot_Id(potId);
+        List<Apply> appyList = applyRepository.findByStateAndPot_Id(State.APPLY, potId);
         List<User> userList = new ArrayList<>();
         for(Apply apply : appyList){
             userList.add(apply.getApplicant());
@@ -52,7 +52,7 @@ public class ApplyService {
     @Transactional
     public void appoveApply(Long potId, Long userId, int state) throws PotAlreadyFullException {
         State s;
-        s = (state == 0 ? State.APPROVED : State.REJECTED);
+        s = (state == 1 ? State.APPROVED : State.REJECTED);
         //1. Pot의 remain(남은 인원) 체크
         Apply apply = applyRepository.findByPot_IdAndApplicant_Id(potId, userId);
         Pot pot = apply.getPot();
@@ -70,7 +70,7 @@ public class ApplyService {
     }
 
     public List<Apply> getApprovedApplyList(Pot pot){
-        List<Apply> applyList = applyRepository.findByStateAndPot(State.REJECTED, pot);
+        List<Apply> applyList = applyRepository.findByStateAndPot_Id(State.REJECTED, pot.getId());
         return applyList;
     }
 

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>신청 목록</title>
+</head>
+<body>
+<!--고정된 nav-->
+<div th:include="/mainPage/navigator.html"></div>
+<th:block th:if="${error}">
+    <script>
+        top.alert("에러 발생");
+    </script>
+</th:block>
+<br><br>
+<div name="userList"style="margin: auto; text-align: center" >
+    <table class="table table-hover" style="width: 50%; margin: auto;">
+        <thead>
+            <tr style="background-color: #E69A9C">
+                <th scope="col">닉네임</th><th scope="col">신뢰도</th><td colspan="3">승인</td>
+            </tr>
+        </thead>
+        <tbody>
+        <tr class="table-light" th:each="user: ${userList}">
+            <th scope="row" th:text="${user.userNickName}"/>
+            <td th:text="${user.reliabilityScore}"/>
+            <td>
+                <form action="/pot/apply/approve" method="post">
+                    <input type="hidden" name="userId" th:value="${user.id}">
+                    <input type="hidden" name="potId" th:value="${potId}">
+                    <input type="hidden" name="state" value="1">
+                    <input type="submit" value="승인">
+                </form>
+            <td>
+            <td>
+            <form action="/pot/apply/approve" method="post">
+                <input type="hidden" name="userId" th:value="${user.id}">
+                <input type="hidden" name="potId" th:value="${potId}">
+                <input type="hidden" name="state" value="2">
+                <input type="submit" value="거절">
+            </form>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

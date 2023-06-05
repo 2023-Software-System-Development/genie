@@ -1,5 +1,5 @@
 package com.example.genie.domain.apply.entity;
 
 public enum State {
-    APPLY, REJECTED, APPROVED
+    APPLY, APPROVED, REJECTED
 }
