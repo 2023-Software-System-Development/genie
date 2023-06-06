@@ -4,6 +4,8 @@ import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.pot.entity.QPot;
 import com.example.genie.domain.pot.form.PotSearchForm;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.StringPath;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,12 +28,21 @@ public class PotRepositoryImpl implements PotRepositoryCustom {
                 .select(QPot.pot).distinct()
                 .from(QPot.pot)
                 .where(containWordInPot(potSearchForm.getSearchType(), potSearchForm.getSearchText()),
-                        Optional.ofNullable(potSearchForm.getOttType()).map(QPot.pot.ottType::eq).orElse(null))
+                        getOttType(potSearchForm.getOttType()))
                 .orderBy(QPot.pot.createdDate.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize() + 1)
                 .fetch();
         return getPageImpl(potList, pageable);
+    }
+
+    private BooleanExpression getOttType(String ottType) {
+        if (ottType.equals("all")) {
+            return null; // all로 값이 넘어오면 전체 데이터를 반환
+        }
+
+        StringPath areaPath = QPot.pot.ottType;
+        return areaPath.in(ottType);
     }
 
     private <T> Page<T> getPageImpl(List<T> list, Pageable pageable) {

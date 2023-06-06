@@ -1,18 +1,16 @@
 package com.example.genie.domain.apply.controller;
 import com.example.genie.common.util.UserUtils;
 import com.example.genie.domain.apply.entity.Apply;
-import com.example.genie.domain.apply.entity.State;
 import com.example.genie.domain.apply.exception.PotAlreadyFullException;
 import com.example.genie.domain.apply.service.ApplyService;
-import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.pot.service.PotService;
 import com.example.genie.domain.user.entity.User;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -45,13 +43,14 @@ public class ApplyController {
     //팟에 가입 신청한 유저 리스트
     public String getPotApplyList(@RequestParam Long potId, Model model){ //Pot 받아오는 방법은 추후 변경
         List<User> userList = applyService.getApplyUserList(potId);
+        model.addAttribute("potId", potId);
         model.addAttribute("userList", userList);
-        return "applyList";
+        return "pot/applyList";
     }
 
     //팟 가입 신청 처리 (기존 submitRequest 함수명 변경), 승인: 1, 거절:0
-    @GetMapping("/pot/apply/approve")
-    public String appoveApply(@RequestParam Long potId, @RequestParam Long userId, @RequestParam int state, HttpServletRequest request, Model model){
+    @PostMapping("/pot/apply/approve")
+    public String appoveApply(@RequestParam Long potId, @RequestParam Long userId, @RequestParam int state, HttpServletRequest request, Model model,RedirectAttributes redirectAttributes){
         //1. Apply 상태 변경
         try {
             applyService.appoveApply(potId, userId, state);
@@ -59,6 +58,7 @@ public class ApplyController {
             model.addAttribute("error", e.getMessage());
             return "applyList";
         }
-        return "detail";
+        redirectAttributes.addAttribute("potId", potId);
+        return "redirect:/pot/apply/users";
     }
 }
