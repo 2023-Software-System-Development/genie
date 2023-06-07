@@ -13,14 +13,15 @@
 <div th:include="/mainPage/navigator.html"></div>
 <th:block th:if="${error}">
     <script>
-        top.alert("에러 발생");
+        top.alert('이미 인원이 다 찼습니다.');
     </script>
 </th:block>
 <br><br>
 <div name="userList"style="margin: auto; text-align: center" >
     <table class="table table-hover" style="width: 50%; margin: auto;">
+        <h3 th:text="${pot.potName}"/><p th:text="'남은인원: '+ ${pot.remain} +'/'+${pot.recruit}"/>
         <thead>
-            <tr style="background-color: #E69A9C">
+            <tr style="background-color: #E69A9C; color:black;">
                 <th scope="col">닉네임</th><th scope="col">신뢰도</th><td colspan="3">승인</td>
             </tr>
         </thead>
@@ -31,17 +32,17 @@
             <td>
                 <form action="/pot/apply/approve" method="post">
                     <input type="hidden" name="userId" th:value="${user.id}">
-                    <input type="hidden" name="potId" th:value="${potId}">
+                    <input type="hidden" name="potId" th:value="${pot.id}">
                     <input type="hidden" name="state" value="1">
-                    <input type="submit" value="승인">
+                    <input class="btn btn-primary" type="submit" value="승인">
                 </form>
             <td>
             <td>
             <form action="/pot/apply/approve" method="post">
                 <input type="hidden" name="userId" th:value="${user.id}">
-                <input type="hidden" name="potId" th:value="${potId}">
+                <input type="hidden" name="potId" th:value="${pot.id}">
                 <input type="hidden" name="state" value="2">
-                <input type="submit" value="거절">
+                <input class="btn btn-primary" type="submit" value="거절">
             </form>
         </tr>
         </tbody>

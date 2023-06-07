@@ -3,6 +3,7 @@ import com.example.genie.common.util.UserUtils;
 import com.example.genie.domain.apply.entity.Apply;
 import com.example.genie.domain.apply.exception.PotAlreadyFullException;
 import com.example.genie.domain.apply.service.ApplyService;
+import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.pot.service.PotService;
 import com.example.genie.domain.user.entity.User;
 import lombok.AllArgsConstructor;
@@ -43,7 +44,8 @@ public class ApplyController {
     //팟에 가입 신청한 유저 리스트
     public String getPotApplyList(@RequestParam Long potId, Model model){ //Pot 받아오는 방법은 추후 변경
         List<User> userList = applyService.getApplyUserList(potId);
-        model.addAttribute("potId", potId);
+        Pot pot = potService.getPotEntity(potId);
+        model.addAttribute("pot", pot);
         model.addAttribute("userList", userList);
         return "pot/applyList";
     }
