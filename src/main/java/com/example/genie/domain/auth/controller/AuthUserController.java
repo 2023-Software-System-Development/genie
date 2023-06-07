@@ -28,12 +28,9 @@ public class AuthUserController {
     AuthUserService userAuthUserService;
     PotService potService;
 
-    /*@ModelAttribute
-    public PotSearchForm potSearchForm(){
-        return new PotSearchForm();
-    }*/
     @RequestMapping("/")
     public String home(Model model, @ModelAttribute PotSearchForm potSearchForm, @PageableDefault(page = 0) Pageable pageable){
+        potSearchForm.setOttType("all");
         Page<PotObject> potList = potService.getPotListBySearch(potSearchForm, pageable);
         model.addAttribute("potList", potList);
         model.addAttribute(potSearchForm);
