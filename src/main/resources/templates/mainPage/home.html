@@ -16,8 +16,8 @@
         <div style="position: relative; top: 5%; left: 90%; margin-top: 10px;">
             <a th:href="@{/pot}" sec:authorize="isAuthenticated()" class="btn btn-secondary my-2 my-sm-0">팟 생성</a>
         </div>
-        <div class="pot_list_table" th:include="/mainPage/pots_list.html" style="position: relative; margin-top: 3%; width: 90%; height: 70%;"></div>
-        <div style="position: relative; top: 5%; right: -45%; margin-top: 10px;">
+        <div class="pot_list_table" th:include="/mainPage/pots_list.html" style="position: relative; margin-top: 3%; width: 90%; height: 650px;"></div>
+        <div style="position: relative; top: 5%; right: -44%; margin-top: 10px;">
             <nav style="margin: auto">
                 <ul class="pagination pagination-sm"
                     th:with="start=${T(java.lang.Math).floor(potList.number/10)*10 + 1},
