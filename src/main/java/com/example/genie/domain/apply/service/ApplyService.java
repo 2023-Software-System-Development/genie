@@ -35,6 +35,9 @@ public class ApplyService {
         return apply;
     }
 
+    /*public List<Apply> getApplyListOfPot(Long potId){
+        return applyRepository.findByStateAndPot_Id(State.APPLY, potId);
+    }*/
     public Apply getApply(Long potId, Long userId){
         return applyRepository.findByPot_IdAndApplicant_Id(potId, userId);
     }
@@ -59,6 +62,7 @@ public class ApplyService {
         if(pot.getRemain() <= 0){
             throw new PotAlreadyFullException(pot.getPotName());
         }
+
         //2. 승인이면 remain 1 줄이기
         if(s.equals(State.APPROVED)) {
             pot.apporveUser();
