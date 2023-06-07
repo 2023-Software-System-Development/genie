@@ -12,11 +12,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
     <style>
-
         .outer {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px; /* 여백 추가 */
+            gap: 50px; /* 여백 추가 */
             justify-content: center; /* 가로 중앙 정렬 */
             align-items: center; /* 세로 중앙 정렬 */
         }
@@ -25,9 +24,22 @@
             flex-basis: 33.33%;
             box-sizing: border-box;
         }
-        .card:hover{
+
+        .card:hover {
             border-width: thick;
         }
+
+        .row-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .card-row {
+            flex-basis: 25%;
+            box-sizing: border-box;
+        }
+
     </style>
     <script>
         function handleOuterClick(potId) {
@@ -43,17 +55,22 @@
 <th:block th:if="${potList.getSize()==0 || potList == null}">
     <div style="text-align:center"><h3>검색 결과가 없습니다.</h3></div>
 </th:block>
+
 <div th:label="potList" class="outer">
-    <div th:each="pot, stat : ${potList}" class="card border-primary mb-3" style="max-width: 20rem;">
-        <div class="row-md-4" th:onclick="'handleOuterClick(\'' + ${pot.potId} + '\')'" >
-            <div class="card-header" th:text="${pot.potName}"></div>
-            <div class="card-header" th:text="${pot.ottType}"></div>
-            <div class="card-body">
-                <p class="card-title" th:text="'구인인원 : ' + ${pot.recruit}"></p>
-                <p class="card-title" th:text="'현재인원 : ' + ${pot.remain}"></p>
-                <p class="card-title" th:text="'기간 : ' + ${pot.term}"></p>
+    <div class="row-wrapper">
+        <div th:each="pot, stat : ${potList}" class="card-row">
+            <div class="card border-primary mb-3 card-position" style="max-width: 20rem;">
+                <div class="row-md-4" th:onclick="'handleOuterClick(\'' + ${pot.potId} + '\')'">
+                    <div class="card-header" th:text="${pot.potName}"></div>
+                    <div class="card-header" th:text="${pot.ottType}"></div>
+                    <div class="card-body">
+                        <p class="card-title" th:text="'구인인원 : ' + ${pot.recruit}"></p>
+                        <p class="card-title" th:text="'현재인원 : ' + ${pot.remain}"></p>
+                        <p class="card-title" th:text="'기간 : ' + ${pot.term}"></p>
+                    </div>
+                </div>
             </div>
-        </div>
+      </div>
     </div>
 </div>
 </body>

@@ -38,10 +38,10 @@
 </th:block>
 <div th:include="/mainPage/navigator.html"></div>
 <div th:label="pot" class="outer">
-<table class="table table-hover">
-    <thead>
-        <tr span=2 class="table-primary">
-            <th scope="row">
+    &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+<table class="table table-hover" style="width: 70%; margin: auto; text-align: center;">
+        <tr class="table-primary">
+            <th colspan="2" scope="row">
                 팟 상세정보
             </th>
         </tr>
@@ -81,8 +81,8 @@
             </td>
             <td th:text="${potInfoObject.masterName}"></td>
         </th>-->
-    </thead>
 </table>
+</div>
     <!--<tbody>
     <tr th:each="pot : ${potList}">
         <td th:text="${pot.potName}"></td>
@@ -98,7 +98,8 @@
         <td th:text="${pot.masterName}"></td>
     </tr>
     </tbody>-->
-    <tbody>
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+<table style="margin:auto; text-align:center; width: 70%">
     <tr th:if="${pot.isMaster}">
         <td>
             <button th:onclick="'redirectToEdit(' + ${pot.potId} + ')'" type="button" class="btn btn-primary">수정하기</button>
@@ -122,8 +123,6 @@
             <button onclick="redirectToStart()" type="button" class="btn btn-primary">시작하기</button>
         </td>
     </tr>
-    </tbody>
 </table>
-</div>
 </body>
 </html>

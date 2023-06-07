@@ -4,19 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css"
+          integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
-<body><div th:include="/mainPage/navigator.html"></div>
-    &nbsp; &nbsp;
-    <div>
-        <a th:href="@{/pot}" sec:authorize="isAuthenticated()" class="btn btn-secondary my-2 my-sm-0">팟 생성</a>
-    </div>
-    <div class="pot_list_table" th:include="/mainPage/pots_list.html"></div>
-    <div>
-            <nav style="margin: auto">
-                <ul class="pagination pagination-sm"
+<body>
+    <div style="position: relative;">
+        <div th:include="/mainPage/navigator.html"></div>
+        &nbsp; &nbsp;
+        <div style="position: relative; top: 5%; left: 0%; margin-top: 10px;">
+            <a style="position: relative; top: 5%; left: 90%" th:href="@{/pot}" sec:authorize="isAuthenticated()" class="btn btn-secondary my-2 my-sm-0">팟 생성</a>
+        </div>
+        <div class="pot_list_table" th:include="/mainPage/pots_list.html" style="position: relative; margin-top: 3%; width: 90%; height: 600px;"></div>
+        <div style="position: relative; top: 5%; left: 0%; margin-top: 10px;">
+            <nav style="margin: auto; width:30%; align:center; position: relative;">
+                <ul class="pagination pagination-sm" style="margin: auto; align:center; position: relative; top: 5px;"
                     th:with="start=${T(java.lang.Math).floor(potList.number/10)*10 + 1},
                     last=(${start + 9 < potList.totalPages ? start + 9 : potList.totalPages})">
                     <li class="page-item ">
@@ -26,17 +29,20 @@
                     </li>
 
                     <li th:class="${potList.first} ? 'disabled'" class="page-item ">
-                        <a class="page-link" th:href="${potList.first} ? '#' :@{/pot/list(page=${potList.number})}" aria-label="Previous">
+                        <a class="page-link" th:href="${potList.first} ? '#' :@{/pot/list(page=${potList.number})}"
+                           aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
 
-                    <li class="page-item " th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == potList.number + 1} ? 'active'">
+                    <li class="page-item " th:each="page: ${#numbers.sequence(start, last)}"
+                        th:class="${page == potList.number + 1} ? 'active'">
                         <a class="page-link" th:text="${page}" th:href="@{/pot/list(page=${page})}"></a>
                     </li>
 
                     <li class="page-item " th:class="${potList.last} ? 'disabled'">
-                        <a class="page-link" th:href="${potList.last} ? '#' : @{/pot/list(page=${potList.number + 2})}" aria-label="Next">
+                        <a class="page-link" th:href="${potList.last} ? '#' : @{/pot/list(page=${potList.number + 2})}"
+                           aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
@@ -48,6 +54,8 @@
                     </li>
                 </ul>
             </nav>
+        </div>
     </div>
+
 </body>
 </html>
