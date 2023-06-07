@@ -12,21 +12,38 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
     <style>
-
-        .outer {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px; /* 여백 추가 */
-            justify-content: center; /* 가로 중앙 정렬 */
-            align-items: center; /* 세로 중앙 정렬 */
+        /* 각 요소들의 위치 조정 */
+        .card-position:nth-child(1),
+        .card-position:nth-child(2),
+        .card-position:nth-child(3),
+        .card-position:nth-child(4) {
+            margin-right: 10px;
         }
 
-        .card {
-            flex-basis: 33.33%;
-            box-sizing: border-box;
+        /* 나머지 요소들의 위치 조정 */
+        .card-position:nth-child(n+5) {
+            margin-top: 20px;
         }
-        .card:hover{
-            border-width: thick;
+
+        /* 5번째, 6번째, 7번째, 8번째 요소들의 위치 조정 */
+        .card-position:nth-child(5),
+        .card-position:nth-child(6),
+        .card-position:nth-child(7),
+        .card-position:nth-child(8) {
+            margin-right: 10px;
+        }
+
+        /* 1번째, 5번째, 2번째, 6번째, 3번째, 7번째, 4번째, 8번째 요소들의 위치 조정 */
+        .card-position:nth-child(1),
+        .card-position:nth-child(5),
+        .card-position:nth-child(2),
+        .card-position:nth-child(6),
+        .card-position:nth-child(3),
+        .card-position:nth-child(7),
+        .card-position:nth-child(4),
+        .card-position:nth-child(8) {
+            margin-right: 0;
+            flex-basis: 25%;
         }
     </style>
     <script>
@@ -43,8 +60,10 @@
 <th:block th:if="${potList.getSize()==0 || potList == null}">
     <div style="text-align:center"><h3>검색 결과가 없습니다.</h3></div>
 </th:block>
+
 <div th:label="potList" class="outer">
-    <div th:each="pot, stat : ${potList}" class="card border-primary mb-3" style="max-width: 20rem;">
+    <div class="card-wrapper">
+    <div th:each="pot, stat : ${potList}" class="card border-primary mb-3 card-position" style="width: 300px; max-width: 20rem;">
         <div class="row-md-4" th:onclick="'handleOuterClick(\'' + ${pot.potId} + '\')'" >
             <div class="card-header" th:text="${pot.potName}"></div>
             <div class="card-header" th:text="${pot.ottType}"></div>
@@ -54,6 +73,7 @@
                 <p class="card-title" th:text="'기간 : ' + ${pot.term}"></p>
             </div>
         </div>
+    </div>
     </div>
 </div>
 </body>
