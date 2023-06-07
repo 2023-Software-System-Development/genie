@@ -39,7 +39,6 @@
 <div th:include="/mainPage/navigator.html"></div>
 <div th:label="pot" class="outer">
 <table class="table table-hover">
-    <thead>
         <tr span=2 class="table-primary">
             <th scope="row">
                 팟 상세정보
@@ -81,8 +80,8 @@
             </td>
             <td th:text="${potInfoObject.masterName}"></td>
         </th>-->
-    </thead>
 </table>
+</div>
     <!--<tbody>
     <tr th:each="pot : ${potList}">
         <td th:text="${pot.potName}"></td>
@@ -123,7 +122,5 @@
         </td>
     </tr>
     </tbody>
-</table>
-</div>
 </body>
 </html>
