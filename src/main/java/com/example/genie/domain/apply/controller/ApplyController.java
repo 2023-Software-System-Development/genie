@@ -45,8 +45,10 @@ public class ApplyController {
     public String getPotApplyList(@RequestParam Long potId, Model model){ //Pot 받아오는 방법은 추후 변경
         List<User> userList = applyService.getApplyUserList(potId);
         Pot pot = potService.getPotEntity(potId);
+        List<User> memberList = applyService.getApprovedUserList(pot);
         model.addAttribute("pot", pot);
         model.addAttribute("userList", userList);
+        model.addAttribute("memberList", memberList);
         return "pot/applyList";
     }
 
