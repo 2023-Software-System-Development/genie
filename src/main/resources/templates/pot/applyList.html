@@ -3,7 +3,6 @@
       xmlns="http://www.w3.org/1999/html">
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
-    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
     <title>신청 목록</title>
@@ -30,11 +29,11 @@
             <th scope="row" th:text="${user.userNickName}"/>
             <td th:text="${user.reliabilityScore}"/>
             <td>
-                <form action="/pot/apply/approve" method="post">
+                <form name="approve" action="/pot/apply/approve" method="post">
                     <input type="hidden" name="userId" th:value="${user.id}">
                     <input type="hidden" name="potId" th:value="${pot.id}">
                     <input type="hidden" name="state" value="1">
-                    <input class="btn btn-primary" type="submit" value="승인">
+                    <input class="btn btn-primary" type="button" onclick="openModal()" value="승인">
                 </form>
             <td>
             <td>
@@ -47,6 +46,55 @@
         </tr>
         </tbody>
     </table>
+
+    <hr>
+    <br><br>
+    <table class="table table-hover" style="width: 50%; margin: auto;">
+        <p>멤버 현황</p>
+        <thead>
+        <tr class="table-primary">
+            <th scope="col">닉네임</th><th scope="col">신뢰도</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="table-light">
+            <th scope="row" th:text="${pot.master.userNickName}"></th>
+            <td th:text="${pot.master.reliabilityScore}"></td>
+        </tr>
+        <tr class="table-light" th:each="member: ${memberList}">
+            <th scope="row" th:text="${member.userNickName}"/>
+            <td th:text="${member.reliabilityScore}"/>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--모달창 영역-->
+    <div id="modal" class="modal" style=" width: 100%; height: 100%; background-color: rgba(0,0,0,0.4);">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" th:text="${pot.potName}">승인</h5>
+                </div>
+                <div class="modal-body">
+                    <p>정말 승인하시겠습니까?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="document.approve.submit()">확인</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModal()">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<script type="text/javascript">
+    function openModal() {
+        const modal = document.getElementById("modal")
+        modal.style.display = "flex"
+    }
+    function closeModal(){
+        const modal = document.getElementById("modal")
+        modal.style.display = "none"
+    }
+</script>
 </body>
 </html>

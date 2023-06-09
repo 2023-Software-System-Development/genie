@@ -73,9 +73,13 @@ public class ApplyService {
         applyRepository.save(apply);
     }
 
-    public List<Apply> getApprovedApplyList(Pot pot){
-        List<Apply> applyList = applyRepository.findByStateAndPot_Id(State.REJECTED, pot.getId());
-        return applyList;
+    public List<User> getApprovedUserList(Pot pot){
+        List<Apply> applyList = applyRepository.findByStateAndPot_Id(State.APPROVED, pot.getId());
+        List<User> userList = new ArrayList<>();
+        for(Apply apply : applyList){
+            userList.add(apply.getApplicant());
+        }
+        return userList;
     }
 
 
