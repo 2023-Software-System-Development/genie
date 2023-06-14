@@ -13,6 +13,11 @@
 
 </head>
 <body>
+<th:block th:if="${param.req}">
+    <script>
+        alert('로그인 후 이용 가능한 서비스입니다.');
+    </script>
+</th:block>
 <div th:include="/mainPage/navigator.html"></div>
 <div>
 <h2 class="navbar-brand">로그인</h2>
@@ -24,6 +29,9 @@
         <div>
             <label for="userPw">비밀번호</label>
             <input type="password" id="userPw" name="userPw" class="form-control" placeholder="비밀번호 입력하세요">
+        </div>
+        <div th:if="${param.error}">
+            <span th:text="${param.exception}" class="error">잘못된 아이디나 암호입니다</span>
         </div>
         <div><button type="submit" class="btn btn-secondary my-2 my-sm-0" >전송</button></div>
     </form>
