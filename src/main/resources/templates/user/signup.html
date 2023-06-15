@@ -6,15 +6,22 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" type="text/css" href="/css/_variables.css">
-    <link rel="stylesheet" type="text/css" href="/css/_bootswatch.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
+<style>
+label{
+    font-size: large;
+    color: #5a5a5a;
+}
+</style>
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
+<div class="signupForm">
+<div class="signupFormInner">
 <form action="@{/user/signup}" th:action th:object="${userForm}" method="post">
+    <h2>Sign up</h2><br>
     <div>
         <label for="userName">이름</label>
         <input type="text" id="userName" th:field="*{userName}" class="form-control" placeholder="이름을 입력하세요">
@@ -32,25 +39,27 @@
     </div>
     <div>
         <label for="userPwCheck">비밀번호 확인</label>
-        <input type="password" id="userPwCheck" th:field="*{userPwCheck}" class="form-control" placeholder="비밀번호를 입력하세요">
+        <input type="password" id="userPwCheck" th:field="*{userPwCheck}" class="form-control" placeholder="비밀번호를 다시 입력하세요">
         <p th:if="${#fields.hasErrors('userPwCheck')}" th:errorclass="error" th:errors="*{userPwCheck}" />
     </div>
     <div>
         <label for="userNickName">닉네임</label>
         <input type="text" id="userNickName" th:field="*{userNickName}" class="form-control" placeholder="닉네임 입력하세요">
-    </div>
+    </div><p/>
     <div>
         <label for="phoneNumber">전화번호</label>
         <input type="text" id="phoneNumber" th:field="*{phoneNumber}" class="form-control" placeholder="전화번호를 입력하세요">
-    </div>
+    </div><p/>
     <div>
         <label for="email">email</label>
         <input type="text" id="email" th:field="*{email}" class="form-control" placeholder="이메일를 입력하세요">
         <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}" />
-    </div>
+    </div><p/>
     <div>
         <button type="submit" class="btn btn-secondary my-2 my-sm-0">전송</button>
     </div>
 </form>
+</div>
+</div>
 </body>
 </html>

@@ -115,3 +115,32 @@
     align: center;
     width: 80%;
 }
+
+.loginForm{
+    height:800px;
+    width:800px;
+    margin: auto;
+    border-radius:8px;
+    top: 100px;
+    padding: 50px;
+}
+.loginFormInner{
+    position: relative;
+    margin: auto;
+    border-radius: 13px;
+    top: 50px;
+    border: #E69A9C solid 2px;
+    padding: 70px;
+}
+.signupForm{
+    margin: auto;
+    width: 1000px;
+    height: 700px;
+    padding: 40px;
+}
+.signupFormInner{
+    margin: auto;
+    border-radius:10px;
+    border: #E69A9C solid 2px;
+    padding: 80px;
+}
