@@ -15,13 +15,15 @@
             border-collapse: collapse;
             border-radius: 10px;
             text-align: center;
-            width: 50px;
-            height: 200px;
+            width: 200px;
+            height: 180px;
             font-family: 'Y_Spotlight';
             font-size: 12pt;
             color: black;
             background-color: white;
             line-height: 22px;
+            float: left;
+            margin-right: 40px;
         }
 
         .pic {
@@ -33,7 +35,6 @@
             border-collapse: collapse;
         }
 
-        /* 추가 스타일 */
         .myPage_mini .comment {
             background-color: #f2f2f2;
         }
@@ -45,20 +46,28 @@
 </head>
 <body>
 <div th:fragment="content" th:remove="tag">
-    <table style="width:40%"  class="myPage_mini">
-        <tr class="comment">
+    <table style="width:40%;">
+        <tr>
             <td>
-                <a href="@{/}">내 정보</a>
-            </td>
-        </tr>
-        <tr class="correction">
-            <td>
-                <a class="nav-link" href="@{/}">내 팟 보기</a>
-            </td>
-        </tr>
-        <tr class="correction">
-            <td>
-                <a class="nav-link" href="@{/}">회원 신고</a>
+                <div class="myPage_mini">
+                    <table>
+                        <tr class="comment">
+                            <td>
+                                <a href="@{/}">내 정보</a>
+                            </td>
+                        </tr>
+                        <tr class="comment">
+                            <td>
+                                <a class="nav-link" href="@{/}">내 팟 보기</a>
+                            </td>
+                        </tr>
+                        <tr class="comment">
+                            <td>
+                                <a class="nav-link" href="@{/}">회원 신고</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </td>
         </tr>
     </table>
