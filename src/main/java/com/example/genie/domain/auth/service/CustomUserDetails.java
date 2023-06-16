@@ -22,8 +22,6 @@ public class CustomUserDetails implements UserDetails, Serializable {
     private String phoneNumber;
     private String email;
     private LocalDateTime birth;
-    private String accountNumber;
-    private String bankName;
     private Role role;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
