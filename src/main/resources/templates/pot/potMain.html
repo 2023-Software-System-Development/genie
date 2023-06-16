@@ -126,6 +126,19 @@
             </form>-->
         </td>
     </tr>
+    <tr>
+        <td> <!--채팅하기로 가도록-->
+            <button th:onclick="'redirectToEdit(' + ${pot.potId} + ')'" type="button" class="btn btn-primary">채팅하기</button>
+            <!-- <form action="/pot/delete" method="post" style="display: inline; margin:auto;">
+                <input type="hidden" name="potId" th:value="${pot.potId}" />
+                <button type="submit" class="btn btn-primary">삭제하기</button>
+            </form>-->
+            <!--<form action="/pot/apply/users" style="display: inline;">
+                <input type="hidden" name="potId" th:value="${pot.potId}" />
+                <button type="submit" class="btn btn-primary">신청 리스트 보기</button>
+            </form>-->
+        </td>
+    </tr>
     <!--<tr th:if="${!pot.isMaster}">
         <td th:if="${state == null}"> &lt;!&ndash;아직 신청 안 했으면&ndash;&gt;
             <button th:onclick="'redirectToApply('+${pot.potId}+')'" type="button" class="btn btn-primary">신청하기</button>
