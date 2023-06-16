@@ -66,6 +66,7 @@ public class PotService {
         Pot pot = potRepository.findById(potId).orElseThrow(() -> new EntityNotFoundException("Pot not found"));
         pot.changeState();
         pot.addAdditionalInfo(potStartForm);
+        potRepository.save(pot);
     }
 
     public void editRecruitingPot(Long potId, PotEditRecruitingForm potEditRecruitingForm) {

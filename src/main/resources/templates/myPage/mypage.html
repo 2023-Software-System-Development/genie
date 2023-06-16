@@ -11,14 +11,14 @@
     /* 스타일 코드 */
 
     /* 공통 스타일 */
-    table {
+    table2 {
       border-collapse: collapse;
       width: 100%;
     }
-    td {
+    table2.td {
       padding: 10px;
     }
-    th {
+    table2.th {
       padding: 10px;
       font-weight: bold;
       text-align: center;
@@ -26,6 +26,7 @@
     .small-text {
       font-size: 12px;
     }
+
     tr:nth-child(even) {
       background-color: #ffffff;
     }
@@ -33,16 +34,6 @@
       background-color: #F2F2F2;
     }
 
-    /* 테이블 1 스타일 */
-    .table1 {
-      background-color: #848484;
-      margin-bottom: 10px;
-    }
-
-    /* 테이블 2 스타일 */
-    .table2 {
-      background-color: #848484;
-    }
 
     /* 마이페이지 미니 테이블 스타일 */
     .myPage_mini {
@@ -73,7 +64,8 @@
 </head>
 <body>
 <div th:fragment="content" th:remove="tag">
-  <table style="width:100%;">
+  <div th:include="/mainPage/navigator.html"></div>
+  <table clas="table2" style="width:100%;">
     <tr>
       <td style="width:20%;">
         <!-- 왼쪽 테이블: mypage_mini.html -->

@@ -2,52 +2,69 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns="http://www.w3.org/1999/html">
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
-  <link rel="stylesheet" type="text/css" href="/css/_variables.css">
-  <link rel="stylesheet" type="text/css" href="/css/_bootswatch.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
-  <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-  <title>팟 시작</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/_variables.css">
+    <link rel="stylesheet" type="text/css" href="/css/_bootswatch.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css"
+          integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script th:inline="javascript">
+        function setDate() { <!--팟 종료일은 팟 시작일 + 팟 기간-->
+            let value = document.getElementById('startDate').value;
+            let date = new Date(value);
+            let m = [[${pot.term}]];
+            date.setMonth(date.getMonth() + m);
+            document.getElementById('endDate').valueAsDate = date;
+        }
+    </script>
+    <title>팟 시작</title>
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
-<form action="@{/start}" th:action th:object="${PotStartForm}" method="post">
-  <div>
-    <label for="ottId">OTT id</label>
-    <input type="text" id="ottId" name="ottId" th:field="*{ottId}" class="form-control">
-    <!--
-        <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
-    -->
-  </div>
-  <div>
-    <label for="ottPw">OTT pwd</label>
-    <input type="password" id="ottPw" name="ottPw" th:field="*{ottPw}" class="form-control">
-    <!--
-        <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
-    -->
-  </div>
-  <div>
-    <label for="startDate">시작일</label>
-    <input type="text" id="startDate" name="startDate" th:field="*{startDate}" class="form-control">
-    <!--
-        <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
-    -->
-  </div>
-  <div>
-    <label for="endDate">종료일</label>
-    <input type="text" id="endDate" name="endDate" th:field="*{endDate}" class="form-control">
-    <!--
-        <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
-    -->
-  </div>
-  <div>
-    <button type="button" class="btn btn-secondary my-2 my-sm-0">취소</button>
-    <button type="submit" class="btn btn-secondary my-2 my-sm-0">팟 시작하기</button>
-  </div>
-</form>
+<div class="formOuterStyle">
+    <div class="formStyle">
+        <h2 th:text="${pot.potName}"/>
+        <form name="potStartForm" th:action="@{/pot/{potId}/start(potId = ${pot.potId})}" th:object="${potStartForm}"
+              method="post">
+            <div>
+                <label for="ottId">OTT id</label>
+                <input type="text" id="ottId" name="ottId" th:field="*{ottId}" class="form-control">
+                <!--
+                    <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
+                -->
+            </div>
+            <div>
+                <label for="ottPw">OTT pwd</label>
+                <input type="password" id="ottPw" name="ottPw" th:field="*{ottPw}" class="form-control">
+                <!--
+                    <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
+                -->
+            </div>
+            <div>
+                <label for="startDate">시작일</label>
+                <input type="date" th:min="${#dates.format(#dates.createNow(),'YYYY-MM-dd')}" id="startDate"
+                       name="startDate" th:field="*{startDate}" class="form-control" onchange="setDate()">
+                <!--
+                    <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
+                -->
+            </div>
+            <div>
+                <label for="endDate">종료일</label>
+                <input type="date" id="endDate" name="endDate" th:field="*{endDate}" class="form-control"
+                       readonly="true">
+                <!--
+                    <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
+                -->
+            </div>
+            <div style="margin-top: 30px">
+                <button type="button" class="btn btn-secondary my-2 my-sm-0">취소</button>
+                <button type="submit" class="btn btn-secondary my-2 my-sm-0">팟 시작하기</button>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

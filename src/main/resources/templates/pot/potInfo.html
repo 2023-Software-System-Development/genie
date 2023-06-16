@@ -20,17 +20,12 @@
         function redirectToApply(potId) {
             window.location.href = "/pot/apply?potId=" + potId;
         }
-        function redirectToStart() {
-            window.location.href = "/start";
+        function redirectToStart(potId) {
+            window.location.href = "/pot/" + potId + "/start";
         }
     </script>
 </head>
 <body>
-<th:block th:if="${param.alreadyApply}">
-    <script>
-        top.alert("이미 가입 신청이 완료된 팟 입니다.");
-    </script>
-</th:block>
 <th:block th:if="${param.applySuccess}">
     <script>
         top.alert("가입 신청이 완료되었습니다.");
@@ -75,12 +70,12 @@
             </th>
             <td th:text="${pot.term}"></td>
         </tr>
-        <!--<th>
-            <td>
+        <tr>
+            <th scope="row">
                 팟장 이름
-            </td>
-            <td th:text="${potInfoObject.masterName}"></td>
-        </th>-->
+            </th>
+            <td th:text="${pot.masterName}"></td>
+        </tr>
 </table>
 </div>
     <!--<tbody>
@@ -114,13 +109,22 @@
         </td>
     </tr>
     <tr th:if="${!pot.isMaster}">
-        <td>
+        <td th:if="${state == null}"> <!--아직 신청 안 했으면-->
             <button th:onclick="'redirectToApply('+${pot.potId}+')'" type="button" class="btn btn-primary">신청하기</button>
         </td>
+        <th:block th:if="${state != null}">
+            <td th:if="${state.equals('APPLY') || state.equals('REJECTED')}">
+                <button type="button" class="btn btn-primary" disabled>신청하기</button><br>
+                <p>이미 가입 신청이 완료되었습니다.</p>
+            </td>
+            <td th:if="${state.equals('APPROVED')}">
+                <p>팟 가입이 승인되었습니다.</p>
+            </td>
+        </th:block>
     </tr>
     <tr th:if="${pot.isMaster && pot.remain == 0}">
         <td>
-            <button onclick="redirectToStart()" type="button" class="btn btn-primary">시작하기</button>
+            <button th:onclick="'redirectToStart('+${pot.potId}+')'" type="button" class="btn btn-primary">시작하기</button>
         </td>
     </tr>
 </table>
