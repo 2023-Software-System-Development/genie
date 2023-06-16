@@ -54,13 +54,14 @@ public class ApplyController {
 
     //팟 가입 신청 처리 (기존 submitRequest 함수명 변경), 승인: 1, 거절:0
     @PostMapping("/pot/apply/approve")
-    public String appoveApply(@RequestParam Long potId, @RequestParam Long userId, @RequestParam int state, HttpServletRequest request, Model model,RedirectAttributes redirectAttributes){
+    public String approveApply(@RequestParam Long potId, @RequestParam Long userId, @RequestParam int state, HttpServletRequest request, Model model,RedirectAttributes redirectAttributes, Authentication authentication){
         //1. Apply 상태 변경
         try {
             applyService.appoveApply(potId, userId, state);
         } catch (PotAlreadyFullException e) {
             model.addAttribute("error", e.getMessage());
-            return "applyList";
+            model.addAttribute("pot", potService.getPot(authentication, potId));
+            return "pot/applyList";
         }
         redirectAttributes.addAttribute("potId", potId);
         return "redirect:/pot/apply/users";

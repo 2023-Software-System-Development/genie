@@ -33,8 +33,6 @@ public class User extends BaseEntity {
     private String phoneNumber;
     private String email;
     private LocalDateTime birth;
-    private String accountNumber;
-    private String bankName;
     private Role role;
     Integer reliabilityScore;
 
@@ -50,8 +48,6 @@ public class User extends BaseEntity {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.birth = birth;
-        this.accountNumber = accountNumber;
-        this.bankName = bankName;
         this.reliabilityScore = reliabilityScore;
         this.role = role;
     }

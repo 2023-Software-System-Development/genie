@@ -146,12 +146,26 @@ public class PotController {
 
     //팟 시작 시, 추가 정보 입력
     @PostMapping("/{potId}/start")
-    public String getPotStarted(@PathVariable("potId") Long potId, @Valid @ModelAttribute PotStartForm potStartForm, BindingResult bindingResult) {
+    public String getPotStarted(@PathVariable("potId") Long potId, @Valid @ModelAttribute PotStartForm potStartForm, BindingResult bindingResult, Model model, Authentication authentication) {
         if(bindingResult.hasErrors()){
-            return "/pot/"+potId;
+            model.addAttribute("pot", potService.getPot(authentication, potId));
+            return "pot/startPot";
         }
         potService.getPotStarted(potId, potStartForm);
-        return "redirect:/pot/potMain" + potId;  //시작한 팟의 메인 페이지로 가도록 수정 필요
+        return "redirect:/pot/" + potId +"/main";  //시작한 팟의 메인 페이지로 가도록 수정 필요
     }
 
+    @GetMapping("/{potId}/main")
+    public String potMain(@PathVariable Long potId, Authentication authentication, Model model){
+        PotInfoObject pot = potService.getPot(authentication, potId);
+        model.addAttribute("pot", pot);
+        return "/pot/potMain";
+    }
+
+    @GetMapping("/{potId}/chat")
+    public String potChat(@PathVariable Long potId, Authentication authentication, Model model){
+        PotInfoObject pot = potService.getPot(authentication, potId);
+        model.addAttribute("pot", pot);
+        return "/chat/chatMain";
+    }
 }

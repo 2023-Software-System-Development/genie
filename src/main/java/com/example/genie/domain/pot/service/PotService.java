@@ -10,6 +10,7 @@ import com.example.genie.domain.pot.repository.PotRepository;
 //import com.example.genie.domain.pot.repository.PotRepositoryCustom;
 import com.example.genie.domain.pot.repository.PotRepositoryCustom;
 import com.example.genie.domain.user.entity.User;
+import com.example.genie.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +30,7 @@ public class PotService {
 
     private final PotRepository potRepository;
     private final PotRepositoryCustom potRepositoryCustom;
-
+    private final UserRepository userRepository;
     private final UserUtils userUtils;
 
     public void createPot(Authentication authentication, PotCreateForm potCreateForm, BindingResult bindingResult) {
@@ -55,6 +57,7 @@ public class PotService {
         return PotMapper.toPotInfoObject(pot, isMaster);
     }
 
+    @Transactional
     public void getPotStarted(Long potId, PotStartForm potStartForm) {
         Pot pot = potRepository.findById(potId).orElseThrow(() -> new EntityNotFoundException("Pot not found"));
         pot.changeState();
