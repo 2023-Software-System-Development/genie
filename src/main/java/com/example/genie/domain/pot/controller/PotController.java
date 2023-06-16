@@ -100,11 +100,11 @@ public class PotController {
 
     //팟 수정 API (모집중)
     @PostMapping("/edit/recruiting")
-    public String editPot(@RequestParam("potId") Long potId, @Valid @ModelAttribute PotEditRecruitingForm potEditRecruitingForm, BindingResult bindingResult, SessionStatus sessionStatus) {
+    public String editPotRecruiting(@RequestParam("potId") Long potId, @Valid @ModelAttribute PotInfoObject potInfoObject, BindingResult bindingResult, SessionStatus sessionStatus) {
         if(bindingResult.hasErrors()){
             return "pot/editRecruiting";
         }
-        potService.editRecruitingPot(potId, potEditRecruitingForm);
+        potService.editRecruitingPot(potId, potInfoObject);
         sessionStatus.setComplete();
         return "redirect:/pot/" + potId;
 //        return "user/mypage";
@@ -112,11 +112,11 @@ public class PotController {
 
     //팟 수정 API (진행중)
     @PostMapping("/edit/ongoing")
-    public String editPot(@RequestParam("potId") Long potId, @Valid @ModelAttribute PotEditOngoingForm potEditOngoingForm, BindingResult bindingResult, SessionStatus sessionStatus) {
+    public String editPotOngoing(@RequestParam("potId") Long potId, @Valid @ModelAttribute PotInfoObject potInfoObject, BindingResult bindingResult, SessionStatus sessionStatus) {
         if(bindingResult.hasErrors()){
             return "pot/editOngoing";
         }
-        potService.editOngoingPot(potId, potEditOngoingForm);
+        potService.editOngoingPot(potId, potInfoObject);
         sessionStatus.setComplete();
         return "redirect:/pot/" + potId;
 //        return "user/mypage";
