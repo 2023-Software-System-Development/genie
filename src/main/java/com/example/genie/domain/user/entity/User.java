@@ -48,8 +48,6 @@ public class User extends BaseEntity {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.birth = birth;
-        this.accountNumber = accountNumber;
-        this.bankName = bankName;
         this.reliabilityScore = reliabilityScore;
         this.role = role;
     }
