@@ -88,6 +88,4 @@ public class ApplyService {
         }
         return userList;
     }
-
-
 }

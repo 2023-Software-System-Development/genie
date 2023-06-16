@@ -1,6 +1,8 @@
 package com.example.genie.domain.pot.service;
 
 import com.example.genie.common.util.UserUtils;
+import com.example.genie.domain.apply.entity.State;
+import com.example.genie.domain.apply.repository.ApplyRepository;
 import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.pot.form.*;
 import com.example.genie.domain.pot.mapper.PotMapper;
@@ -32,6 +34,7 @@ public class PotService {
     private final PotRepositoryCustom potRepositoryCustom;
     private final UserRepository userRepository;
     private final UserUtils userUtils;
+    private final ApplyRepository applyRepository;
 
     public void createPot(Authentication authentication, PotCreateForm potCreateForm, BindingResult bindingResult) {
         User user = userUtils.getUser(authentication);
@@ -62,6 +65,8 @@ public class PotService {
         Pot pot = potRepository.findById(potId).orElseThrow(() -> new EntityNotFoundException("Pot not found"));
         pot.changeState();
         pot.addAdditionalInfo(potStartForm);
+        applyRepository.deleteByStateAndPot_Id(State.REJECTED, potId);
+        applyRepository.deleteByStateAndPot_Id(State.APPLY, potId);
         potRepository.save(pot);
     }
 
