@@ -144,3 +144,15 @@
     border: #E69A9C solid 2px;
     padding: 80px;
 }
+.formOuterStyle{
+    margin: auto;
+    width: 1000px;
+    height: 700px;
+    padding: 40px;
+}
+.formStyle{
+    margin: auto;
+    border-radius:10px;
+    border: #E69A9C solid 2px;
+    padding: 80px;
+}

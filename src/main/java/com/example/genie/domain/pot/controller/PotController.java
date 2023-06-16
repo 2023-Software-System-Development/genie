@@ -1,5 +1,7 @@
 package com.example.genie.domain.pot.controller;
 
+import com.example.genie.domain.apply.entity.Apply;
+import com.example.genie.domain.apply.service.ApplyService;
 import com.example.genie.domain.pot.entity.State;
 import com.example.genie.domain.pot.form.*;
 import com.example.genie.domain.pot.model.PotInfoObject;
@@ -27,7 +29,7 @@ import java.util.List;
 public class PotController {
 
     private final PotService potService;
-
+    private final ApplyService applyService;
     @ModelAttribute
     public PotSearchForm potSearchForm(){
         return new PotSearchForm();
@@ -86,7 +88,13 @@ public class PotController {
     @GetMapping("/{potId}")
     public String getPot(Authentication authentication, @PathVariable Long potId, Model model){
         PotInfoObject potInfoObject = potService.getPot(authentication, potId);
+        Apply apply = applyService.getApply(potId, authentication);
         model.addAttribute("pot", potInfoObject);
+
+        if(apply != null){
+            model.addAttribute("state", apply.getState().toString());
+        }
+
         return "pot/potInfo";
     }
 
@@ -129,16 +137,21 @@ public class PotController {
     }
 
     //팟 시작 시, 추가 정보 입력 화면 호출 API
-    @GetMapping("/start")
-    public String getPotStartedForm() {
+    @GetMapping("/{potId}/start")
+    public String getPotStartedForm(@ModelAttribute PotStartForm potStartForm, @PathVariable Long potId, Authentication authentication, Model model) {
+        PotInfoObject pot = potService.getPot(authentication, potId);
+        model.addAttribute("pot", pot);
         return "pot/startPot";
     }
 
     //팟 시작 시, 추가 정보 입력
-    @PostMapping("/start")
-    public String getPotStarted(@RequestParam("potId") Long potId, @Valid @ModelAttribute PotStartForm potStartForm,BindingResult bindingResult) {
+    @PostMapping("/{potId}/start")
+    public String getPotStarted(@PathVariable("potId") Long potId, @Valid @ModelAttribute PotStartForm potStartForm, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "/pot/"+potId;
+        }
         potService.getPotStarted(potId, potStartForm);
-        return "redirect:/pot/" + potId;
+        return "redirect:/pot/" + potId;  //시작한 팟의 메인 페이지로 가도록 수정 필요
     }
 
 }
