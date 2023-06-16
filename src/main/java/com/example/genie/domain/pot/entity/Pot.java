@@ -16,6 +16,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,10 +50,13 @@ public class Pot extends BaseEntity {
 
     private String ottPw;
 
-    private LocalDateTime startDate;
+    private String startDate;
 
-    private LocalDateTime endDate;
+    private String endDate;
 
+    private String accountNumber;
+
+    private String bankName;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User master;
@@ -86,6 +90,9 @@ public class Pot extends BaseEntity {
         this.ottPw = potStartForm.getOttPw();
         this.startDate = potStartForm.getStartDate();
         this.endDate = potStartForm.getEndDate();
+        this.bankName = potStartForm.getBankName();
+        this.accountNumber = potStartForm.getAccountNumber();
+
     }
 
     public void changeState() {
@@ -94,7 +101,7 @@ public class Pot extends BaseEntity {
 
     @Builder
     public Pot(String potName, String ottType, Integer price, Integer recruit, Integer term, Integer remain, String ottId,
-               String ottPw, LocalDateTime startDate, LocalDateTime endDate, User master, State state) {
+               String ottPw, String startDate, String endDate, User master, State state) {
         this.potName = potName;
         this.ottType = ottType;
         this.price = price;

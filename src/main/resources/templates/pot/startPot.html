@@ -29,35 +29,50 @@
         <h2 th:text="${pot.potName}"/>
         <form name="potStartForm" th:action="@{/pot/{potId}/start(potId = ${pot.potId})}" th:object="${potStartForm}"
               method="post">
+            <p th:if="${#fields.hasErrors()}">error</p>
             <div>
                 <label for="ottId">OTT id</label>
                 <input type="text" id="ottId" name="ottId" th:field="*{ottId}" class="form-control">
-                <!--
-                    <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
-                -->
+
+                    <p th:if="${#fields.hasErrors('ottId')}" th:errorclass="error" th:errors="*{ottId}" />
+
             </div>
             <div>
                 <label for="ottPw">OTT pwd</label>
                 <input type="password" id="ottPw" name="ottPw" th:field="*{ottPw}" class="form-control">
-                <!--
-                    <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
-                -->
+                    <p th:if="${#fields.hasErrors('ottPw')}" th:errorclass="error" th:errors="*{ottPw}" />
             </div>
             <div>
                 <label for="startDate">시작일</label>
                 <input type="date" th:min="${#dates.format(#dates.createNow(),'YYYY-MM-dd')}" id="startDate"
                        name="startDate" th:field="*{startDate}" class="form-control" onchange="setDate()">
-                <!--
-                    <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
-                -->
+                    <p th:if="${#fields.hasErrors('startDate')}" th:errorclass="error" th:errors="*{startDate}" />
             </div>
             <div>
                 <label for="endDate">종료일</label>
                 <input type="date" id="endDate" name="endDate" th:field="*{endDate}" class="form-control"
                        readonly="true">
-                <!--
-                    <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
-                -->
+                    <p th:if="${#fields.hasErrors('endDate')}" th:errorclass="error" th:errors="*{endDate}" />
+
+            </div>
+            <div>
+                <label for="bankName">은행</label>
+                <select id="bankName"
+                       name="startDate" th:field="*{bankName}" class="form-select">
+                    <option value="신한">신한</option>
+                    <option value="신한">국민</option>
+                    <option value="신한">카카오뱅크</option>
+                    <option value="신한">토스뱅크</option>
+                    <option value="신한">기업</option>
+                    <option value="신한">농협</option>
+                    <option value="한국시티은행">한국시티은행</option>
+                </select>
+                <p th:if="${#fields.hasErrors('bankName')}" th:errorclass="error" th:errors="*{bankName}" />
+            </div>
+            <div>
+                <label for="accountNumber">계좌번호</label>
+                <input type="text" id="accountNumber" name="accountNumber" th:field="*{accountNumber}" class="form-control">
+                <p th:if="${#fields.hasErrors('accountNumber')}" th:errorclass="error" th:errors="*{accountNumber}" />
             </div>
             <div style="margin-top: 30px">
                 <button type="button" class="btn btn-secondary my-2 my-sm-0">취소</button>
