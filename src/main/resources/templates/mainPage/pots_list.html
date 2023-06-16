@@ -28,10 +28,25 @@
         .card:hover{
             border-width: thick;
         }
+
     </style>
     <script>
         function handleOuterClick(potId) {
             window.location.href = "/pot/" + potId;
+        }
+
+
+        function likePost(potId) {
+            // AJAX 요청을 사용하여 서버로 좋아요 상태 변경 요청 보내기
+            // ...
+
+            // 좋아요 상태에 따라 하트 아이콘 업데이트
+            var heartIcon = document.querySelector("#post-" + potId + " .heart-icon");
+            if (heartIcon.src.endsWith("empty.png")) {
+            heartIcon.src = "/image/like/full.png";
+            } else {
+                heartIcon.src = "/image/like/empty.png";
+            }
         }
     </script>
 
@@ -48,7 +63,11 @@
         <div class="row-md-4" th:onclick="'handleOuterClick(\'' + ${pot.potId} + '\')'" >
             <div class="card-header" th:text="${pot.potName}"></div>
             <div class="card-header" th:text="${pot.ottType}"></div>
+
             <div class="card-body">
+                <a href="#" th:onclick="'likePost(\'' + ${pot.potId} + '\')" class="like-button">
+                    <img th:src="@{/image/like/empty.png}" class="heart-icon">
+                </a>
                 <p class="card-title" th:text="'모집인원 : ' + ${pot.recruit}"></p>
                 <p class="card-title" th:text="'현재인원 : ' + (${pot.recruit} - ${pot.remain})"></p>
                 <p class="card-title" th:text="'기간 : ' + ${pot.term}"></p>

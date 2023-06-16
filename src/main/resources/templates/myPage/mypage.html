@@ -25,13 +25,13 @@
     .small-text {
       font-size: 12px;
     }
-
+/*
     tr:nth-child(even) {
       background-color: #ffffff;
     }
     tr:nth-child(odd) {
       background-color: #F2F2F2;
-    }
+    }*/
 
 
     /* 마이페이지 미니 테이블 스타일 */
@@ -73,9 +73,9 @@
   </style>
 </head>
 <body>
+<div th:include="/mainPage/navigator.html"></div>
 <div th:fragment="content" th:remove="tag">
-  <div th:include="/mainPage/navigator.html"></div>
-  <table clas="table2" style="width:100%;">
+  <table class="table2" style="width:100%;">
     <tr>
       <td style="width:30%;">
         <!-- 왼쪽 테이블: mypage_mini.html -->

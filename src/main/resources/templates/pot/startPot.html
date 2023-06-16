@@ -59,6 +59,14 @@
                     <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
                 -->
             </div>
+            <div>
+                <label for="endDate">계좌번호</label>
+                <input type="date" id="endDate" name="endDate" th:text="${pot.recruit}" class="form-control"
+                       readonly="true">
+                <!--
+                    <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
+                -->
+            </div>
             <div style="margin-top: 30px">
                 <button type="button" class="btn btn-secondary my-2 my-sm-0">취소</button>
                 <button type="submit" class="btn btn-secondary my-2 my-sm-0">팟 시작하기</button>
