@@ -62,6 +62,8 @@
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
+<div class="formOuterStyle">
+<div class="formStyle">
 <form action="@{/pot}" th:action th:object="${potCreateForm}" method="post">
   <div>
     <label for="potName">팟 이름</label>
@@ -106,7 +108,7 @@
     </div>
     </label>
   </div>
-  <div>
+  <div style="margin-bottom: 20px;">
     <label for="recruit" class="mt-4">모집 인원</label>
     <div id="recruit">
       <!--<input type="radio" name="recruit" value="1" th:field="*{recruit}"> 1
@@ -116,9 +118,11 @@
       <p th:if="${#fields.hasErrors('recruit')}" th:errorclass="error" th:errors="*{recruit}" />
   -->
   </div>
-  <div>
+  <div style="margin-bottom: 20px;">
     <label for="price">가격</label>
-    <input type="text" id="price" name="price" readonly>
+    <div style="display: flex; align-items: center;">
+      <input type="text" id="price" name="price" readonly>
+    </div>
     <!--
       <input type="text" id="price" name="price" th:field="*{price}" class="form-control" placeholder="가격을 입력하세요">
 
@@ -126,10 +130,12 @@
     -->
 
   </div>
-  <div>
+  <div style="margin-bottom: 40px;">
     <label for="term">사용기간</label>
-    <input type="text" id="term" name="term" th:field="*{term}" class="form-control">개월
-    <!--
+    <div style="display: flex; align-items: center;">
+      <input type="text" id="term" name="term" th:field="*{term}" class="form-control" style="width: 70%;">
+      <span style="margin-left: 5px;">개월</span>
+    </div>    <!--
         <p th:if="${#fields.hasErrors('term')}" th:errorclass="error" th:errors="*{term}" />
     -->
   </div>
@@ -138,5 +144,7 @@
     <button type="submit" class="btn btn-secondary my-2 my-sm-0">팟 생성하기</button>
   </div>
 </form>
+</div>
+</div>
 </body>
 </html>
