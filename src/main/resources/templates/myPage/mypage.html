@@ -62,7 +62,7 @@
     /* myPage_info 위치 조정 */
     .mypage-info-container {
       margin: 150px auto 0;
-      width: 80%;
+      width: 140%;
     }
 
     /* myPage_info 테이블 크기 조정 */
@@ -77,11 +77,11 @@
   <div th:include="/mainPage/navigator.html"></div>
   <table clas="table2" style="width:100%;">
     <tr>
-      <td style="width:20%;">
+      <td style="width:30%;">
         <!-- 왼쪽 테이블: mypage_mini.html -->
         <div th:include="/myPage/mypage_mini.html"></div>
       </td>
-      <td style="width:80%;">
+      <td style="width:70%;">
         <!-- 오른쪽 테이블: mypage_info.html -->
         <div class="mypage-info-container">
           <div th:include="/myPage/mypage_info.html"></div>
