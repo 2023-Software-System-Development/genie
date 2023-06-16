@@ -23,6 +23,9 @@
         function redirectToStart(potId) {
             window.location.href = "/pot/" + potId + "/start";
         }
+        function redirectToMain(potId) {
+            window.location.href = "/pot/" + potId + "/main";
+        }
     </script>
 </head>
 <body>
@@ -122,9 +125,14 @@
             </td>
         </th:block>
     </tr>
-    <tr th:if="${pot.isMaster && pot.remain == 0}">
+    <tr th:if="${pot.isMaster && pot.remain == 0 && !isOngoing}">
         <td>
             <button th:onclick="'redirectToStart('+${pot.potId}+')'" type="button" class="btn btn-primary">시작하기</button>
+        </td>
+    </tr>
+    <tr th:if="${isOngoing}">
+        <td>
+            <button th:onclick="'redirectToMain('+${pot.potId}+')'" type="button" class="btn btn-primary">입장하기</button>
         </td>
     </tr>
 </table>
