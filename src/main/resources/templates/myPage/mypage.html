@@ -75,15 +75,13 @@
 <div th:fragment="content" th:remove="tag">
   <table class="table2" style="width:100%;">
     <tr>
-      <td style="width:30%;">
+      <td style="width:25%;">
         <!-- 왼쪽 테이블: mypage_mini.html -->
-        <div th:include="/myPage/mypage_mini.html"></div>
+        <div style="width:70%; height:100%; margin-left:auto; margin-right:auto;" th:include="/myPage/mypage_mini.html"></div>
       </td>
-      <td style="width:70%;">
+      <td style="width:75%;">
         <!-- 오른쪽 테이블: mypage_info.html -->
-        <div class="mypage-info-container">
-          <div th:include="/myPage/mypage_info.html"></div>
-        </div>
+        <div th:include="/myPage/mypage_info.html"></div>
       </td>
     </tr>
   </table>
