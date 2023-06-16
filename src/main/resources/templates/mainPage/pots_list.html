@@ -12,23 +12,21 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
     <style>
-
         .outer {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px; /* 여백 추가 */
-            justify-content: center; /* 가로 중앙 정렬 */
-            align-items: center; /* 세로 중앙 정렬 */
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
         }
 
         .card {
             flex-basis: 33.33%;
             box-sizing: border-box;
         }
-        .card:hover{
+        .card:hover {
             border-width: thick;
         }
-
     </style>
     <script>
         function handleOuterClick(potId) {
