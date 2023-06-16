@@ -6,6 +6,7 @@ import com.example.genie.domain.interest.entity.Interest;
 import com.example.genie.domain.pot.form.PotEditOngoingForm;
 import com.example.genie.domain.pot.form.PotEditRecruitingForm;
 import com.example.genie.domain.pot.form.PotStartForm;
+import com.example.genie.domain.pot.model.PotInfoObject;
 import com.example.genie.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -65,19 +66,19 @@ public class Pot extends BaseEntity {
     @OneToMany(mappedBy = "pot", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Interest> interests = new ArrayList<>();
 
-    public void updateRecruiting(PotEditRecruitingForm potEditRecruitingForm) {
-        this.potName = potEditRecruitingForm.getPotName();
-        this.ottType = potEditRecruitingForm.getOttType();
-        this.price = potEditRecruitingForm.getPrice();
-        this.recruit = potEditRecruitingForm.getRecruit();
-        this.term = potEditRecruitingForm.getTerm();
+    public void updateRecruiting(PotInfoObject potInfoObject) {
+        this.potName = potInfoObject.getPotName();
+        this.ottType = potInfoObject.getOttType();
+        this.price = potInfoObject.getPrice();
+        this.recruit = potInfoObject.getRecruit();
+        this.term = potInfoObject.getTerm();
     }
 
-    public void updateOngoing(PotEditOngoingForm potEditOngoingFormForm) {
-        this.ottId = potEditOngoingFormForm.getOttId();
-        this.ottPw = potEditOngoingFormForm.getOttPw();
-        this.startDate = potEditOngoingFormForm.getStartDate();
-        this.endDate = potEditOngoingFormForm.getEndDate();
+    public void updateOngoing(PotInfoObject potInfoObject) {
+        this.ottId = potInfoObject.getOttId();
+        this.ottPw = potInfoObject.getOttPw();
+        this.startDate = potInfoObject.getStartDate();
+        this.endDate = potInfoObject.getEndDate();
     }
 
     public void addAdditionalInfo(PotStartForm potStartForm) {

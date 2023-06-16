@@ -2,6 +2,7 @@ package com.example.genie.domain.pot.repository;
 
 import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.pot.entity.QPot;
+import com.example.genie.domain.pot.entity.State;
 import com.example.genie.domain.pot.form.PotSearchForm;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -28,7 +29,7 @@ public class PotRepositoryImpl implements PotRepositoryCustom {
                 .select(QPot.pot).distinct()
                 .from(QPot.pot)
                 .where(containWordInPot(potSearchForm.getSearchType(), potSearchForm.getSearchText()),
-                        getOttType(potSearchForm.getOttType()))
+                        getOttType(potSearchForm.getOttType()),  QPot.pot.state.eq(State.RECRUITING))
                 .orderBy(QPot.pot.createdDate.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize() + 1)

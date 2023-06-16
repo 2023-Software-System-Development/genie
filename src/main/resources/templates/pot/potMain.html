@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/_variables.css">
+    <link rel="stylesheet" type="text/css" href="/css/_bootswatch.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script>
+        function redirectToEdit(potId) {
+            window.location.href = "/pot/edit/" + potId;
+        }
+        function redirectToDelete(potId) {
+            window.location.href = "/pot/delete?potId=" + potId;
+        }
+        function redirectToApply(potId) {
+            window.location.href = "/pot/apply?potId=" + potId;
+        }
+        function redirectToStart(potId) {
+            window.location.href = "/pot/" + potId + "/start";
+        }
+    </script>
+</head>
+<body>
+<!--<th:block th:if="${param.applySuccess}">
+    <script>
+        top.alert("가입 신청이 완료되었습니다.");
+    </script>
+</th:block>-->
+<div th:include="/mainPage/navigator.html"></div>
+<div th:label="pot" class="outer">
+    &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+    <table class="table table-hover" style="width: 70%; margin: auto; text-align: center;">
+        <tr class="table-primary">
+            <th colspan="2" scope="row">
+                팟 상세정보
+            </th>
+        </tr>
+        <tr>
+            <th scope="row">
+                팟 이름
+            </th>
+            <td th:text="${pot.potName}"></td>
+        </tr>
+        <tr>
+            <th scope="row">
+                OTT 종류
+            </th>
+            <td th:text="${pot.ottType}"></td>
+        </tr>
+        <tr>
+            <th scope="row">
+                가격
+            </th>
+            <td th:text="${pot.price}"></td>
+        </tr>
+        <tr>
+            <th scope="row">
+                모집인원
+            </th>
+            <td th:text="${pot.recruit}"></td>
+        </tr>
+        <tr>
+            <th scope="row">
+                시작일
+            </th>
+            <td th:text="${pot.startDate}"></td>
+        </tr>
+        <tr>
+            <th scope="row">
+                종료일
+            </th>
+            <td th:text="${pot.endDate}"></td>
+        </tr>
+        <tr>
+            <th scope="row">
+                OTT id
+            </th>
+            <td th:text="${pot.ottId}"></td>
+        </tr>
+        <tr>
+            <th scope="row">
+                OTT pwd
+            </th>
+            <td th:text="${pot.ottPw}"></td>
+        </tr>
+        <tr>
+            <th scope="row">
+                팟장 이름
+            </th>
+            <td th:text="${pot.masterName}"></td>
+        </tr>
+    </table>
+</div>
+<!--<tbody>
+<tr th:each="pot : ${potList}">
+    <td th:text="${pot.potName}"></td>
+    <td th:text="${pot.ottType}"></td>
+    <td th:text="${pot.price}"></td>
+    <td th:text="${pot.recruit}"></td>
+    <td th:text="${pot.remain}"></td>
+    <td th:text="${pot.term}"></td>
+    <td th:text="${pot.ottId}"></td>
+    <td th:text="${pot.ottPw}"></td>
+    <td th:text="${pot.startDate}"></td>
+    <td th:text="${pot.endDate}"></td>
+    <td th:text="${pot.masterName}"></td>
+</tr>
+</tbody>-->
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+<table style="margin:auto; text-align:center; width: 70%">
+    <tr th:if="${pot.isMaster}">
+        <td> <!--EditOngoing으로 가도록-->
+            <button th:onclick="'redirectToEdit(' + ${pot.potId} + ')'" type="button" class="btn btn-primary">수정하기</button>
+            <!-- <form action="/pot/delete" method="post" style="display: inline; margin:auto;">
+                <input type="hidden" name="potId" th:value="${pot.potId}" />
+                <button type="submit" class="btn btn-primary">삭제하기</button>
+            </form>-->
+            <!--<form action="/pot/apply/users" style="display: inline;">
+                <input type="hidden" name="potId" th:value="${pot.potId}" />
+                <button type="submit" class="btn btn-primary">신청 리스트 보기</button>
+            </form>-->
+        </td>
+    </tr>
+    <tr>
+        <td> <!--채팅하기로 가도록-->
+            <button th:onclick="'redirectToEdit(' + ${pot.potId} + ')'" type="button" class="btn btn-primary">채팅하기</button>
+            <!-- <form action="/pot/delete" method="post" style="display: inline; margin:auto;">
+                <input type="hidden" name="potId" th:value="${pot.potId}" />
+                <button type="submit" class="btn btn-primary">삭제하기</button>
+            </form>-->
+            <!--<form action="/pot/apply/users" style="display: inline;">
+                <input type="hidden" name="potId" th:value="${pot.potId}" />
+                <button type="submit" class="btn btn-primary">신청 리스트 보기</button>
+            </form>-->
+        </td>
+    </tr>
+    <!--<tr th:if="${!pot.isMaster}">
+        <td th:if="${state == null}"> &lt;!&ndash;아직 신청 안 했으면&ndash;&gt;
+            <button th:onclick="'redirectToApply('+${pot.potId}+')'" type="button" class="btn btn-primary">신청하기</button>
+        </td>
+    </tr>
+    <tr th:if="${pot.isMaster && pot.remain == 0}">
+        <td>
+            <button th:onclick="'redirectToStart('+${pot.potId}+')'" type="button" class="btn btn-primary">시작하기</button>
+        </td>
+    </tr>-->
+</table>
+</body>
+</html>
