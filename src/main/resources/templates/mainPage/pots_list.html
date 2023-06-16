@@ -36,9 +36,9 @@
         }
 
 
-        function toggleHeart(buttonId) {
-            var likeButton = document.getElementById(buttonId);
-            if (likeButton.src.endsWith("empty.png")) {
+        function toggleHeart(potId) {
+            var likeButton = document.getElementById("like-button-" + potId);
+            if (likeButton === null) {
                 likeButton.src = "/image/like/full.png";
             } else {
                 likeButton.src = "/image/like/empty.png";
@@ -57,7 +57,7 @@
 <div th:label="potList" class="outer">
     <div th:each="pot, stat : ${potList}" class="card border-primary mb-3" style="max-width: 20rem;">
         <div>
-            <a href="#" th:onclick="toggleHeart('like-button-${pot.potId}')" style="text-decoration: none;">
+            <a href="#" th:onclick="'toggleHeart(\'' + ${pot.potId} + '\')'" style="text-decoration: none;">
                 <img id="like-button-${pot.potId}" src="/image/like/empty.png" style="width: 20px; height: 20px;">
             </a>
         </div>
