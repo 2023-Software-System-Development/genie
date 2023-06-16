@@ -1,10 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/_variables.css">
+  <link rel="stylesheet" type="text/css" href="/css/_bootswatch.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
+  <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+  <style>
+
+    .outer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px; /* 여백 추가 */
+      justify-content: center; /* 가로 중앙 정렬 */
+      align-items: center; /* 세로 중앙 정렬 */
+    }
+
+    .card {
+      flex-basis: 33.33%;
+      box-sizing: border-box;
+    }
+    .card:hover{
+      border-width: thick;
+    }
+
+  </style>
+  <script>
+    function handleOuterClick(potId) {
+      window.location.href = "/pot/" + potId;
+    }
+
+
+    function toggleHeart(buttonId) {
+      var likeButton = document.getElementById(buttonId);
+      if (likeButton.src.endsWith("empty.png")) {
+        likeButton.src = "/image/like/full.png";
+      } else {
+        likeButton.src = "/image/like/empty.png";
+      }
+    }
+  </script>
+
 </head>
 <body>
+<th:block th:if="${potSearchForm.searchText!=null}">
+  <div style="text-align:center"><h3 th:text="${potSearchForm.searchText}+' 검색 결과입니다.'"/></div>
+</th:block>
+<th:block th:if="${potList.getSize()==0 || potList == null}">
+  <div style="text-align:center"><h3>검색 결과가 없습니다.</h3></div>
+</th:block>
+<div th:label="potList" class="outer">
+  <div th:each="pot, stat : ${potList}" class="card border-primary mb-3" style="max-width: 20rem;">
+    <div>
+      <a href="#" th:onclick="toggleHeart('like-button-${pot.potId}')" style="text-decoration: none;">
+        <img id="like-button-${pot.potId}" src="/image/like/empty.png" style="width: 20px; height: 20px;">
+      </a>
+    </div>
+    <div class="row-md-4" th:onclick="'handleOuterClick(\'' + ${pot.potId} + '\')'" >
+      <div class="card-header" th:text="${pot.potName}"></div>
+      <div class="card-header" th:text="${pot.ottType}"></div>
 
+      <div class="card-body">
+        <p class="card-title" th:text="'모집인원 : ' + ${pot.recruit}"></p>
+        <p class="card-title" th:text="'현재인원 : ' + (${pot.recruit} - ${pot.remain})"></p>
+        <p class="card-title" th:text="'기간 : ' + ${pot.term}"></p>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
