@@ -4,7 +4,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.core.parameters.P;
+
+import java.util.List;
 
 public interface PotRepository extends JpaRepository<Pot, Long> {
 
+    public List<Pot> findByMasterId(Long userId);
 }
