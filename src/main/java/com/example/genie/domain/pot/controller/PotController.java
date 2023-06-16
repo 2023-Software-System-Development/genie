@@ -1,7 +1,7 @@
 package com.example.genie.domain.pot.controller;
 
 import com.example.genie.domain.apply.entity.Apply;
-import com.example.genie.domain.apply.service.ApplyService;
+
 import com.example.genie.domain.pot.entity.State;
 import com.example.genie.domain.pot.form.*;
 import com.example.genie.domain.pot.model.PotInfoObject;
@@ -29,7 +29,7 @@ import java.util.List;
 public class PotController {
 
     private final PotService potService;
-    private final ApplyService applyService;
+
     @ModelAttribute
     public PotSearchForm potSearchForm(){
         return new PotSearchForm();
@@ -88,12 +88,8 @@ public class PotController {
     @GetMapping("/{potId}")
     public String getPot(Authentication authentication, @PathVariable Long potId, Model model){
         PotInfoObject potInfoObject = potService.getPot(authentication, potId);
-        Apply apply = applyService.getApply(potId, authentication);
         model.addAttribute("pot", potInfoObject);
 
-        if(apply != null){
-            model.addAttribute("state", apply.getState().toString());
-        }
 
         return "pot/potInfo";
     }
