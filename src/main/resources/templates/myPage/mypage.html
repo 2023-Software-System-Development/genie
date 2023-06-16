@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
@@ -60,6 +59,17 @@
 
     /* 추가 스타일 */
 
+    /* myPage_info 위치 조정 */
+    .mypage-info-container {
+      margin: 150px auto 0;
+      width: 80%;
+    }
+
+    /* myPage_info 테이블 크기 조정 */
+    .mypage-info-container table {
+      width: 100%;
+    }
+
   </style>
 </head>
 <body>
@@ -73,7 +83,9 @@
       </td>
       <td style="width:80%;">
         <!-- 오른쪽 테이블: mypage_info.html -->
-        <div th:include="/myPage/mypage_info.html"></div>
+        <div class="mypage-info-container">
+          <div th:include="/myPage/mypage_info.html"></div>
+        </div>
       </td>
     </tr>
   </table>
