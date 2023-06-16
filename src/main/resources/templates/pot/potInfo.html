@@ -60,9 +60,9 @@
         </tr>
         <tr>
             <th scope="row">
-                남은 인원
+                현재인원
             </th>
-            <td th:text="${pot.remain}"></td>
+            <td th:text="(${pot.recruit} - ${pot.remain})"></td>
         </tr>
         <tr>
             <th scope="row">
