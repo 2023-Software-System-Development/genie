@@ -18,28 +18,28 @@
 <form action="@{/edit}" th:action th:object="${PotEditOngoingForm}" method="post">
   <div>
     <label for="ottId">OTT id</label>
-    <input type="text" id="ottId" name="ottId" th:field="*{ottId}" class="form-control" th:value="ottId">
+    <input type="text" id="ottId" name="ottId" th:field="*{ottId}" class="form-control">
     <!--
         <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
     -->
   </div>
   <div>
     <label for="ottPw">OTT pwd</label>
-    <input type="password" id="ottPw" name="ottPw" th:field="*{ottPw}" class="form-control" th:value="ottPw">
+    <input type="password" id="ottPw" name="ottPw" th:field="*{ottPw}" class="form-control">
     <!--
         <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
     -->
   </div>
   <div>
     <label for="startDate">시작일</label>
-    <input type="text" id="startDate" name="startDate" th:field="*{startDate}" class="form-control" th:value="startDate">
+    <input type="text" id="startDate" name="startDate" th:field="*{startDate}" class="form-control">
     <!--
         <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
     -->
   </div>
   <div>
     <label for="endDate">종료일</label>
-    <input type="text" id="endDate" name="endDate" th:field="*{endDate}" class="form-control" th:value="endDate">
+    <input type="text" id="endDate" name="endDate" th:field="*{endDate}" class="form-control">
     <!--
         <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
     -->
