@@ -35,17 +35,15 @@
             window.location.href = "/pot/" + potId;
         }
 
-
-        function toggleHeart(potId) {
-            var likeButton = document.getElementById("like-button-" + potId);
-            if (likeButton === null) {
-                likeButton.src = "/image/like/full.png";
+        function toggleLikeImage(image) {
+            if (image.src.endsWith('empty.png')) {
+                image.src = '/image/like/full.png';
             } else {
-                likeButton.src = "/image/like/empty.png";
+                image.src = '/image/like/empty.png';
             }
         }
-    </script>
 
+    </script>
 </head>
 <body>
 <th:block th:if="${potSearchForm.searchText!=null}">
@@ -56,11 +54,7 @@
 </th:block>
 <div th:label="potList" class="outer">
     <div th:each="pot, stat : ${potList}" class="card border-primary mb-3" style="max-width: 20rem;">
-        <div>
-            <a href="#" th:onclick="'toggleHeart(\'' + ${pot.potId} + '\')'" style="text-decoration: none;">
-                <img id="like-button-${pot.potId}" src="/image/like/empty.png" style="width: 20px; height: 20px;">
-            </a>
-        </div>
+        <img id="likeImage" src="/image/like/empty.png" onclick="toggleLikeImage(this)" style="width: 20px; height: 20px; margin-left: auto;">
         <div class="row-md-4" th:onclick="'handleOuterClick(\'' + ${pot.potId} + '\')'" >
             <div class="card-header" th:text="${pot.potName}"></div>
             <div class="card-header" th:text="${pot.ottType}"></div>
