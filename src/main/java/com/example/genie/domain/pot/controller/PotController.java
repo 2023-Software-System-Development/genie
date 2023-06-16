@@ -67,7 +67,7 @@ public class PotController {
     public String deletePot(@RequestParam("potId") Long potId, SessionStatus sessionStatus) {
         potService.deletePot(potId);
         sessionStatus.setComplete();
-        return "user/myPage";
+        return "redirect:/";
     }
 
     //메인페이지에서 보일 팟 리스트 조회 API
@@ -93,8 +93,10 @@ public class PotController {
     public String getPot(Authentication authentication, @PathVariable Long potId, Model model){
         PotInfoObject potInfoObject = potService.getPot(authentication, potId);
         Apply apply = applyService.getApply(potId, authentication);
+        Boolean isOngoing;
         model.addAttribute("pot", potInfoObject);
-
+        isOngoing = (potInfoObject.getStartDate() != null) ? true : false;
+        model.addAttribute("isOngoing", isOngoing);
         if(apply != null){
             model.addAttribute("state", apply.getState().toString());
         }
