@@ -41,13 +41,6 @@ public class PotService {
         potRepository.deleteById(potId);
     }
 
-    public Page<PotObject> getPotList(String ottType, Pageable pageable) {
-        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-        pageable = PageRequest.of(page, 6); // <- Sort 추가
-        Page<Pot> pots = potRepository.findListByOttType(ottType, pageable);
-        return pots.map(PotMapper::toPotObject);
-    }
-
     public Page<PotObject> getPotListBySearch(PotSearchForm potSearchForm, Pageable pageable) {
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
         pageable = PageRequest.of(page, 6); // <- Sort 추가
