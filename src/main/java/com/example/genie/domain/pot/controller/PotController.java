@@ -166,6 +166,6 @@ public class PotController {
     public String potChat(@PathVariable Long potId, Authentication authentication, Model model){
         PotInfoObject pot = potService.getPot(authentication, potId);
         model.addAttribute("pot", pot);
-        return "/chat/chatMain";
+        return "chat/chatMain";
     }
 }
