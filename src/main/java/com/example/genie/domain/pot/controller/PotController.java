@@ -151,7 +151,7 @@ public class PotController {
             return "/pot/"+potId;
         }
         potService.getPotStarted(potId, potStartForm);
-        return "redirect:/pot/" + potId;  //시작한 팟의 메인 페이지로 가도록 수정 필요
+        return "redirect:/pot/potMain" + potId;  //시작한 팟의 메인 페이지로 가도록 수정 필요
     }
 
 }
