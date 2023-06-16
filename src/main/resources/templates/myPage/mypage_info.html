@@ -21,12 +21,6 @@
         .small-text {
             font-size: 12px;
         }
-        tr:nth-child(even) {
-            background-color: #F2F2F2;
-        }
-        tr:nth-child(odd) {
-            background-color: #F2F2F2;
-        }
 
         /* 테이블 1 스타일 */
         .table1 {
@@ -35,7 +29,7 @@
             width: 50%; /* 테이블 크기 조정 */
         }
         .table2 {
-            background-color: #F2F2F2;
+            background-color: #D4D3D3;
             width: 50%; /* 테이블 크기 조정 */
 
         }
@@ -48,55 +42,53 @@
     </style>
 </head>
 <body>
-<div th:fragment="content" th:remove="tag">
-    <table style="width:50%; border: 1px solid #FFFFFF;">
-        <tr>
-            <td style="width:50%;">
-                <!-- 테이블 2 -->
-                <table class="table2">
-                    <tr>
-                        <th style="width:50%" >아이디</th>
-                    </tr>
-                    <tr>
-                        <th style="width:50%">이름</th>
-                    </tr>
-                    <tr>
-                        <th style="width:50%">닉네임</th>
-                    </tr>
-                    <tr>
-                        <th style="width:50%">생년월일</th>
-                    </tr>
-                    <tr>
-                        <th style="width:50%">성별</th></tr>
-                    <tr>
-                        <th style="width:50%">전화번호</th>
-                    </tr>
-                    <tr>
-                        <th style="width:50%">이메일 주소</th>
-                    </tr>
-                    <tr>
-                        <th style="width:50%">계좌 정보</th>
-                    </tr>
-                </table>
-            </td>
+<table style="width:60%; border: 1px solid #FFFFFF;">
+    <tr>
+        <td style="width:50%;">
+            <!-- 테이블 2 -->
+            <table class="table2">
+                <tr>
+                    <th style="width:50%" >아이디</th>
+                </tr>
+                <tr>
+                    <th style="width:50%">이름</th>
+                </tr>
+                <tr>
+                    <th style="width:50%">닉네임</th>
+                </tr>
+                <tr>
+                    <th style="width:50%">생년월일</th>
+                </tr>
+                <tr>
+                    <th style="width:50%">성별</th></tr>
+                <tr>
+                    <th style="width:50%">전화번호</th>
+                </tr>
+                <tr>
+                    <th style="width:50%">이메일 주소</th>
+                </tr>
+                <tr>
+                    <th style="width:50%">계좌 정보</th>
+                </tr>
+            </table>
+        </td>
 
-            <td style="width:50%;vertical-align: top;">
-                <!-- 테이블 1 -->
-                <table class="table1">
-                    <tr>
-                        <th style="width:50%">신뢰도 : </th>
-                    </tr>
-                    <tr>
-                        <th style="width:50%" class="small-text">회원가입 : </th>
-                        <th style="width:50%" class="small-text"> + 50</th>
-                    </tr>
-                    <tr>
-                        <th style="width:50%" class="small-text">넷플릭스 6개월 : </th>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-</div>
+        <td style="width:50%;vertical-align: top;">
+            <!-- 테이블 1 -->
+            <table class="table1">
+                <tr>
+                    <th style="width:50%">신뢰도 : </th>
+                </tr>
+                <tr>
+                    <th style="width:50%" class="small-text">회원가입 : </th>
+                    <th style="width:50%" class="small-text"> + 50</th>
+                </tr>
+                <tr>
+                    <th style="width:50%" class="small-text">넷플릭스 6개월 : </th>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
 </body>
 </html>
