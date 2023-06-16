@@ -29,7 +29,7 @@
             <th scope="row" th:text="${user.userNickName}"/>
             <td th:text="${user.reliabilityScore}"/>
             <td>
-                <form name="approve" action="/pot/apply/approve" method="post">
+                <form name="approve" id="approve" action="/pot/apply/approve" method="post">
                     <input type="hidden" name="userId" th:value="${user.id}">
                     <input type="hidden" name="potId" th:value="${pot.id}">
                     <input type="hidden" name="state" value="1">
@@ -79,7 +79,7 @@
                     <p>정말 승인하시겠습니까?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="document.approve.submit()">확인</button>
+                    <button type="button" class="btn btn-primary" onclick="document.getElementById('approve').submit()">확인</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModal()">취소</button>
                 </div>
             </div>

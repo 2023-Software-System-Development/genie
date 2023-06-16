@@ -33,8 +33,6 @@ public class User extends BaseEntity {
     private String phoneNumber;
     private String email;
     private LocalDateTime birth;
-    private String accountNumber;
-    private String bankName;
     private Role role;
     Integer reliabilityScore;
 
