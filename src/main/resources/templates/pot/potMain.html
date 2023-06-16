@@ -11,8 +11,8 @@
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script>
-        function redirectToEdit(potId) {
-            window.location.href = "/pot/edit/" + potId;
+        function redirectToChat(potId) {
+            window.location.href = "/pot/" + potId +"/chat";
         }
         function redirectToDelete(potId) {
             window.location.href = "/pot/delete?potId=" + potId;
@@ -26,11 +26,6 @@
     </script>
 </head>
 <body>
-<!--<th:block th:if="${param.applySuccess}">
-    <script>
-        top.alert("가입 신청이 완료되었습니다.");
-    </script>
-</th:block>-->
 <div th:include="/mainPage/navigator.html"></div>
 <div th:label="pot" class="outer">
     &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
@@ -96,59 +91,18 @@
         </tr>
     </table>
 </div>
-<!--<tbody>
-<tr th:each="pot : ${potList}">
-    <td th:text="${pot.potName}"></td>
-    <td th:text="${pot.ottType}"></td>
-    <td th:text="${pot.price}"></td>
-    <td th:text="${pot.recruit}"></td>
-    <td th:text="${pot.remain}"></td>
-    <td th:text="${pot.term}"></td>
-    <td th:text="${pot.ottId}"></td>
-    <td th:text="${pot.ottPw}"></td>
-    <td th:text="${pot.startDate}"></td>
-    <td th:text="${pot.endDate}"></td>
-    <td th:text="${pot.masterName}"></td>
-</tr>
-</tbody>-->
 &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
 <table style="margin:auto; text-align:center; width: 70%">
     <tr th:if="${pot.isMaster}">
-        <td> <!--EditOngoing으로 가도록-->
+        <td>
             <button th:onclick="'redirectToEdit(' + ${pot.potId} + ')'" type="button" class="btn btn-primary">수정하기</button>
-            <!-- <form action="/pot/delete" method="post" style="display: inline; margin:auto;">
-                <input type="hidden" name="potId" th:value="${pot.potId}" />
-                <button type="submit" class="btn btn-primary">삭제하기</button>
-            </form>-->
-            <!--<form action="/pot/apply/users" style="display: inline;">
-                <input type="hidden" name="potId" th:value="${pot.potId}" />
-                <button type="submit" class="btn btn-primary">신청 리스트 보기</button>
-            </form>-->
         </td>
     </tr>
     <tr>
-        <td> <!--채팅하기로 가도록-->
-            <button th:onclick="'redirectToEdit(' + ${pot.potId} + ')'" type="button" class="btn btn-primary">채팅하기</button>
-            <!-- <form action="/pot/delete" method="post" style="display: inline; margin:auto;">
-                <input type="hidden" name="potId" th:value="${pot.potId}" />
-                <button type="submit" class="btn btn-primary">삭제하기</button>
-            </form>-->
-            <!--<form action="/pot/apply/users" style="display: inline;">
-                <input type="hidden" name="potId" th:value="${pot.potId}" />
-                <button type="submit" class="btn btn-primary">신청 리스트 보기</button>
-            </form>-->
-        </td>
-    </tr>
-    <!--<tr th:if="${!pot.isMaster}">
-        <td th:if="${state == null}"> &lt;!&ndash;아직 신청 안 했으면&ndash;&gt;
-            <button th:onclick="'redirectToApply('+${pot.potId}+')'" type="button" class="btn btn-primary">신청하기</button>
-        </td>
-    </tr>
-    <tr th:if="${pot.isMaster && pot.remain == 0}">
         <td>
-            <button th:onclick="'redirectToStart('+${pot.potId}+')'" type="button" class="btn btn-primary">시작하기</button>
+            <button th:onclick="'redirectToChat(' + ${pot.potId} + ')'" type="button" class="btn btn-primary">채팅하기</button>
         </td>
-    </tr>-->
+    </tr>
 </table>
 </body>
 </html>
