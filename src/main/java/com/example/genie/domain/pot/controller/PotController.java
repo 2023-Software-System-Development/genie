@@ -73,13 +73,17 @@ public class PotController {
     //메인페이지에서 보일 팟 리스트 조회 API
     @RequestMapping("/list")
     public String getPotList(@RequestParam(value = "ottType", required = false) String ottType, @ModelAttribute PotSearchForm potSearchForm, @PageableDefault(page = 0, size = 6) Pageable pageable,
-                             Model model) {
+                             Model model, Authentication authentication) {
         if(ottType != null){//만약 네비게이션에서 오티티 타입 클릭하면 potSearchForm 초기화
             potSearchForm.setOttType(ottType);
             potSearchForm.setSearchText(null);
             potSearchForm.setSearchType(null);
         }
-        Page<PotObject> potObjectList = potService.getPotListBySearch(potSearchForm, pageable);
+        Page<PotObject> potObjectList;
+        if(authentication != null)
+            potObjectList = potService.getPotListBySearch(authentication, potSearchForm, pageable);
+        else
+            potObjectList = potService.getPotListBySearch(potSearchForm, pageable);
         model.addAttribute("potList", potObjectList);
         return "mainPage/home";
     }

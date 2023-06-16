@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
     <style>
         .outer {
             display: grid;
@@ -28,17 +27,35 @@
             border-width: thick;
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         function handleOuterClick(potId) {
             window.location.href = "/pot/" + potId;
         }
 
-        function toggleLikeImage(image) {
+        function toggleLikeImage(image, potId) {
             if (image.src.endsWith('empty.png')) {
                 image.src = '/image/like/full.png';
+                saveInterest(potId);
             } else {
                 image.src = '/image/like/empty.png';
+                deleteInterest(potId);
             }
+        }
+        function saveInterest(potId){
+            $.ajax({
+                url : "/interest/save/" + potId,
+                type : "GET",
+            }).done(function() {
+            });
+        }
+
+        function deleteInterest(potId){
+            $.ajax({
+                url : "/interest/delete/" + potId,
+                type : "DELETE",
+            }).done(function() {
+            });
         }
 
     </script>
@@ -52,7 +69,7 @@
 </th:block>
 <div th:label="potList" class="outer">
     <div th:each="pot, stat : ${potList}" class="card border-primary mb-3" style="max-width: 20rem;">
-        <img id="likeImage" src="/image/like/empty.png" onclick="toggleLikeImage(this)" style="width: 20px; height: 20px; margin-left: auto;">
+        <img id="likeImage" th:src="${pot.wish}? '/image/like/full.png' : '/image/like/empty.png'" th:onclick="'toggleLikeImage(this, ' + ${pot.potId} +')'" style="width: 20px; height: 20px; margin-left: auto;">
         <div class="row-md-4" th:onclick="'handleOuterClick(\'' + ${pot.potId} + '\')'" >
             <div class="card-header" th:text="${pot.potName}"></div>
             <div class="card-header" th:text="${pot.ottType}"></div>
