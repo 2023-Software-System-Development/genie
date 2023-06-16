@@ -62,14 +62,14 @@ public class PotService {
         potRepository.save(pot);
     }
 
-    public void editRecruitingPot(Long potId, PotEditRecruitingForm potEditRecruitingForm) {
+    public void editRecruitingPot(Long potId, PotInfoObject potInfoObject) {
         Pot pot = potRepository.findById(potId).orElseThrow(() -> new EntityNotFoundException("Pot not found"));
-        pot.updateRecruiting(potEditRecruitingForm);
+        pot.updateRecruiting(potInfoObject);
     }
 
-    public void editOngoingPot(Long potId, PotEditOngoingForm potEditOngoingForm) {
+    public void editOngoingPot(Long potId, PotInfoObject potInfoObject) {
         Pot pot = potRepository.findById(potId).orElseThrow(() -> new EntityNotFoundException("Pot not found"));
-        pot.updateOngoing(potEditOngoingForm);
+        pot.updateOngoing(potInfoObject);
     }
 
     public Pot getPotEntity(Long potId) {
