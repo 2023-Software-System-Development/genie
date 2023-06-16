@@ -31,7 +31,7 @@ public class AuthUserService implements org.springframework.security.core.userde
 
 
         return new CustomUserDetails(user.getId(), user.getUserName(), user.getUserLoginId(),
-        user.getUserPw(), user.getUserNickName(), user.getPhoneNumber(), user.getEmail(), user.getBirth(), user.getAccountNumber(), user.getBankName(), user.getRole());
+        user.getUserPw(), user.getUserNickName(), user.getPhoneNumber(), user.getEmail(), user.getBirth(), user.getRole());
     }
 
     @Transactional
