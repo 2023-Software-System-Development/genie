@@ -1,63 +1,189 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>채팅</title>
-</head>
-<body>
-<h1>채팅방</h1>
 <div id="chatConnect">
-    <button onclick="connectSocket()">채팅 시작하기</button>
+    <button onclick="startChat()">채팅 시작하기</button>
 </div>
 
 <div id="chat" hidden="hidden">
-    <input id="message">
-    <button id="sendBtn">전송</button>
     <div id="chatBox"></div>
+    <div id="inputContainer">
+        <input id="message">
+        <button id="sendBtn">전송</button>
+    </div>
 </div>
+
+<style>
+    .message-box {
+        border-radius: 10px;
+        padding: 10px;
+        margin-top: 3px;
+        margin-bottom: 3px;
+        width: 70%; /* 가로 길이 지정 */
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #chatBox {
+        overflow-y: auto;
+        max-height: 300px; /* 원하는 높이 값으로 변경 (예: 300px) */
+    }
+
+    #inputContainer {
+        position: fixed;
+        bottom: 20px; /* 원하는 여백 값으로 변경 */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70%;
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #inputContainer input {
+        height: 30px;
+        flex: 1;
+        border-radius: 10px;
+        margin-right: 10px;
+    }
+
+    #sendBtn {
+        background-color: #e9e9e9;
+        border-radius: 10px;
+        padding: 5px 10px;
+    }
+
+    body {
+        color: black;
+    }
+
+    /* 내가 입력한 채팅 메시지 박스 색상 */
+    .my-message-box {
+        background-color: #D9E5FF;
+    }
+
+    /* 다른 사람이 입력한 채팅 메시지 박스 색상 */
+    .other-message-box {
+        background-color: #DAD9FF;
+    }
+
+    /* 입장 메시지 박스 색상 */
+    .join-message-box {
+        background-color: #D5D5D5;
+    }
+
+    /* 퇴장 메시지 박스 색상 */
+    .exit-message-box {
+        background-color: #D5D5D5;
+    }
+
+</style>
+
+<script th:inline="javascript">
+    let username = /*[[${username}]]*/ null;
+</script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 
     let sock;
+    let isSocketOpen = false;
 
     function connectSocket() {
-        sock = new SockJS("/chat");
-        sock.onopen = function () {
-            alert('연결에 성공하였습니다.');
-            sock.onmessage = (data => {
-                $("<p>" + data.data + "</p>").prependTo('#chatBox');
-            });
-            $('#chatConnect').hide();
-            $('#chat').show();
+        // username 변수를 사용하여 소켓 연결
+        if (username != null && username !== "") {
+            if (isSocketOpen) {
+                // 이미 소켓이 연결되어 있는 경우에는 추가 연결 시도를 막음
+                alert('이미 연결되어 있습니다.');
+                return;
+            }
+
+            sock = new SockJS('/chat');
+            sock.onopen = function () {
+                isSocketOpen = true;
+                sendJoinMessage();
+            };
+
+            sock.onmessage = function (e) {
+                let message = JSON.parse(e.data);
+                handleMessage(message);
+            };
+
+            sock.onclose = function () {
+                isSocketOpen = false;
+                sock.close();
+            };
+        } else {
+            alert('사용자 이름을 입력하세요.');
         }
-        sock.onerror = function (e) {
-            alert('연결에 실패하였습니다.');
-            $('#chatConnect').show();
-            $('#chat').hide();
-        }
-        sock.onclose = function () {
-            alert('연결을 종료합니다.');
-            $('#chatConnect').show();
-            $('#chat').hide();
+    }
+
+    function startChat() {
+        document.getElementById('chatConnect').style.display = 'none';
+        document.getElementById('chat').removeAttribute('hidden');
+        connectSocket();
+    }
+
+    function sendJoinMessage() {
+        let message = {
+            type: 'join',
+            username: username,
         };
+        sock.send(JSON.stringify(message));
+    }
+
+    function handleMessage(message) {
+        let chatBox = document.getElementById('chatBox');
+        let messageBox = document.createElement('div');
+        messageBox.className = 'message-box';
+
+        switch (message.type) {
+            case 'join':
+                messageBox.classList.add('join-message-box');
+                messageBox.innerHTML = `<strong>${message.username}</strong> 님이 입장하셨습니다.`;
+                break;
+            case 'exit':
+                messageBox.classList.add('exit-message-box');
+                messageBox.innerHTML = `<strong>${message.username}</strong> 님이 퇴장하셨습니다.`;
+                break;
+            case 'chat':
+                messageBox.innerHTML = `<strong>${message.username}</strong>: ${message.text}`;
+                if (message.username === username) {
+                    // 내가 보낸 메시지인 경우
+                    messageBox.classList.add('my-message-box');
+                } else {
+                    // 다른 사람이 보낸 메시지인 경우
+                    messageBox.classList.add('other-message-box');
+                }
+                break;
+            default:
+                break;
+        }
+
+        chatBox.appendChild(messageBox);
+        chatBox.scrollTop = chatBox.scrollHeight;
     }
 
     function sendMessage() {
-        sock.send($("#message").val());
-        $('#message').val("");
+        let input = document.getElementById('message');
+        let text = input.value.trim();
+        input.value = '';
+
+        if (text !== '') {
+            let message = {
+                type: 'chat',
+                username: username,
+                text: text,
+            };
+            sock.send(JSON.stringify(message));
+        }
     }
 
-    $("#message").keyup(e => {
-        if (e.keyCode == 13) {
+    document.getElementById('sendBtn').addEventListener('click', sendMessage);
+    document.getElementById('message').addEventListener('keyup', function (e) {
+        if (e.key === 'Enter') {
             sendMessage();
         }
     });
 
-    $("#sendBtn").click(() => {
-        sendMessage();
-    });
 </script>
-</body>
-</html>
