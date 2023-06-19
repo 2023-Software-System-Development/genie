@@ -121,18 +121,45 @@
                         </a>
                     </li>
                 </ul>
-                <div class ="login-signup3">
-                <form name="potSearchForm" action="/pot/list" class="d-flex">
-                    <select class="form-select"  style="width: fit-content" name="searchType">
-                        <option value="potName">팟 이름</option>
-                        <option value="remain">남은 인원</option>
-                        <option value="term">기간</option>
-                    </select>
-                    <input name="searchText" class="form-control me-sm-3" type="text" placeholder="Search">
-                   <!-- <input type="hidden" name="ottType" ${potSearchForm.ottType}">-->
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
+                <div class="login-signup3">
+                    <form name="potSearchForm" th:object="${potSearchForm}" action="/pot/list" class="d-flex"
+                          onsubmit="return validateSearchText()">
+                        <select class="form-select" style="width: fit-content" name="searchType" onchange="handleSearchTypeChange()">
+                            <option value="potName">팟 이름</option>
+                            <option value="remain">남은 인원</option>
+                            <option value="term">기간</option>
+                        </select>
+                        <input th:field="*{searchText}" class="form-control me-sm-3" type="text" placeholder="Search">
+                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+
+                <script>
+                    function handleSearchTypeChange() {
+                        var searchType = document.getElementsByName("searchType")[0].value;
+                        var searchTextInput = document.getElementsByName("searchText")[0];
+                        searchTextInput.disabled = (searchType === "potName");
+                        if (searchType === "potName") {
+                            searchTextInput.value = "";
+                        }
+                    }
+
+                    function validateSearchText() {
+                        var searchType = document.getElementsByName("searchType")[0].value;
+                        if (searchType !== "potName") {
+                            var searchText = document.getElementsByName("searchText")[0].value;
+                            if (!isNumeric(searchText)) {
+                                alert("숫자를 입력해주세요.");
+                                return false; // 검색 중단
+                            }
+                        }
+                        return true; // 검색 계속 진행
+                    }
+
+                    function isNumeric(value) {
+                        return /^\d+$/.test(value);
+                    }
+                </script>
             </div>
         </th>
     </table>
