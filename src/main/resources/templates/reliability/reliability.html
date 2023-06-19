@@ -20,7 +20,7 @@
             <td style="width:75%;">
                 <!-- 오른쪽 테이블: mypage_info.html -->
                 <table style="width:100%; height: 800px; border-collapse: collapse;">
-                    <div th:each="reliability, stat : ${reliabilityList}" class="card border-primary mb-3" style="max-width: 20rem;">
+                    <div th:each="reliability, stat : ${reliabilityList}" style="max-width: 20rem;">
                     <tr>
                         <th style="width:70%">history</th>
                         <td th:text="${reliability.history}"></td>
