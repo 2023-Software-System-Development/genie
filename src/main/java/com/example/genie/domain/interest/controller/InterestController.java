@@ -1,5 +1,6 @@
 package com.example.genie.domain.interest.controller;
 
+import com.example.genie.common.util.UserUtils;
 import com.example.genie.domain.interest.entity.Interest;
 import com.example.genie.domain.interest.service.InterestService;
 import com.example.genie.domain.pot.model.PotInfoObject;
@@ -11,27 +12,38 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.awt.print.Pageable;
+import java.util.List;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 @Slf4j
 public class InterestController {
 
     private final InterestService interestService;
     private final PotService potService;
-    @GetMapping("/interest/save/{potId}")
+
+    @GetMapping("/user/interestList")
+    public String getUserInterestList(Authentication authentication, Model model){
+        List<Interest> interestList = interestService.getUserInterestList(authentication);
+        model.addAttribute("interestList", interestList);
+        return "myPage/heart";
+    }
+    @PostMapping("/interest/save/{potId}")
+    @ResponseBody
     public Long saveInterest(Authentication authentication, @PathVariable Long potId) {
         Interest interest = interestService.saveInterest(authentication, potId);
-
         return interest.getId();
     }
 
     @DeleteMapping("/interest/delete/{potId}")
+    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public String deleteInterest(@PathVariable Long potId, Authentication authentication) {
         interestService.deleteInterest(authentication, potId);
         return "ajax :: #resultDiv";
     }
+
 }

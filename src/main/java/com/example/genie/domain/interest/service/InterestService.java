@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class InterestService {
@@ -31,5 +33,10 @@ public class InterestService {
         Pot pot = potService.getPotEntity(potId);
         Interest interest = interestRepository.findByPot_IdAndUser_Id(potId, user.getId());
         interestRepository.delete(interest);
+    }
+
+    public List<Interest> getUserInterestList(Authentication authentication){
+        User user = userUtils.getUser(authentication);
+        return interestRepository.findByUser_Id(user.getId());
     }
 }
