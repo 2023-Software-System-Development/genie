@@ -10,74 +10,50 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
   <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
+<th:block th:if="${success != null && success}">
+  <script>alert('신고가 정상적으로 접수되었습니다.')</script>
+</th:block>
+<div class="formOuterStyle">
+  <div class="formStyle">
 <h4>회원 신고</h4>
-<form action="@{/report}" th:action th:object="${reportForm}" method="post">
+<form action="@{/report}" th:action th:object="${reportForm}" method="post" enctype="multipart/form-data">
   <div>
     <label for="userNickname">회원 닉네임: </label>
-    <input type="text" id="userNickname" name="userNickname" th:field="*{userNickname}" class="form-control" placeholder="신고할 회원 닉네임을 입력하세요.">
-    <!--
-        <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
-    -->
+    <input type="text" id="userNickname" th:field="*{userNickName}" class="form-control" placeholder="신고할 회원 닉네임을 입력하세요.">
+        <p th:if="${#fields.hasErrors('userNickName')}" th:errorclass="error" th:errors="*{userNickName}" />
   </div>
   <div>
-    <label for="reason" class="mt-4">사유: </label>
+    <label for="type" class="mt-4">사유: </label>
     <div class="form-group">
       <div class="form-check">
-        <input class="form-check-input" type="radio" id="reason" name="reason" th:field="*{reason}">
-        <label class="form-check-label" for="reason">
-          탈주
-        </label>
+        <div th:each="type : ${reportType}" class="form-check form-check-inline">
+          <input type="radio" id="type" th:field="*{type}" th:value="${type.getKey()}" th:label="${type.getValue()}" class="form-check-input">
+          <label th:text="${type.getValue()}"/>
+        </div>
       </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" id="reason" name="reason" th:field="*{reason}">
-        <label class="form-check-label" for="reason">
-          욕설/비방
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" id="reason" name="reason" th:field="*{reason}">
-        <label class="form-check-label" for="reason">
-          잠수
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" id="reason" name="reason" th:field="*{reason}">
-        <label class="form-check-label" for="reason">
-          기타
-        </label>
-      </div>
-      <!--<div class="form-check disabled">
-        <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled="">
-        <label class="form-check-label" for="optionsRadios3">
-          Option three is disabled
-        </label>
-      </div>-->
     </div>
     </label>
   </div>
   <div>
-    <label for="content">내용: </label>
-    <input type="text" id="content" name="content" th:field="*{content}" class="form-control" placeholder="신고할 내용을 입력하세요.">
-    <!--
-        <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
-    -->
+    <label for="contents">내용: </label>
+    <input type="text" id="contents" th:field="*{contents}" class="form-control" placeholder="신고할 내용을 입력하세요.">
+        <p th:if="${#fields.hasErrors('contents')}" th:errorclass="error" th:errors="*{contents}" />
+
   </div>
   <div>
-    <label for="picture">증거 자료</label>
-    <input type="file" id="picture" name="picture" th:field="*{picture}" class="form-control">개월
-    <!--
-        <p th:if="${#fields.hasErrors('term')}" th:errorclass="error" th:errors="*{term}" />
-    -->
+    <label for="image">증거 자료</label>
+    <input type="file" id="image" th:field="*{image}" class="form-control">
   </div>
+  <br>
   <div>
     <button type="button" class="btn btn-secondary my-2 my-sm-0">취소</button>
     <button type="submit" class="btn btn-secondary my-2 my-sm-0">신고하기</button>
   </div>
 </form>
+  </div>
+</div>
 </body>
 </html>
