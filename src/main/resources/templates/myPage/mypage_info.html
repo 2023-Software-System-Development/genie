@@ -4,11 +4,6 @@
     <meta charset="UTF-8">
     <style>
         /* 공통 스타일 */
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            height: auto;
-        }
         td {
             padding: 10px;
             /*border: 1px solid #000000;*/
@@ -23,18 +18,6 @@
             font-size: 12px;
         }
 
-        /* 테이블 1 스타일 */
-        .table1 {
-            background-color: #F2F2F2;
-            margin-bottom: 10px;
-            width: 50%; /* 테이블 크기 조정 */
-            border-collapse: collapse;
-        }
-        .table2 {
-            background-color: #D4D3D3;
-            width: 50%; /* 테이블 크기 조정 */
-            border-collapse: collapse;
-        }
         .table1 th {
             text-align: center;
         }
@@ -49,11 +32,11 @@
     </script>
 </head>
 <body>
-<table style="width:100%; height: 800px; border-collapse: collapse; background-color: #f2f2f2; border-radius: 10px;">
+<table style="width:100%; height: 800px; border-collapse: collapse; background-color: #f2f2f2; border-radius: 30px;">
     <tr>
-        <td style="width:70%; height: 100%;">
+        <td style="width:80%; height: 100%;">
             <!-- 테이블 2 -->
-            <table class="table table-hover" style="width:100%; text-align:left; height:100%;">
+            <table class="table table-hover" style="width:100%; text-align:center; height:100%;">
                 <tr>
                     <th scope="row" style="width:50%" >아이디</th>
                     <td th:text="${user.userLoginId}"></td>
@@ -81,7 +64,7 @@
             </table>
         </td>
 
-        <td style="width:30%; height:100%; vertical-align: top;">
+        <td style="width:20%; height:100%; vertical-align: top;">
             <!-- 테이블 1 -->
             <div th:onclick="'OuterClick()'" th:include="/myPage/realiability.html"></div>
         </td>
