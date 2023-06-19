@@ -31,6 +31,7 @@ public class InterestController {
         model.addAttribute("interestList", interestList);
         return "myPage/heart";
     }
+
     @PostMapping("/interest/save/{potId}")
     @ResponseBody
     public Long saveInterest(Authentication authentication, @PathVariable Long potId) {
