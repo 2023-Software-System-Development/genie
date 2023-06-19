@@ -39,7 +39,7 @@
         }
     </style>
 </head>
-<body>
+<body> myPage/heart.html
 <div th:include="/mainPage/navigator.html"></div>
 <div th:fragment="content" th:remove="tag">
     <table class="table2" style="width:100%;">
@@ -53,7 +53,7 @@
                 <div class="mypage-info-container">
                     <h4>내가 찜한 팟</h4>
                     <div th:label="potList" class="outer">
-                        <div th:each="pot, stat : ${userPotList}" class="card border-primary mb-3" style="max-width: 20rem;">
+                        <div th:each="pot, stat : ${interestList}" class="card border-primary mb-3" style="max-width: 20rem;">
                             <div class="row-md-4" th:onclick="'handleOuterClick(\'' + ${pot.potId} + '\')'" >
                                 <div class="card-header" th:text="${pot.potName}"></div>
                                 <div class="card-header" th:text="${pot.ottType}"></div>
