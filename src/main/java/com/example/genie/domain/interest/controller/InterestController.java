@@ -1,6 +1,5 @@
 package com.example.genie.domain.interest.controller;
 
-import com.example.genie.common.util.UserUtils;
 import com.example.genie.domain.interest.entity.Interest;
 import com.example.genie.domain.interest.service.InterestService;
 import com.example.genie.domain.pot.model.PotInfoObject;
@@ -12,12 +11,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.awt.print.Pageable;
-import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @Slf4j
 public class InterestController {
@@ -36,15 +33,14 @@ public class InterestController {
     @ResponseBody
     public Long saveInterest(Authentication authentication, @PathVariable Long potId) {
         Interest interest = interestService.saveInterest(authentication, potId);
+
         return interest.getId();
     }
 
     @DeleteMapping("/interest/delete/{potId}")
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public String deleteInterest(@PathVariable Long potId, Authentication authentication) {
         interestService.deleteInterest(authentication, potId);
         return "ajax :: #resultDiv";
     }
-
 }
