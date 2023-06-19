@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginPage("/user/login?req=true")  // 접근이 차단된 페이지 클릭시 이동할 url
                 .loginProcessingUrl("/loginProc") // 로그인시 맵핑되는 url
-                .defaultSuccessUrl("/", true)
+                .defaultSuccessUrl("/pot/list?ottType=all", true)
                 .usernameParameter("userLoginId")      // view form 태그 내에 로그인 할 id 에 맵핑되는 name ( form 의 name )
                 .passwordParameter("userPw")      // view form 태그 내에 로그인 할 password 에 맵핑되는 name ( form 의 name )
                 //.successHandler(new LoginAuthHandler()) // 로그인 성공시 실행되는 메소드
