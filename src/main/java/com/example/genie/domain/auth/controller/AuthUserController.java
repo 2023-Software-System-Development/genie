@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,7 +30,7 @@ public class AuthUserController {
     PotService potService;
 
     @RequestMapping("/")
-    public String home(Model model, @ModelAttribute PotSearchForm potSearchForm, @PageableDefault(page = 0) Pageable pageable){
+    public String home(Model model, @ModelAttribute PotSearchForm potSearchForm, @PageableDefault(page = 0) Pageable pageable, Authentication authentication){
         potSearchForm.setOttType("all");
         Page<PotObject> potList = potService.getPotListBySearch(potSearchForm, pageable);
         model.addAttribute("potList", potList);
@@ -37,7 +38,7 @@ public class AuthUserController {
         return "mainPage/home";
     }
     @GetMapping("/user/login")
-    public String loginForm(){
+    public String loginForm(@ModelAttribute PotSearchForm potSearchForm){
         return "user/login";
     }
 
