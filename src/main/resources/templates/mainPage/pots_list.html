@@ -45,7 +45,7 @@
         function saveInterest(potId){
             $.ajax({
                 url : "/interest/save/" + potId,
-                type : "GET",
+                type : "POST",
             }).done(function() {
             });
         }
