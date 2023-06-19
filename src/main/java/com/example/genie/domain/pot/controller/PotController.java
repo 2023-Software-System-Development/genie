@@ -107,7 +107,7 @@ public class PotController {
 
         return "pot/potInfo";
     }
-    
+
 
     //팟 시작 시, 추가 정보 입력 화면 호출 API
     @GetMapping("/{potId}/start")
