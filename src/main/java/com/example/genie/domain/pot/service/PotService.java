@@ -1,5 +1,6 @@
 package com.example.genie.domain.pot.service;
 
+import com.example.genie.common.exception.CustomException;
 import com.example.genie.common.util.UserUtils;
 import com.example.genie.domain.apply.entity.State;
 import com.example.genie.domain.apply.repository.ApplyRepository;
@@ -50,6 +51,13 @@ public class PotService {
     }
 
     public Page<PotObject> getPotListBySearch(PotSearchForm potSearchForm, Pageable pageable) {
+        String searchText = potSearchForm.getSearchText();
+        String searchType = potSearchForm.getSearchType();
+
+        if (("remain".equals(searchType) || "term".equals(searchType)) && !isNumeric(searchText)) {
+            throw new CustomException("숫자를 입력해주세요");
+        }
+
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
         pageable = PageRequest.of(page, 6); // <- Sort 추가
         Page<Pot> pots = potRepositoryCustom.findListBySearch(potSearchForm, pageable);
@@ -57,6 +65,14 @@ public class PotService {
     }
 
     public Page<PotObject> getPotListBySearch(Authentication authentication, PotSearchForm potSearchForm, Pageable pageable) {
+
+        String searchText = potSearchForm.getSearchText();
+        String searchType = potSearchForm.getSearchType();
+
+        if (("remain".equals(searchType) || "term".equals(searchType)) && !isNumeric(searchText)) {
+            throw new CustomException("숫자를 입력해주세요");
+        }
+
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
         pageable = PageRequest.of(page, 6); // <- Sort 추가
         Page<Pot> pots = potRepositoryCustom.findListBySearch(potSearchForm, pageable);
@@ -105,5 +121,17 @@ public class PotService {
         return pot;
     }
 
+    // 편의 메서드
+    private boolean isNumeric(String str) {
+        if (str == null || str.length() == 0) {
+            return false;
+        }
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
 }

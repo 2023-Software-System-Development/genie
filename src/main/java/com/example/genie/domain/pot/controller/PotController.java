@@ -1,5 +1,6 @@
 package com.example.genie.domain.pot.controller;
 
+import com.example.genie.common.exception.CustomException;
 import com.example.genie.domain.apply.entity.Apply;
 import com.example.genie.domain.apply.service.ApplyService;
 import com.example.genie.domain.pot.entity.State;
@@ -78,19 +79,24 @@ public class PotController {
     @RequestMapping("/list")
     public String getPotList(@RequestParam(value = "ottType", required = false) String ottType, @ModelAttribute PotSearchForm potSearchForm, @PageableDefault(page = 0, size = 6) Pageable pageable,
                              Model model, Authentication authentication) {
-        if(ottType != null){//만약 네비게이션에서 오티티 타입 클릭하면 potSearchForm 초기화
+        if (ottType != null) {
             potSearchForm.setOttType(ottType);
             potSearchForm.setSearchText(null);
             potSearchForm.setSearchType(null);
         }
-        Page<PotObject> potObjectList;
-        if(authentication != null)
-            potObjectList = potService.getPotListBySearch(authentication, potSearchForm, pageable);
-        else
-            potObjectList = potService.getPotListBySearch(potSearchForm, pageable);
-        model.addAttribute("potList", potObjectList);
+        try {
+            Page<PotObject> potObjectList;
+            if (authentication != null)
+                potObjectList = potService.getPotListBySearch(authentication, potSearchForm, pageable);
+            else
+                potObjectList = potService.getPotListBySearch(potSearchForm, pageable);
+            model.addAttribute("potList", potObjectList);
+        } catch (CustomException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+        }
         return "mainPage/home";
     }
+
 
     //팟 상세 정보 조회 API
     @GetMapping("/{potId}")
