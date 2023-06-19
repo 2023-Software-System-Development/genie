@@ -24,7 +24,7 @@ public class ReliabilityController {
     public String getReliability(Authentication authentication, Model model, @PageableDefault(page = 0, size = 10) Pageable pageable){
         Page<ReliabilityInfoObject> reliabilityInfoObjectList = reliabilityService.getUserReliabilities(authentication, pageable);
         model.addAttribute("reliabilityList", reliabilityInfoObjectList);
-        return "myPage/reliabilityInfo";
+        return "reliability/reliability";
     }
 
 
