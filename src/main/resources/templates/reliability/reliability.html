@@ -2,9 +2,49 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <style>
+        /* 공통 스타일 */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            height: auto;
+        }
+        td {
+            padding: 10px;
+            /*border: 1px solid #000000;*/
+        }
+        th {
+            padding: 10px;
+            font-weight: bold;
+            text-align: center;
+            /*border: 1px solid #000000;*/
+        }
+        .small-text {
+            font-size: 12px;
+        }
+
+        /* 테이블 1 스타일 */
+        .table1 {
+            background-color: #F2F2F2;
+            margin-bottom: 10px;
+            width: 50%; /* 테이블 크기 조정 */
+            border-collapse: collapse;
+        }
+        .table2 {
+            background-color: #D4D3D3;
+            width: 50%; /* 테이블 크기 조정 */
+            border-collapse: collapse;
+        }
+        .table1 th {
+            text-align: left;
+        }
+        .table2 th {
+            text-align: left;
+        }
+    </style>
     <script>
         function OuterClick(potId) {
-            window.location.href = "/";
+            window.location.href = "/reliability";
         }
     </script>
 </head>
@@ -25,14 +65,12 @@
                         <th style="width:70%">history</th>
                         <td th:text="${reliability.history}"></td>
 
-                        <th style="width:30%;">신뢰도 : </th>
+                        <th style="width:30%">score</th>
                         <td th:text="${reliability.score}"></td>
                     </tr>
-                    </div>
                 </table>
             </td>
         </tr>
     </table>
-</div>
 </body>
 </html>
