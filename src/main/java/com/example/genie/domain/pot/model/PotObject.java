@@ -14,9 +14,10 @@ public class PotObject {
     private final Integer term;
     private final String masterName;
     private final Long masterId;
+    private boolean wish;
 
     @Builder
-    public PotObject(Long potId, String potName, String ottType, Integer recruit, Integer remain, Integer term, String masterName, Long masterId) {
+    public PotObject(Long potId, String potName, String ottType, Integer recruit, Integer remain, Integer term, String masterName, Long masterId, boolean wish) {
         this.potId = potId;
         this.potName = potName;
         this.ottType = ottType;
@@ -25,5 +26,9 @@ public class PotObject {
         this.term = term;
         this.masterName = masterName;
         this.masterId = masterId;
+        this.wish = wish;
+    }
+    public void setWish(boolean wish){
+        this.wish = wish;
     }
 }

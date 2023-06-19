@@ -3,6 +3,8 @@ package com.example.genie.domain.pot.service;
 import com.example.genie.common.util.UserUtils;
 import com.example.genie.domain.apply.entity.State;
 import com.example.genie.domain.apply.repository.ApplyRepository;
+import com.example.genie.domain.interest.entity.Interest;
+import com.example.genie.domain.interest.repository.InterestRepository;
 import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.pot.form.*;
 import com.example.genie.domain.pot.mapper.PotMapper;
@@ -35,6 +37,7 @@ public class PotService {
     private final UserRepository userRepository;
     private final UserUtils userUtils;
     private final ApplyRepository applyRepository;
+    private final InterestRepository interestRepository;
 
     public void createPot(Authentication authentication, PotCreateForm potCreateForm, BindingResult bindingResult) {
         User user = userUtils.getUser(authentication);
@@ -51,6 +54,23 @@ public class PotService {
         pageable = PageRequest.of(page, 6); // <- Sort 추가
         Page<Pot> pots = potRepositoryCustom.findListBySearch(potSearchForm, pageable);
         return pots.map(PotMapper::toPotObject);
+    }
+
+    public Page<PotObject> getPotListBySearch(Authentication authentication, PotSearchForm potSearchForm, Pageable pageable) {
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, 6); // <- Sort 추가
+        Page<Pot> pots = potRepositoryCustom.findListBySearch(potSearchForm, pageable);
+        User user = userUtils.getUser(authentication);
+        Interest interest;
+        Page<PotObject> potObjects = pots.map(PotMapper::toPotObject);
+        for(PotObject pot : potObjects){
+            interest = interestRepository.findByPot_IdAndUser_Id(pot.potId, user.getId());
+            if(interest != null){
+                pot.setWish(true);
+            }
+        }
+
+        return potObjects;
     }
 
     public PotInfoObject getPot(Authentication authentication, Long potId) {

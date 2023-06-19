@@ -21,6 +21,7 @@ public class PotMapper {
                 .remain(pot.getRemain())
                 .masterName(pot.getMaster().getUserNickName())
                 .masterId(pot.getMaster().getId())
+                .wish(false)
                 .build();
 
     }

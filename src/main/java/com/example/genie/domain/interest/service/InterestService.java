@@ -19,10 +19,17 @@ public class InterestService {
     private final PotService potService;
     private final InterestRepository interestRepository;
 
-    public void saveInterest(Authentication authentication, Long potId) {
+    public Interest saveInterest(Authentication authentication, Long potId) {
         User user = userUtils.getUser(authentication);
         Pot pot = potService.getPotEntity(potId);
         Interest interest = InterestMapper.mapToPotWithUser(user,pot);
-        interestRepository.save(interest);
+        return interestRepository.save(interest);
+    }
+
+    public void deleteInterest(Authentication authentication, Long potId){
+        User user = userUtils.getUser(authentication);
+        Pot pot = potService.getPotEntity(potId);
+        Interest interest = interestRepository.findByPot_IdAndUser_Id(potId, user.getId());
+        interestRepository.delete(interest);
     }
 }
