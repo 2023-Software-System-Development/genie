@@ -36,7 +36,7 @@
             border-collapse: collapse;
         }
         .table1 th {
-            text-align: left;
+            text-align: center;
         }
         .table2 th {
             text-align: left;
@@ -49,7 +49,7 @@
     </script>
 </head>
 <body>
-<table style="width:100%; height: 800px; border-collapse: collapse;">
+<table style="width:100%; height: 800px; border-collapse: collapse; background-color: #f2f2f2; border-radius: 10px;">
     <tr>
         <td style="width:70%; height: 100%;">
             <!-- 테이블 2 -->
@@ -57,10 +57,6 @@
                 <tr>
                     <th scope="row" style="width:50%" >아이디</th>
                     <td th:text="${user.userLoginId}"></td>
-                </tr>
-                <tr>
-                    <th scope="row" style="width:50%">pwd</th>
-                    <td th:text="${user.userPw}"></td>
                 </tr>
                 <tr>
                     <th scope="row" style="width:50%">이름</th>
@@ -87,20 +83,7 @@
 
         <td style="width:30%; height:100%; vertical-align: top;">
             <!-- 테이블 1 -->
-            <div th:onclick="'OuterClick()'">
-            <table class="table1" style="width:100%; height:180px;">
-                <tr>
-                    <th style="width:100%; height:100%;">신뢰도 : </th>
-                </tr>
-                <!--<tr>
-                    <th style="width:100%" class="small-text">회원가입 : </th>
-                    <th style="width:100%" class="small-text"> + 50</th>
-                </tr>
-                <tr>
-                    <th style="width:100%" class="small-text">넷플릭스 6개월 : </th>
-                </tr>-->
-            </table>
-            </div>
+            <div th:onclick="'OuterClick()'" th:include="/myPage/realiability.html"></div>
         </td>
     </tr>
 </table>
