@@ -24,7 +24,6 @@ public class InterestController {
 
     private final InterestService interestService;
     private final PotService potService;
-
     @GetMapping("/user/interestList")
     public String getUserInterestList(Authentication authentication, Model model){
         List<Interest> interestList = interestService.getUserInterestList(authentication);
