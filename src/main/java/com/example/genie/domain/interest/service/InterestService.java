@@ -32,4 +32,10 @@ public class InterestService {
         Interest interest = interestRepository.findByPot_IdAndUser_Id(potId, user.getId());
         interestRepository.delete(interest);
     }
+  
+    public List<Interest> getUserInterestList(Authentication authentication){
+        User user = userUtils.getUser(authentication);
+        return interestRepository.findByUser_Id(user.getId());
+    }
+
 }
