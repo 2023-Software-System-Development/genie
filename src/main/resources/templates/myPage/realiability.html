@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    /* 공통 스타일 */
+    td {
+      padding: 10px;
+      /*border: 1px solid #000000;*/
+    }
+    th {
+      padding: 10px;
+      font-weight: bold;
+      text-align: center;
+      /*border: 1px solid #000000;*/
+    }
+    /* 테이블 1 스타일 */
+    .table1 {
+      background-color: #7fc5b1;
+      text-decoration-color: #1f2326;
+      margin-bottom: 10px;
+      width: 50%; /* 테이블 크기 조정 */
+      border-collapse: collapse;
+      border-radius: 100px;
+    }
+  </style>
+</head>
+<body>
+<table class="table1" style="width:100%; height:100px;">
+  <tr>
+    <td style="width:50%; font-weight: bold; height:100%; text-align: right;">신뢰도</td>
+    <td>  :  </td>
+    <td style="font-weight: bold; text-align: left;" th:text="${user.reliabilityScore}"></td>
+  </tr>
+</table>
+</body>
+</html>
