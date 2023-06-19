@@ -39,4 +39,5 @@ public class InterestService {
         User user = userUtils.getUser(authentication);
         return interestRepository.findByUser_Id(user.getId());
     }
+
 }
