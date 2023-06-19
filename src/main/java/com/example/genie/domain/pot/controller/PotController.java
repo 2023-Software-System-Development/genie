@@ -107,44 +107,7 @@ public class PotController {
 
         return "pot/potInfo";
     }
-
-    //팟 수정 API (모집중)
-    @PostMapping("/edit/recruiting")
-    public String editPotRecruiting(@RequestParam("potId") Long potId, @Valid @ModelAttribute PotInfoObject potInfoObject, BindingResult bindingResult, SessionStatus sessionStatus) {
-        if(bindingResult.hasErrors()){
-            return "pot/editRecruiting";
-        }
-        potService.editRecruitingPot(potId, potInfoObject);
-        sessionStatus.setComplete();
-        return "redirect:/pot/" + potId;
-//        return "user/mypage";
-    }
-
-    //팟 수정 API (진행중)
-    @PostMapping("/edit/ongoing")
-    public String editPotOngoing(@RequestParam("potId") Long potId, @Valid @ModelAttribute PotInfoObject potInfoObject, BindingResult bindingResult, SessionStatus sessionStatus) {
-        if(bindingResult.hasErrors()){
-            return "pot/editOngoing";
-        }
-        potService.editOngoingPot(potId, potInfoObject);
-        sessionStatus.setComplete();
-        return "redirect:/pot/" + potId;
-//        return "user/mypage";
-    }
-
-    //팟 수정 화면 호출 API. 상태에 따라 보내는 화면 다르게
-    @GetMapping("/edit")
-    public String editPotForm(Authentication authentication, @RequestParam("potId") Long potId, Model model) {
-        PotInfoObject potInfoObject = potService.getPot(authentication, potId);
-        if(potService.getPotEntity(potId).getState().equals(State.RECRUITING)) {
-            model.addAttribute("pot", potInfoObject); //아직 회원 모집 중일때
-            return "pot/editRecruiting";
-        }
-        else {
-            model.addAttribute("pot", potInfoObject); //
-            return "pot/editOngoing";
-        }
-    }
+    
 
     //팟 시작 시, 추가 정보 입력 화면 호출 API
     @GetMapping("/{potId}/start")
