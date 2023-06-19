@@ -52,4 +52,7 @@ public class User extends BaseEntity {
         this.role = role;
     }
 
+    public void updateReliability(Integer reliabilityScore){
+        this.reliabilityScore = reliabilityScore;
+    }
 }

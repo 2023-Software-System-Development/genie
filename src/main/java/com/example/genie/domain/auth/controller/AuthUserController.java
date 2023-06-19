@@ -6,6 +6,9 @@ import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.pot.form.PotSearchForm;
 import com.example.genie.domain.pot.model.PotObject;
 import com.example.genie.domain.pot.service.PotService;
+import com.example.genie.domain.reliability.Service.ReliabilityService;
+import com.example.genie.domain.reliability.entity.Reliability;
+import com.example.genie.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +31,7 @@ public class AuthUserController {
     @Autowired
     AuthUserService userAuthUserService;
     PotService potService;
+    ReliabilityService reliabilityService;
 
     @RequestMapping("/")
     public String home(Model model, @ModelAttribute PotSearchForm potSearchForm, @PageableDefault(page = 0) Pageable pageable, Authentication authentication){
@@ -60,6 +64,4 @@ public class AuthUserController {
         sessionStatus.setComplete();
         return "redirect:/user/login";
     }
-
-
 }
