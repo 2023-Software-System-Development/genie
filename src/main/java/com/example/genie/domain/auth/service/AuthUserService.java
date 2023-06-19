@@ -1,6 +1,10 @@
 package com.example.genie.domain.auth.service;
 
 import com.example.genie.domain.auth.form.UserForm;
+import com.example.genie.domain.reliability.Service.ReliabilityService;
+import com.example.genie.domain.reliability.entity.Reliability;
+import com.example.genie.domain.reliability.model.ReliabilityInfoObject;
+import com.example.genie.domain.reliability.repository.ReliabilityRepository;
 import com.example.genie.domain.user.entity.User;
 import com.example.genie.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +24,7 @@ public class AuthUserService implements org.springframework.security.core.userde
 
     @Autowired
     private final UserRepository userRepository;
+    private final ReliabilityService reliabilityService;
 
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
@@ -35,11 +40,11 @@ public class AuthUserService implements org.springframework.security.core.userde
     }
 
     @Transactional
-    public long join(UserForm userForm, BindingResult bindingResult){
+    public void join(UserForm userForm, BindingResult bindingResult){
         //password 중복 검사
         if(!userForm.getUserPw().equals(userForm.getUserPwCheck())){
             bindingResult.rejectValue("userPwCheck", "passwordMismatch", "패스워드가 다릅니다.");
-            return -1;
+            return;
         }
         //id 중복 검사
         if(userRepository.findUserByUserLoginId(userForm.getUserLoginId())!=null){
@@ -48,6 +53,7 @@ public class AuthUserService implements org.springframework.security.core.userde
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         String encodedUserPw = bCryptPasswordEncoder.encode(userForm.getUserPw());
         userForm.setUserPw(encodedUserPw);
-        return userRepository.save(userForm.toEntity()).getId();
+        User user = userRepository.save(userForm.toEntity()); //새로운 회원 생성
+        reliabilityService.addReliability(user, new ReliabilityInfoObject("회원가입", 100));
     }
 }

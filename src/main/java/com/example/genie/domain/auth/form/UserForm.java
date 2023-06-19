@@ -44,7 +44,7 @@ public class UserForm {
                 .accountNumber(accountNumber)
                 .bankName(bankName)
                 .role(Role.MEMBER) //회원가입으로 생성된 유저는 일단 Member 권한을 받음
-                .reliabilityScore(100) // 신뢰도 초기값은 100
+                .reliabilityScore(0) // 신뢰도 초기값은 100
                 .build();
         return user;
     }
