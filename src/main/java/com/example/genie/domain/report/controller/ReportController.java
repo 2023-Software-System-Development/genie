@@ -57,13 +57,13 @@ public class ReportController {
 
 
     //신고 확인 후 신뢰도 깎기
-    @PostMapping
+    @PostMapping("/confirm")
     public void reduceReliability(@ModelAttribute ReportInfoObject reportInfoObject) {
         reportService.reduceReliability(reportInfoObject);
     }
 
     //유저들의 신고 내역 확인
-    @GetMapping
+    @GetMapping("/list")
     public String getReportList(Model model) {
         List<ReportObject> reportObjectList = reportService.getReportObjectList();
         model.addAttribute("reportList", reportObjectList);
