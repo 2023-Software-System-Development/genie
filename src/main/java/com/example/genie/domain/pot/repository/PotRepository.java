@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface PotRepository extends JpaRepository<Pot, Long> {
 
-    public List<Pot> findByMasterId(Long userId);
+    public Page<Pot> findByMasterId(Long userId, Pageable pageable);
 }

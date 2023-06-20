@@ -83,6 +83,8 @@ public class PotController {
             potSearchForm.setOttType(ottType);
             potSearchForm.setSearchText(null);
             potSearchForm.setSearchType(null);
+        }else{
+            potSearchForm.setOttType("all");
         }
         try {
             Page<PotObject> potObjectList;
