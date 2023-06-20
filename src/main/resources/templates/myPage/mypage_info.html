@@ -3,27 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        /* 공통 스타일 */
-        td {
-            padding: 10px;
-            /*border: 1px solid #000000;*/
-        }
-        th {
-            padding: 10px;
-            font-weight: bold;
+        .table3 {
+            width: 100%;
+            height: 600px;
+            border-collapse: collapse;
+            border-radius: 13px;
+            border: none;
+            font-size: 15pt;
             text-align: center;
-            /*border: 1px solid #000000;*/
+            background-color: #ffffff;
         }
-        .small-text {
-            font-size: 12px;
+        .table4 {
+            width: 100%;
+            height: 600px;
+            margin: auto;
+            top: 50px;
+            border: #E69A9C solid 5px;
+            border-radius: 13px;
+            /*padding: 0px;*/
         }
 
-        .table1 th {
-            text-align: center;
+        /*.table3 tr:not(:first-child) th {
+            width: 30%;
         }
-        .table2 th {
-            text-align: left;
+
+        .table3 tr:not(:first-child) td {
+            width: 70%;
         }
+
+        .table3 th {
+            font-weight: bold;
+        }
+
+        .table3 th,
+        .table3 td {
+            padding: 10px;
+        }
+
+        .table3 tr:not(:first-child) {
+            height: 80px;
+            padding: 10px;
+        }
+
+        !* 추가 스타일 *!
+        .table3 tr:first-child {
+            background-color: white;
+        }*/
+
     </style>
     <script>
         function OuterClick(potId) {
@@ -32,41 +58,43 @@
     </script>
 </head>
 <body>
-<table style="width:100%; height: 800px; border-collapse: collapse; background-color: #f2f2f2; border-radius: 30px;">
+<table style="width:95%;">
     <tr>
-        <td style="width:80%; height: 100%;">
-            <!-- 테이블 2 -->
-            <table class="table table-hover" style="width:100%; text-align:center; height:100%;">
-                <tr>
-                    <th scope="row" style="width:50%" >아이디</th>
-                    <td th:text="${user.userLoginId}"></td>
-                </tr>
-                <tr>
-                    <th scope="row" style="width:50%">이름</th>
-                    <td th:text="${user.userName}"></td>
-                </tr>
-                <tr>
-                    <th scope="row" style="width:50%">닉네임</th>
-                    <td th:text="${user.userNickName}"></td>
-                </tr>
-                <tr>
-                    <th scope="row" style="width:50%">생년월일</th>
-                    <td th:text="${user.birth}"></td>
-                </tr>
-                <tr>
-                    <th scope="row" style="width:50%">전화번호</th>
-                    <td th:text="${user.phoneNumber}"></td>
-                </tr>
-                <tr>
-                    <th scope="row" style="width:50%">이메일 주소</th>
-                    <td th:text="${user.email}"></td>
-                </tr>
-            </table>
-        </td>
-
-        <td style="width:20%; height:100%; vertical-align: top;">
+        <td colspan="2">
             <!-- 테이블 1 -->
-            <div th:onclick="'OuterClick()'" th:include="/myPage/reliability.html"></div>
+            <div style="width: 20%; height: 50px;" th:onclick="'OuterClick()'" th:include="/myPage/reliability.html"></div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width:100%;">
+            <div class="table4">
+                <table class="table3">
+                    <tr>
+                        <th scope="row">아이디</th>
+                        <td th:text="${user.userLoginId}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">이름</th>
+                        <td th:text="${user.userName}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">닉네임</th>
+                        <td th:text="${user.userNickName}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">생년월일</th>
+                        <td th:text="${user.birth}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">전화번호</th>
+                        <td th:text="${user.phoneNumber}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">이메일 주소</th>
+                        <td th:text="${user.email}"></td>
+                    </tr>
+                </table>
+            </div>
         </td>
     </tr>
 </table>
