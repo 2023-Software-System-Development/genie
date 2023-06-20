@@ -7,9 +7,8 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" type="text/css" href="/css/_variables.css">
     <link rel="stylesheet" type="text/css" href="/css/_bootswatch.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
-    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="/js/scripts.js"></script>
     <script>
         function redirectToEdit(potId) {
             window.location.href = "/pot/edit/?potId=" + potId;
@@ -85,32 +84,13 @@
 </div>
     </div>
 </div>
-
-    <!--<tbody>
-    <tr th:each="pot : ${potList}">
-        <td th:text="${pot.potName}"></td>
-        <td th:text="${pot.ottType}"></td>
-        <td th:text="${pot.price}"></td>
-        <td th:text="${pot.recruit}"></td>
-        <td th:text="${pot.remain}"></td>
-        <td th:text="${pot.term}"></td>
-        <td th:text="${pot.ottId}"></td>
-        <td th:text="${pot.ottPw}"></td>
-        <td th:text="${pot.startDate}"></td>
-        <td th:text="${pot.endDate}"></td>
-        <td th:text="${pot.masterName}"></td>
-    </tr>
-    </tbody>-->
 &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
 <table style="margin:auto; text-align:center; width: 70%">
     <tr th:if="${pot.isMaster}">
         <td>
             <button th:onclick="'redirectToEdit(' + ${pot.potId} + ')'" type="button" class="btn btn-primary">수정하기</button>
-            <form action="/pot/delete" method="post" style="display: inline; margin:auto;">
-                <input type="hidden" name="potId" th:value="${pot.potId}" />
-                <button type="submit" class="btn btn-primary">삭제하기</button>
-            </form>
-            <form action="/pot/apply/users" style="display: inline;">
+            <button type="submit" class="btn btn-primary" onclick="openModal()">삭제하기</button>
+            <form th:if="${isOngoing!=null && !isOngoing}" action="/pot/apply/users" style="display: inline;">
                 <input type="hidden" name="potId" th:value="${pot.potId}" />
                 <button type="submit" class="btn btn-primary">신청 리스트 보기</button>
             </form>
@@ -141,5 +121,24 @@
         </td>
     </tr>
 </table>
+<!--모달창 영역-->
+<div id="modal" class="modal" style=" width: 100%; height: 100%; background-color: rgba(0,0,0,0.4);">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" th:text="${pot.potName}">삭제</h5>
+            </div>
+            <div class="modal-body">
+                <p>정말 삭제하시겠습니까?</p>
+            </div>
+            <div class="modal-footer">
+                <form th:action="@{/pot/delete(potId=${potId})}" method="post">
+                    <button type="submit" class="btn btn-primary" >확인</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModal()">취소</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
