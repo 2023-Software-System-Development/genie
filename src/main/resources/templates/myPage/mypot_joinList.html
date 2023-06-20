@@ -1,10 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script>
+        function handleOuterClick(potId) {
+            window.location.href = "/pot/" + potId;
+        }
+    </script>
+    <style>
+        /* myPage_info 위치 조정 */
+        .mypage-info-container {
+            margin: 150px auto 0;
+            width: 140%;
+        }
+
+        /* myPage_info 테이블 크기 조정 */
+        .mypage-info-container table {
+            width: 100%;
+        }
+        .outer {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            flex-basis: 33.33%;
+            box-sizing: border-box;
+        }
+        .card:hover {
+            border-width: thick;
+        }
+    </style>
 </head>
 <body>
+<div th:include="/mainPage/navigator.html"></div>
+<div th:fragment="content" th:remove="tag">
+    <table class="table2" style="width:100%;">
+        <tr>
+            <td style="width:25%;">
+                <div style="width:80%; height:100%; margin:auto; align:center;" th:include="/myPage/mypage_menu.html"></div>
+            </td>
+            <td style="width:75%;">
+                <div><!-- class="mypage-info-container"-->
+                    <!--<h5>내가 만든 팟</h5>-->
+                    <div th:label="potList" class="outer">
+                        <div th:each="pot, stat : ${userApplyPotList}" class="card border-primary mb-3" style="max-width: 20rem;">
+                            <div class="row-md-4" th:onclick="'handleOuterClick(\'' + ${pot.potId} + '\')'" >
+                                <div class="card-header" th:text="${pot.potName}"></div>
+                                <div class="card-header" th:text="${pot.ottType}"></div>
 
+                                <div class="card-body">
+                                    <p class="card-title" th:text="'모집인원 : ' + ${pot.recruit}"></p>
+                                    <p class="card-title" th:text="'현재인원 : ' + (${pot.recruit} - ${pot.remain})"></p>
+                                    <p class="card-title" th:text="'기간 : ' + ${pot.term}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
