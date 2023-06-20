@@ -18,11 +18,11 @@ public class ReliabilityMapper {
                 .build();
     }
 
-//    public static Reliability mapToReliabilityWithUser(ReportInfoObject reportInfoObject, User user) {
-//        return Reliability.builder()
-//                .user(user)
-//                .history(reliability.getHistory())
-//                .score(reportInfoObject.)
-//                .build();
-//    }
+    public static Reliability mapToReliabilityWithUser(User user,  String history, Integer score) {
+        return Reliability.builder()
+                .user(user)
+                .history(history)
+                .score(score)
+                .build();
+    }
 }
