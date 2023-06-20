@@ -26,6 +26,4 @@ public class ReliabilityController {
         model.addAttribute("reliabilityList", reliabilityInfoObjectList);
         return "reliability/reliability";
     }
-
-
 }
