@@ -12,7 +12,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div th:include="/mainPage/navigator.html"></div>
+<div style="width:100%;" th:include="/mainPage/navigator.html"></div>
 <th:block th:if="${success != null && success}">
   <script>alert('신고가 정상적으로 접수되었습니다.')</script>
 </th:block>
