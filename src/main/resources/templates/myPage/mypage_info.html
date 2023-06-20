@@ -5,7 +5,7 @@
     <style>
         .table3 {
             width: 95%;
-            height: 600px;
+            height: 100%;
             border-collapse: collapse;
             border: #E69A9C solid 3px;
             font-size: 15pt;
@@ -16,10 +16,10 @@
         }
         .table4 {
             width: 95%;
-            height: 90%;
+            height: 100%;
             margin: auto;
-            top: 50px;
-            border: none;
+            /*top: 50px;*/
+            border: #E69A9C solid 3px;
             border-radius: 13px;
             /*padding: 0px;*/
         }
@@ -59,7 +59,7 @@
     <tr>
         <td style="height: 10%;" colspan="2">
             <!-- 테이블 1 -->
-            <table class="table1">
+            <table class="table1" th:onclick="'OuterClick()'">
                 <tr>
                     <td style="width:50%; font-weight: bold; height:100%; text-align: center; text-color: #000000;">신뢰도</td>
                     <td>  :  </td>
@@ -72,7 +72,6 @@
         <td style="width:100%; height: 90%;">
             <div class="table4">
                 <table class="table3">
-                    <tbody style="border-radius: 13px;">
                     <tr>
                         <th scope="row">아이디</th>
                         <td th:text="${user.userLoginId}"></td>
@@ -93,7 +92,6 @@
                         <th scope="row">이메일 주소</th>
                         <td th:text="${user.email}"></td>
                     </tr>
-                    </tbody>
                 </table>
             </div>
         </td>
