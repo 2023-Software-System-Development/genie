@@ -17,22 +17,22 @@
 
       if (ottType === "disney+") {
         optionsContainer.innerHTML = `
-        <input type="radio" name="recruit" value="4" th:field="*{recruit}" onclick="updatePrice('02')"> 4
+        <input type="radio" name="recruit" value="3" th:field="*{recruit}" onclick="updatePrice('02')"> 4
       `;
       } else if (ottType === "netflix") {
         optionsContainer.innerHTML = `
-        <input type="radio" name="recruit" value="2" th:field="*{recruit}" onclick="updatePrice('11')"> 2
-        <input type="radio" name="recruit" value="4" th:field="*{recruit}" onclick="updatePrice('12')"> 4
+        <input type="radio" name="recruit" value="1" th:field="*{recruit}" onclick="updatePrice('11')"> 2
+        <input type="radio" name="recruit" value="3" th:field="*{recruit}" onclick="updatePrice('12')"> 4
       `;
       } else if (ottType === "watcha") {
         optionsContainer.innerHTML = `
-        <input type="radio" name="recruit" value="2" th:field="*{recruit}" onclick="updatePrice('21')"> 2
-        <input type="radio" name="recruit" value="4" th:field="*{recruit}" onclick="updatePrice('22')"> 4
+        <input type="radio" name="recruit" value="1" th:field="*{recruit}" onclick="updatePrice('21')"> 2
+        <input type="radio" name="recruit" value="3" th:field="*{recruit}" onclick="updatePrice('22')"> 4
       `;
       } else if (ottType === "wavve") {
         optionsContainer.innerHTML = `
-        <input type="radio" name="recruit" value="2" th:field="*{recruit}" onclick="updatePrice('31')"> 2
-        <input type="radio" name="recruit" value="4" th:field="*{recruit}" onclick="updatePrice('32')"> 4
+        <input type="radio" name="recruit" value="1" th:field="*{recruit}" onclick="updatePrice('31')"> 2
+        <input type="radio" name="recruit" value="3" th:field="*{recruit}" onclick="updatePrice('32')"> 4
       `;
       }
     }

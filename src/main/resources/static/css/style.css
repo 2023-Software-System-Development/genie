@@ -156,3 +156,15 @@
     border: #E69A9C solid 2px;
     padding: 80px;
 }
+.myPageOuterStyle{
+    margin: auto;
+    width: 1400px;
+    height: 600px;
+    padding: 40px;
+}
+.myPageStyle{
+    margin: auto;
+    border-radius:10px;
+    border: #E69A9C solid 2px;
+    padding: 80px;
+}
