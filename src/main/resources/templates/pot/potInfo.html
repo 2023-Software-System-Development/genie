@@ -88,7 +88,6 @@
 <table style="margin:auto; text-align:center; width: 70%">
     <tr th:if="${pot.isMaster}">
         <td>
-            <button th:onclick="'redirectToEdit(' + ${pot.potId} + ')'" type="button" class="btn btn-primary">수정하기</button>
             <button type="submit" class="btn btn-primary" onclick="openModal()">삭제하기</button>
             <form th:if="${isOngoing!=null && !isOngoing}" action="/pot/apply/users" style="display: inline;">
                 <input type="hidden" name="potId" th:value="${pot.potId}" />

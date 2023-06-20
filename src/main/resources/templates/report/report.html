@@ -12,23 +12,25 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div th:include="/mainPage/navigator.html"></div>
+<div style="width:100%;" th:include="/mainPage/navigator.html"></div>
 <th:block th:if="${success != null && success}">
   <script>alert('신고가 정상적으로 접수되었습니다.')</script>
 </th:block>
 
 <table class="table2" style="width:100%; height:700px; background-color: #ffffff;">
   <tr>
-    <td style="width:20%;">
+    <td style="width:25%;">
       <!-- 왼쪽 테이블: mypage_menu.html -->
       <div style="width:80%; height:100%; margin:auto; align:center;" th:include="/myPage/mypage_menu.html"></div>
     </td>
-    <td style="width:80%; height:100%;">
+    <td style="width:75%; height:100%;">
       <!-- 오른쪽 테이블: mypage_info.html -->
-      <div style="width:100%; height:100%;" class="formOuterStyle">
-      <div style="width:100%; height:100%;" class="formStyle">
-        <h4>회원 신고</h4>
-        <form style="width:100%; height:100%;" action="@{/report}" th:action th:object="${reportForm}" method="post" enctype="multipart/form-data">
+      <div class="formOuterStyle">
+      <div class="formStyle">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <h4 style="text-align:center;">회원 신고</h4>
+        <form style="width:80%; height:70%; margin:auto; align:center;" action="@{/report}" th:action th:object="${reportForm}" method="post" enctype="multipart/form-data">
           <div>
             <label for="userNickname">회원 닉네임: </label>
             <input type="text" id="userNickname" th:field="*{userNickName}" class="form-control" placeholder="신고할 회원 닉네임을 입력하세요.">

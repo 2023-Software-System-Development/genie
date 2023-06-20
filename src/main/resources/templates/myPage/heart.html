@@ -28,6 +28,7 @@
             gap: 20px;
             justify-content: center;
             align-items: center;
+            margin-top: 55px;
         }
 
         .card {
@@ -50,8 +51,8 @@
             </td>
             <td style="width:75%;">
                 <!-- 오른쪽 테이블: mypage_info.html -->
-                <div class="mypage-info-container">
-                    <h4>내가 찜한 팟</h4>
+<!--                <div class="mypage-info-container">-->
+                   <!-- <h4>내가 찜한 팟</h4> -->
                     <div th:label="potList" class="outer">
                         <div th:each="pot, stat : ${interestPotList}" class="card border-primary mb-3" style="max-width: 20rem;">
                             <div class="row-md-4" th:onclick="'handleOuterClick(\'' + ${pot.potId} + '\')'" >
