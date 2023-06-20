@@ -26,9 +26,10 @@ import java.util.concurrent.ConcurrentHashMap;
 @Scope("prototype") // 각 팟마다 새로운 인스턴스 생성
 public class WebSocketComponent extends TextWebSocketHandler {
 
+
     private Map<String, WebSocketSession> sessionMap = new ConcurrentHashMap<>();
     private final UserService userService;
-    
+
     // 이전 메시지를 저장하기 위한 리스트
     private List<String> chatHistory = new ArrayList<>();
     // 현재 날짜 저장
@@ -48,6 +49,9 @@ public class WebSocketComponent extends TextWebSocketHandler {
         String username = userService.getUserNickName(authentication);
         String joinMessage = username + "님이 입장했습니다.";
         sendMessageToAll(joinMessage);
+
+        // 현재 클라이언트에게 입장 메시지 전송
+        sendMessage(session, joinMessage);
     }
 
     private void sendMessageToAll(String message) {
@@ -85,7 +89,6 @@ public class WebSocketComponent extends TextWebSocketHandler {
         // 새로운 메시지를 받았을 때, 이전 메시지 리스트에 추가
         chatHistory.add(payload);
     }
-
     private boolean checkDateChange(String message) {
         // 이전 메시지가 없는 경우 또는 날짜가 변경되었을 경우 true 반환
         if (chatHistory.isEmpty()) {
@@ -102,7 +105,6 @@ public class WebSocketComponent extends TextWebSocketHandler {
 
         return isDateChanged;
     }
-
     private String getCurrentDate(String message) {
         return message.substring(0, 10);
     }
@@ -117,6 +119,11 @@ public class WebSocketComponent extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
         sessionMap.remove(session.getId());
+
+        Authentication authentication = (Authentication) session.getPrincipal();
+        String username = userService.getUserNickName(authentication);
+        String leaveMessage = username + "님이 퇴장했습니다.";
+        sendMessageToAll(leaveMessage);
     }
 
 }
