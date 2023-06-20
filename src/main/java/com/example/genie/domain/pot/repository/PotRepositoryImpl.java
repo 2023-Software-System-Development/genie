@@ -32,11 +32,22 @@ public class PotRepositoryImpl implements PotRepositoryCustom {
                         getOttType(potSearchForm.getOttType()),  QPot.pot.state.eq(State.RECRUITING))
                 .orderBy(QPot.pot.createdDate.desc())
                 .offset(pageable.getOffset())
-                .limit(pageable.getPageSize() + 1)
+                .limit(pageable.getPageSize())
                 .fetch();
-        return getPageImpl(potList, pageable);
+        Long count = getCount(potSearchForm);
+        return new PageImpl<>(potList, pageable, count);
     }
 
+    private Long getCount(PotSearchForm potSearchForm) {
+        Long count = jpaQueryFactory
+                .select(QPot.pot.count())
+                .from(QPot.pot)
+                .where(containWordInPot(potSearchForm.getSearchType(), potSearchForm.getSearchText()),
+                        getOttType(potSearchForm.getOttType()),  QPot.pot.state.eq(State.RECRUITING))
+                .orderBy(QPot.pot.createdDate.desc())
+                .fetchOne();
+        return count;
+    }
     private BooleanExpression getOttType(String ottType) {
         if (ottType.equals("all")) {
             return null; // all로 값이 넘어오면 전체 데이터를 반환
@@ -48,12 +59,10 @@ public class PotRepositoryImpl implements PotRepositoryCustom {
 
     private <T> Page<T> getPageImpl(List<T> list, Pageable pageable) {
         boolean hasNext = false;
-        if (list.size() > pageable.getPageSize() + 1) {
+        if (list.size() > pageable.getPageSize()) {
             hasNext = true;
-            list.remove(list.size() - 1);
         }
-
-        return new PageImpl<>(list, pageable, list.size());
+        return new PageImpl<>(list, pageable, list.size()+1);
     }
 
     private BooleanBuilder containWordInPot(String searchType, String searchText) {
