@@ -7,10 +7,13 @@ import com.example.genie.domain.apply.repository.ApplyRepository;
 import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.pot.mapper.PotMapper;
 import com.example.genie.domain.pot.model.PotInfoObject;
+import com.example.genie.domain.pot.model.PotObject;
 import com.example.genie.domain.pot.repository.PotRepository;
 import com.example.genie.domain.user.entity.User;
 import com.example.genie.domain.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -26,24 +29,23 @@ public class UserService {
     private PotRepository potRepository;
     private final UserUtils userUtils;
 
-    //user의 Apply List 가져오기
-    public List<PotInfoObject> getUserApplyPotList(Long userId){
-        List<Apply> applyList =  applyRepository.findByApplicant_IdAndState(userId, State.APPROVED);
-        List<PotInfoObject> potList = new ArrayList<>();
-        for(Apply apply : applyList){
-            potList.add(PotMapper.toPotInfoObject(apply.getPot(), false));
-        }
-        return potList;
+    public User findLoginUser(Authentication authentication){
+        return userUtils.getUser(authentication);
+    }
+    //user가 가입한 Pot List 가져오기
+    public Page<PotObject> getUserApplyPotList(Authentication authentication, Pageable pageable){
+        User user = userUtils.getUser(authentication);
+        Page<Pot> potList = applyRepository.findPotByUser_Id(user.getId(), State.APPROVED, pageable);
+        Page<PotObject> potObjects = potList.map(pot -> PotMapper.toPotObject(pot));
+        return potObjects;
     }
 
-    //user
-    public List<PotInfoObject> getUserPotList(Long userId){
-        List<Pot> potList = potRepository.findByMasterId(userId);
-        List<PotInfoObject> potInfoObjectList = new ArrayList<>();
-        for(Pot pot : potList){
-            potInfoObjectList.add(PotMapper.toPotInfoObject(pot, true));
-        }
-        return potInfoObjectList;
+    //user가 만든 Pot List 가져오기
+    public Page<PotObject> getUserPotList(Authentication authentication, Pageable pageable){
+        User user = userUtils.getUser(authentication);
+        Page<Pot> potList = potRepository.findByMasterId(user.getId(), pageable);
+        Page<PotObject> potObjects = potList.map(pot -> PotMapper.toPotObject(pot));
+        return potObjects;
     }
 
     public String getUserNickName (Authentication authentication) {
