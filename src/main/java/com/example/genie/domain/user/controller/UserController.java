@@ -40,7 +40,7 @@ public class UserController {
         Page<PotObject> userApplyPotList = userService.getUserApplyPotList(authentication, pageable);
         model.addAttribute("userApplyPotList", userApplyPotList);
 
-        return "myPage/mypot_join_list";
+        return "myPage/mypot_joinList";
     }
 
     @GetMapping("/potList")
