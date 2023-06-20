@@ -1,5 +1,7 @@
 package com.example.genie.domain.report.service;
 
+import com.example.genie.domain.reliability.entity.Reliability;
+import com.example.genie.domain.reliability.mapper.ReliabilityMapper;
 import com.example.genie.domain.report.entity.Report;
 import com.example.genie.domain.report.entity.Score;
 import com.example.genie.domain.report.form.ReportForm;
@@ -50,6 +52,7 @@ public class ReportService {
         user.updateReliability(userScore);
         Report report = reportRepository.findById(reportInfoObject.getReportId()).orElseThrow(() -> new EntityNotFoundException("Pot not found"));
         report.changeIsConfirmed(true);
+//        Reliability reliability = ReliabilityMapper.mapToReliabilityWithUser(user, reportInfoObject);
     }
 
     public List<ReportObject> getReportObjectList() {
