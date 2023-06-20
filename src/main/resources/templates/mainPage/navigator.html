@@ -14,7 +14,7 @@
     <style>
         .login-signup {
             position: absolute;
-            top: 20px;
+            top: 10px;
             right: 10px;
             display: flex;
             align-items: center;
@@ -67,82 +67,83 @@
 <body>
 <nav style="width:100%; height:150px;" class="navbar navbar-expand-lg navbar-dark bg-primary">
     <table style="width:100%; height:150px;">
-        <th>
-            <td>
-                <div class="collapse navbar-collapse">
+        <tr>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <td>
                     <a class="navbar-brand" href="/pot/list?ottType=all">
                         <img class="logo_nav" src="/image/logo/logo_transparent.png" alt="로고">
                     </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                   <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
                             aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-            </td>
-        </th>
-        <th>
-            <div class="collapse navbar-collapse" id="navbarColor01">
-                <div style="text-align:center;" class="navbar-nav me-auto">
-                <table style="text-align:center;" class="navbar-nav me-auto">
-                    <tr>
-                        <td style="width:150px; height:45px;">
-                            <a class="nav-item" href="/pot/list?ottType=DisneyPlus" >
-                                <span class="ott">Disney+</span>
-                            </a>
-                        </td>
-                        <td style="width:150px; height:45px;">
-                            <a class="nav-item" href="/pot/list?ottType=NetFlix">
-                                <span class="ott">NETFLIX</span>
-                            </a>
-                        </td>
-                        <td style="width:150px; height:45px;">
-                            <a class="nav-item" href="/pot/list?ottType=Watcha">
-                                <span class="ott">WATCHA</span>
-                            </a>
-                        </td>
-                        <td style="width:150px; height:45px;">
-                            <a class="nav-item" href="/pot/list?ottType=Wavve">
-                                <span class="ott">wavve</span>
-                            </a>
-                        </td>
-                        <td style="width:150px; height:45px;">
-                            <a class="nav-item"  href="/user/info">
-                                <span class="myPage">MyPage</span>
-                            </a>
-                        </td>
-                        <td style="width:800px; height:45px; align:right;">
-                            <!--<div class="login-signup3">-->
-                            <form style="width:500px;" name="potSearchForm" action="/pot/list" class="d-flex" onsubmit="return handleFormSubmit()">
-                                <select class="form-select" style="width: fit-content" name="searchType">
-                                    <option value="potName">팟 이름</option>
-                                    <option value="remain">남은 인원</option>
-                                    <option value="term">기간</option>
-                                </select>
-                                <input name="searchText" class="form-control me-sm-3" type="text" placeholder="Search">
-                                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                            </form>
-                            <!--</div>-->
-                        </td>
-                    </tr>
-                </table>
-                </div>
-                <div class="login-signup">
-                    <form th:action="@{/user/login}">
-                        <button sec:authorize="isAnonymous()" class="btn btn-secondary my-2 my-sm-0" type="submit">로그인
-                        </button>
-                    </form> &nbsp;
-                    <form th:action="@{/user/signup}">
-                        <button sec:authorize="isAnonymous()" class="btn btn-secondary my-2 my-sm-0" type="submit">회원가입
-                        </button>
+                    </button>-->
+                </td>
+
+            <!--<div style="text-align:center;" class="navbar-nav me-auto">-->
+                <td style="width:150px; height:45px;">
+                    <a class="nav-item" href="/pot/list?ottType=DisneyPlus" >
+                        <span class="ott">Disney+</span>
+                    </a>
+                </td>
+                <td style="width:150px; height:45px;">
+                    <a class="nav-item" href="/pot/list?ottType=NetFlix">
+                        <span class="ott">NETFLIX</span>
+                    </a>
+                </td>
+                <td style="width:150px; height:45px;">
+                    <a class="nav-item" href="/pot/list?ottType=Watcha">
+                        <span class="ott">WATCHA</span>
+                    </a>
+                </td>
+                <td style="width:150px; height:45px;">
+                    <a class="nav-item" href="/pot/list?ottType=Wavve">
+                        <span class="ott">wavve</span>
+                    </a>
+                </td>
+                <td style="width:150px; height:45px;">
+                    <a class="nav-item"  href="/user/info">
+                        <span class="myPage">MyPage</span>
+                    </a>
+                </td>
+                <td style="width:500px;"></td>
+                <td style="width:800px; height:45px; align:right;">
+                    <!--<div class="login-signup3">-->
+                    <form style="width:500px;" name="potSearchForm" action="/pot/list" class="d-flex" onsubmit="return handleFormSubmit()">
+                        <select class="form-select" style="width: fit-content" name="searchType">
+                            <option value="potName">팟 이름</option>
+                            <option value="remain">남은 인원</option>
+                            <option value="term">기간</option>
+                        </select>
+                        <input name="searchText" class="form-control me-sm-3" type="text" placeholder="Search">
+                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                     </form>
-                </div>
-                <div class="login-signup">
-                    <form th:action="@{/user/logout}" class="d-flex ml-auto">
-                        <button sec:authorize="isAuthenticated()" class="btn btn-secondary my-2 my-sm-0" type="submit">
-                            로그아웃
-                        </button>
-                    </form>
-                </div>
+                    <!--</div>-->
+                </td>
+           <!-- </div>-->
+                <td>
+                    <div class="login-signup">
+                        <form th:action="@{/user/login}">
+                            <button sec:authorize="isAnonymous()" class="btn btn-secondary my-2 my-sm-0" type="submit">로그인
+                            </button>
+                        </form> &nbsp;
+                        <form th:action="@{/user/signup}">
+                            <button sec:authorize="isAnonymous()" class="btn btn-secondary my-2 my-sm-0" type="submit">회원가입
+                            </button>
+                        </form>
+                    </div>
+                    <div class="login-signup">
+                        <form th:action="@{/user/logout}" class="d-flex ml-auto">
+                            <button sec:authorize="isAuthenticated()" class="btn btn-secondary my-2 my-sm-0" type="submit">
+                                로그아웃
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </div>
+        </tr>
+    </table>
+
+
 
 
                 <script th:inline="javascript">
@@ -176,7 +177,7 @@
                     }
                 </script>
             </div>
-        </th>
+        </tr>
     </table>
 </nav>
 </body>
