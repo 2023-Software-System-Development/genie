@@ -45,15 +45,13 @@
     <table class="table2" style="width:100%;">
         <tr>
             <td style="width:25%;">
-                <!-- 왼쪽 테이블: mypage_menu.html -->
                 <div style="width:80%; height:100%; margin:auto; align:center;" th:include="/myPage/mypage_menu.html"></div>
             </td>
             <td style="width:75%;">
-                <!-- 오른쪽 테이블: mypage_info.html -->
-                <div class="mypage-info-container">
-                    <h4>내가 찜한 팟</h4>
+                <div><!-- class="mypage-info-container"-->
+                    <!--<h5>내가 만든 팟</h5>-->
                     <div th:label="potList" class="outer">
-                        <div th:each="pot, stat : ${interestList}" class="card border-primary mb-3" style="max-width: 20rem;">
+                        <div th:each="pot, stat : ${userApplyPotList}" class="card border-primary mb-3" style="max-width: 20rem;">
                             <div class="row-md-4" th:onclick="'handleOuterClick(\'' + ${pot.potId} + '\')'" >
                                 <div class="card-header" th:text="${pot.potName}"></div>
                                 <div class="card-header" th:text="${pot.ottType}"></div>
@@ -66,6 +64,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </td>
         </tr>

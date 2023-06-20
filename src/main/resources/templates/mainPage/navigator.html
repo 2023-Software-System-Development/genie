@@ -14,7 +14,7 @@
     <style>
         .login-signup {
             position: absolute;
-            top: 20px;
+            top: 10px;
             right: 10px;
             display: flex;
             align-items: center;
@@ -49,80 +49,66 @@
             color: white;
             font-size: x-large;
         }
+        .myPage{
+            visibility: visible;
+            color: Black;
+            font-size: x-large;
+        }
         .ott:hover{
             color: #F2E2DB;
-            font-size: xx-large;
+            /*font-size: xx-large;*/
+        }
+        .myPage:hover{
+            color: #F2E2DB;
+            /*font-size: xx-large;*/
         }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <table>
-        <th>
-        <td>
-            <div class="collapse navbar-collapse">
-                <a class="navbar-brand" href="/pot/list?ottType=all">
-                    <img class="logo_nav" src="/image/logo/logo_transparent.png" alt="로고">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
-                        aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-        </td>
-        <td>
-            <div class="login-signup">
-                <form th:action="@{/user/login}">
-                    <button sec:authorize="isAnonymous()" class="btn btn-secondary my-2 my-sm-0" type="submit">로그인
-                    </button>
-                </form> &nbsp;
-                <form th:action="@{/user/signup}">
-                    <button sec:authorize="isAnonymous()" class="btn btn-secondary my-2 my-sm-0" type="submit">회원가입
-                    </button>
-                </form>
-            </div>
-            <div class="login-signup">
-                <form th:action="@{/user/logout}" class="d-flex ml-auto">
-                    <button sec:authorize="isAuthenticated()" class="btn btn-secondary my-2 my-sm-0" type="submit">
-                        로그아웃
-                    </button>
-                </form>
-            </div>
-        </td>
-        </th>
-        <th>
+<nav style="width:100%; height:150px;" class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <table style="width:100%; height:150px;">
+        <tr>
             <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav me-auto">
-                    <li class="li-gap">
-                        <div class="nav-item2">
-                            <a class="nav-item" href="/pot/list?ottType=DisneyPlus" >
-                                <span class="ott">Disney+</span>
-                            </a>
-                        </div>
-                    </li>
-                    <li class="li-gap">
-                        <a class="nav-item" href="/pot/list?ottType=NetFlix">
-                            <span class="ott">NETFLIX</span>
-                        </a>
-                    </li>
-                    <li class="li-gap">
-                        <a class="nav-item" href="/pot/list?ottType=Watcha">
-                            <span class="ott">WATCHA</span>
-                        </a>
-                    </li>
-                    <li class="li-gap">
-                        <a class="nav-item" href="/pot/list?ottType=Wavve">
-                            <span class="ott">wavve</span>
-                        </a>
-                    </li>
-                    <li class="li-gap">
-                        <a class="nav-item"  href="/user/info">
-                            <span style="visibility: visible; color: black;">My Page</span>
-                        </a>
-                    </li>
-                </ul>
-                <div class="login-signup3">
-                    <form name="potSearchForm" action="/pot/list" class="d-flex" onsubmit="return handleFormSubmit()">
+                <td>
+                    <a class="navbar-brand" href="/pot/list?ottType=all">
+                        <img class="logo_nav" src="/image/logo/logo_transparent.png" alt="로고">
+                    </a>
+                   <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>-->
+                </td>
+
+            <!--<div style="text-align:center;" class="navbar-nav me-auto">-->
+                <td style="width:150px; height:45px;">
+                    <a class="nav-item" href="/pot/list?ottType=DisneyPlus" >
+                        <span class="ott">Disney+</span>
+                    </a>
+                </td>
+                <td style="width:150px; height:45px;">
+                    <a class="nav-item" href="/pot/list?ottType=NetFlix">
+                        <span class="ott">NETFLIX</span>
+                    </a>
+                </td>
+                <td style="width:150px; height:45px;">
+                    <a class="nav-item" href="/pot/list?ottType=Watcha">
+                        <span class="ott">WATCHA</span>
+                    </a>
+                </td>
+                <td style="width:150px; height:45px;">
+                    <a class="nav-item" href="/pot/list?ottType=Wavve">
+                        <span class="ott">wavve</span>
+                    </a>
+                </td>
+                <td style="width:150px; height:45px;">
+                    <a class="nav-item"  href="/user/info">
+                        <span class="myPage">MyPage</span>
+                    </a>
+                </td>
+                <td style="width:500px;"></td>
+                <td style="width:800px; height:45px; align:right;">
+                    <!--<div class="login-signup3">-->
+                    <form style="width:500px;" name="potSearchForm" action="/pot/list" class="d-flex" onsubmit="return handleFormSubmit()">
                         <select class="form-select" style="width: fit-content" name="searchType">
                             <option value="potName">팟 이름</option>
                             <option value="remain">남은 인원</option>
@@ -131,7 +117,34 @@
                         <input name="searchText" class="form-control me-sm-3" type="text" placeholder="Search">
                         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                     </form>
-                </div>
+                    <!--</div>-->
+                </td>
+           <!-- </div>-->
+                <td>
+                    <div class="login-signup">
+                        <form th:action="@{/user/login}">
+                            <button sec:authorize="isAnonymous()" class="btn btn-secondary my-2 my-sm-0" type="submit">로그인
+                            </button>
+                        </form> &nbsp;
+                        <form th:action="@{/user/signup}">
+                            <button sec:authorize="isAnonymous()" class="btn btn-secondary my-2 my-sm-0" type="submit">회원가입
+                            </button>
+                        </form>
+                    </div>
+                    <div class="login-signup">
+                        <form th:action="@{/user/logout}" class="d-flex ml-auto">
+                            <button sec:authorize="isAuthenticated()" class="btn btn-secondary my-2 my-sm-0" type="submit">
+                                로그아웃
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </div>
+        </tr>
+    </table>
+
+
+
 
                 <script th:inline="javascript">
                     function handleFormSubmit() {
@@ -164,7 +177,7 @@
                     }
                 </script>
             </div>
-        </th>
+        </tr>
     </table>
 </nav>
 </body>
