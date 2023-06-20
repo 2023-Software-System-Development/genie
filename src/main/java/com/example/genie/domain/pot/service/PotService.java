@@ -59,7 +59,7 @@ public class PotService {
         }
 
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-        pageable = PageRequest.of(page, 6); // <- Sort 추가
+        pageable = PageRequest.of(page, 8); // <- Sort 추가
         Page<Pot> pots = potRepositoryCustom.findListBySearch(potSearchForm, pageable);
         return pots.map(PotMapper::toPotObject);
     }
@@ -74,7 +74,7 @@ public class PotService {
         }
 
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-        pageable = PageRequest.of(page, 6); // <- Sort 추가
+        pageable = PageRequest.of(page, 8); // <- Sort 추가
         Page<Pot> pots = potRepositoryCustom.findListBySearch(potSearchForm, pageable);
         User user = userUtils.getUser(authentication);
         Interest interest;
