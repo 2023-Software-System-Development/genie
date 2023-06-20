@@ -146,19 +146,22 @@
 }
 .formOuterStyle{
     width: 95%;
-    height: 600px;
+    height: 100%;
     border-collapse: collapse;
     border-radius: 13px;
     border: none;
+    align: center;
     font-size: 15pt;
     /*text-align: center;*/
     background-color: #ffffff;
 }
 .formStyle{
     width: 95%;
-    height: 90%;
+    height: 100%;
     margin: auto;
+    align: center;
     top: 50px;
+    margin-top: 100px;
     border: #E69A9C solid 3px;
     border-radius: 13px;
 }

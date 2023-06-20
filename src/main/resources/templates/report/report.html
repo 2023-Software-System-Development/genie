@@ -27,8 +27,10 @@
       <!-- 오른쪽 테이블: mypage_info.html -->
       <div class="formOuterStyle">
       <div class="formStyle">
-        <h4>회원 신고</h4>
-        <form style="width:80%; height:100%;" action="@{/report}" th:action th:object="${reportForm}" method="post" enctype="multipart/form-data">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <h4 style="text-align:center;">회원 신고</h4>
+        <form style="width:80%; height:70%; margin:auto; align:center;" action="@{/report}" th:action th:object="${reportForm}" method="post" enctype="multipart/form-data">
           <div>
             <label for="userNickname">회원 닉네임: </label>
             <input type="text" id="userNickname" th:field="*{userNickName}" class="form-control" placeholder="신고할 회원 닉네임을 입력하세요.">

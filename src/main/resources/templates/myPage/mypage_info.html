@@ -7,11 +7,12 @@
             width: 95%;
             height: 600px;
             border-collapse: collapse;
-            border-radius: 13px;
             border: #E69A9C solid 3px;
             font-size: 15pt;
             text-align: center;
+            margin-top: 20px;
             background-color: #ffffff;
+            border-radius: 13px;
         }
         .table4 {
             width: 95%;
@@ -38,9 +39,10 @@
         .table1 {
             background-color: #7fc5b1;
             text-decoration-color: #1f2326;
-            margin-bottom: 10px;
+            margin-top: 20px;
             width: 20%; /* 테이블 크기 조정 */
             height: 50px;
+            margin-left: 20px;
             border-collapse: collapse;
             border-radius: 100px;
         }
@@ -70,6 +72,7 @@
         <td style="width:100%; height: 90%;">
             <div class="table4">
                 <table class="table3">
+                    <tbody style="border-radius: 13px;">
                     <tr>
                         <th scope="row">아이디</th>
                         <td th:text="${user.userLoginId}"></td>
@@ -90,6 +93,7 @@
                         <th scope="row">이메일 주소</th>
                         <td th:text="${user.email}"></td>
                     </tr>
+                    </tbody>
                 </table>
             </div>
         </td>
