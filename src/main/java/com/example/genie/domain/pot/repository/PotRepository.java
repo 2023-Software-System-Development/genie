@@ -9,6 +9,5 @@ import org.springframework.security.core.parameters.P;
 import java.util.List;
 
 public interface PotRepository extends JpaRepository<Pot, Long> {
-
     public Page<Pot> findByMasterId(Long userId, Pageable pageable);
 }
