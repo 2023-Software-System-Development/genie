@@ -129,7 +129,7 @@
     margin: auto;
     border-radius: 13px;
     top: 50px;
-    border: #E69A9C solid 2px;
+    border: #E69A9C solid 3px;
     padding: 70px;
 }
 .signupForm{
@@ -141,7 +141,7 @@
 .signupFormInner{
     margin: auto;
     border-radius:10px;
-    border: #E69A9C solid 2px;
+    border: #E69A9C solid 3px;
     padding: 80px;
 }
 .formOuterStyle{
@@ -153,7 +153,7 @@
 .formStyle{
     margin: auto;
     border-radius:10px;
-    border: #E69A9C solid 2px;
+    border: #E69A9C solid 3px;
     padding: 80px;
 }
 .myPageOuterStyle{
@@ -165,6 +165,6 @@
 .myPageStyle{
     margin: auto;
     border-radius:10px;
-    border: #E69A9C solid 2px;
+    border: #E69A9C solid 3px;
     padding: 80px;
 }
