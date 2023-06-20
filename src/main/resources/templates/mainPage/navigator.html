@@ -127,14 +127,18 @@
                             </button>
                         </form> &nbsp;
                         <form th:action="@{/user/signup}">
-                            <button sec:authorize="isAnonymous()" class="btn btn-secondary my-2 my-sm-0" type="submit">회원가입
-                            </button>
+                            <button sec:authorize="isAnonymous()" class="btn btn-secondary my-2 my-sm-0" type="submit">회원가입</button>
                         </form>
                     </div>
                     <div class="login-signup">
                         <form th:action="@{/user/logout}" class="d-flex ml-auto">
                             <button sec:authorize="isAuthenticated()" class="btn btn-secondary my-2 my-sm-0" type="submit">
                                 로그아웃
+                            </button>
+                        </form>
+                        <form th:action="@{/system}">
+                            <button sec:authorize="hasRole('ADMIN')" class="btn btn-secondary my-2 my-sm-0" type="submit">
+                                관리자 페이지
                             </button>
                         </form>
                     </div>

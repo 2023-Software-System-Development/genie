@@ -77,7 +77,7 @@ public class PotController {
 
     //메인페이지에서 보일 팟 리스트 조회 API
     @RequestMapping("/list")
-    public String getPotList(@RequestParam(value = "ottType", required = false) String ottType, @ModelAttribute PotSearchForm potSearchForm, @PageableDefault(page = 0, size = 6) Pageable pageable,
+    public String getPotList(@RequestParam(value = "ottType", required = false) String ottType, @ModelAttribute PotSearchForm potSearchForm, @PageableDefault(page = 0, size = 8) Pageable pageable,
                              Model model, Authentication authentication) {
         if (ottType != null) {
             potSearchForm.setOttType(ottType);
