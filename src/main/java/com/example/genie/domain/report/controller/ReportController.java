@@ -3,21 +3,22 @@ package com.example.genie.domain.report.controller;
 import com.example.genie.common.util.UserUtils;
 import com.example.genie.domain.report.entity.Report;
 import com.example.genie.domain.report.form.ReportForm;
+import com.example.genie.domain.report.model.ReportInfoObject;
+import com.example.genie.domain.report.model.ReportObject;
 import com.example.genie.domain.report.service.ReportService;
 import com.example.genie.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -53,5 +54,27 @@ public class ReportController {
         redirectAttributes.addFlashAttribute("success", true);
         return "redirect:/report";
     }
+
+
+    //신고 확인 후 신뢰도 깎기
+    @PostMapping
+    public void reduceReliability(@ModelAttribute ReportInfoObject reportInfoObject) {
+        reportService.reduceReliability(reportInfoObject);
+    }
+
+    //유저들의 신고 내역 확인
+    @GetMapping
+    public String getReportList(Model model) {
+        List<ReportObject> reportObjectList = reportService.getReportObjectList();
+        model.addAttribute("reportList", reportObjectList);
+        return "report/home";
+    }
+
+    @GetMapping("/{reportId}")
+    public String getReport(@PathVariable Long reportId, Model model) {
+        ReportInfoObject reportInfoObject = reportService.getReport(reportId);
+        return "report/reportInfo";
+    }
+
 
 }
