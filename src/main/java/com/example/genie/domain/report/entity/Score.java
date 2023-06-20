@@ -10,9 +10,9 @@ enum Score {
     잠수("잠수", 40);
 
     private final String label;
-    private final int score;
+    private final Integer score;
 
-    Score(String label, int score) {
+    Score(String label, Integer score) {
         this.label = label;
         this.score = score;
     }
