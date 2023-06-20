@@ -1,10 +1,12 @@
 package com.example.genie.domain.reliability.Service;
 
 import com.example.genie.common.util.UserUtils;
+import com.example.genie.domain.report.entity.Score;
 import com.example.genie.domain.reliability.mapper.ReliabilityMapper;
 import com.example.genie.domain.reliability.model.ReliabilityInfoObject;
 import com.example.genie.domain.reliability.repository.ReliabilityRepository;
 import com.example.genie.domain.reliability.entity.Reliability;
+import com.example.genie.domain.report.form.ReportForm;
 import com.example.genie.domain.user.entity.User;
 import com.example.genie.domain.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReliabilityService {
     private final ReliabilityRepository reliabilityRepository;
+    private final UserRepository userRepository;
     private final UserUtils userUtils;
 
     public Page<ReliabilityInfoObject> getUserReliabilities(Authentication authentication, Pageable pageable){

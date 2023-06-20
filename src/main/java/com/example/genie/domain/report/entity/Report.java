@@ -26,12 +26,18 @@ public class Report extends BaseEntity {
     private String imageUrl;
     private Long userId;
 
+    private Boolean isConfirmed;
+
     @Builder
-    public Report(String userNickName, int type, String contents, String imageUrl, Long userId) {
+    public Report(String userNickName, int type, String contents, String imageUrl, Long userId, boolean isConfirmed) {
         this.userNickName = userNickName;
         this.type = type;
         this.contents = contents;
         this.imageUrl = imageUrl;
         this.userId = userId;
+        this.isConfirmed = isConfirmed;
+    }
+    public void changeIsConfirmed(Boolean isConfirmed) {
+        this.isConfirmed = isConfirmed;
     }
 }
