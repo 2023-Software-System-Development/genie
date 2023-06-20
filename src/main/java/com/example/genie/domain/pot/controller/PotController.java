@@ -40,7 +40,6 @@ public class PotController {
         return new PotSearchForm();
     }
 
-
     //팟 생성 폼을 호출하는 API
     @GetMapping
     public String createPotForm(HttpServletRequest request, @ModelAttribute PotCreateForm potCreateForm, Model model) {
@@ -83,7 +82,7 @@ public class PotController {
             potSearchForm.setOttType(ottType);
             potSearchForm.setSearchText(null);
             potSearchForm.setSearchType(null);
-        }else{
+        }else if(potSearchForm.getOttType() ==null){
             potSearchForm.setOttType("all");
         }
         try {
