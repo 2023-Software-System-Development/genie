@@ -26,9 +26,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @Scope("prototype") // 각 팟마다 새로운 인스턴스 생성
 public class WebSocketComponent extends TextWebSocketHandler {
 
-    public static Map<String, WebSocketSession> sessionMap = new ConcurrentHashMap<>();
+    private Map<String, WebSocketSession> sessionMap = new ConcurrentHashMap<>();
     private final UserService userService;
-
+    
     // 이전 메시지를 저장하기 위한 리스트
     private List<String> chatHistory = new ArrayList<>();
     // 현재 날짜 저장
