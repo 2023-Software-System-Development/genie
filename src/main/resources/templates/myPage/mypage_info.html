@@ -23,32 +23,26 @@
             /*padding: 0px;*/
         }
 
-        /*.table3 tr:not(:first-child) th {
-            width: 30%;
+       /* !* 공통 스타일 *!
+        td {
+            padding: 10px;
+            !*border: 1px solid #000000;*!
         }
-
-        .table3 tr:not(:first-child) td {
-            width: 70%;
-        }
-
-        .table3 th {
+        th {
+            padding: 10px;
             font-weight: bold;
-        }
-
-        .table3 th,
-        .table3 td {
-            padding: 10px;
-        }
-
-        .table3 tr:not(:first-child) {
-            height: 80px;
-            padding: 10px;
-        }
-
-        !* 추가 스타일 *!
-        .table3 tr:first-child {
-            background-color: white;
+            text-align: center;
+            !*border: 1px solid #000000;*!
         }*/
+        /* 테이블 1 스타일 */
+        .table1 {
+            background-color: #7fc5b1;
+            text-decoration-color: #1f2326;
+            margin-bottom: 10px;
+            width: 50%; /* 테이블 크기 조정 */
+            border-collapse: collapse;
+            border-radius: 100px;
+        }
 
     </style>
     <script>
@@ -62,7 +56,13 @@
     <tr>
         <td style="height: 10%;" colspan="2">
             <!-- 테이블 1 -->
-            <div style="width: 20%;" th:onclick="'OuterClick()'" th:include="/myPage/reliability.html"></div>
+            <table class="table1" style="width:20%; height:50px;">
+                <tr>
+                    <td style="width:50%; font-weight: bold; height:100%; text-align: center; text-color: #000000;">신뢰도</td>
+                    <td>  :  </td>
+                    <td style="font-weight: bold; text-align: left; text-color: #000000;" th:text="${user.reliabilityScore}"></td>
+                </tr>
+            </table>
         </td>
     </tr>
     <tr>
