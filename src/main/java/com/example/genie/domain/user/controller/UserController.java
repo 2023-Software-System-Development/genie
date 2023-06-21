@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping("/joinPotList")
-    public String getUserJoinPotList(Authentication authentication, Model model, @PageableDefault(page = 0, size = 3) Pageable pageable){
+    public String getUserJoinPotList(Authentication authentication, Model model, @PageableDefault(page = 1, size = 6) Pageable pageable){
         Page<PotObject> userApplyPotList = userService.getUserApplyPotList(authentication, pageable);
         model.addAttribute("userApplyPotList", userApplyPotList);
 
@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/potList")
-    public String getUserPotList(Authentication authentication, Model model, @PageableDefault(page = 0, size = 3) Pageable pageable){
+    public String getUserPotList(Authentication authentication, Model model, @PageableDefault(page = 1, size = 6) Pageable pageable){
         Page<PotObject> userPotList = userService.getUserPotList(authentication, pageable);
         model.addAttribute("userPotList", userPotList);
 

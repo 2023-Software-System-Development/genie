@@ -16,6 +16,7 @@ import com.example.genie.domain.user.mapper.UserMapper;
 import com.example.genie.domain.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,7 @@ public class UserService {
     //user가 가입한 Pot List 가져오기
     public Page<PotObject> getUserApplyPotList(Authentication authentication, Pageable pageable){
         User user = userUtils.getUser(authentication);
-        Page<Pot> potList = applyRepository.findPotByUser_Id(user.getId(), State.APPROVED, pageable);
+        Page<Pot> potList = applyRepository.findPotByUser_Id(user.getId(), State.APPROVED, PageRequest.of(pageable.getPageNumber()-1, pageable.getPageSize()));
         Page<PotObject> potObjects = potList.map(pot -> PotMapper.toPotObject(pot));
         return potObjects;
     }
@@ -48,7 +49,7 @@ public class UserService {
     //user가 만든 Pot List 가져오기
     public Page<PotObject> getUserPotList(Authentication authentication, Pageable pageable){
         User user = userUtils.getUser(authentication);
-        Page<Pot> potList = potRepository.findByMasterId(user.getId(), pageable);
+        Page<Pot> potList = potRepository.findByMasterId(user.getId(), PageRequest.of(pageable.getPageNumber()-1, pageable.getPageSize()));
         Page<PotObject> potObjects = potList.map(pot -> PotMapper.toPotObject(pot));
         return potObjects;
     }

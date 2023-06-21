@@ -54,6 +54,6 @@ public class AuthUserService implements org.springframework.security.core.userde
         String encodedUserPw = bCryptPasswordEncoder.encode(userForm.getUserPw());
         userForm.setUserPw(encodedUserPw);
         User user = userRepository.save(userForm.toEntity()); //새로운 회원 생성
-        reliabilityService.addReliability(user, new ReliabilityInfoObject("회원가입", 100));
+        reliabilityService.addReliability(user, new ReliabilityInfoObject("회원가입", 50));
     }
 }

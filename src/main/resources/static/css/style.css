@@ -85,7 +85,14 @@
 .card border-primary mb-3 {
     margin:auto;
 }
+.card {
+    flex-basis: 33.33%;
+    box-sizing: border-box;
+}
 
+.card:hover {
+    border-width: thick;
+}
 .ott_disney {
     height:90px;
 }
@@ -235,4 +242,32 @@
     border-radius:10px;
     border: #E69A9C solid 3px;
     padding: 80px;
+}
+.myPageListOuter {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 55px;
+    margin-left: 30px;
+    height: 600px;
+}
+ul.pagination{
+    display: inline-flex;
+    margin: auto;
+    width: 10px;
+    text-align: center;
+}
+/* myPage_info 위치 조정 */
+.mypage-info-container {
+    width: 100%;
+    height: 100%;
+}
+
+/* myPage_info 테이블 크기 조정 */
+.mypage-info-container>table{
+    width: 100%;
+    height: 100%;
+    border: black solid 1px;
 }

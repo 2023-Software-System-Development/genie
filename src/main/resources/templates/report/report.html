@@ -39,9 +39,9 @@
             <label for="type" class="mt-4">사유: </label>
             <div class="form-group">
               <div class="form-check">
-                <div th:each="type : ${reportType}" class="form-check form-check-inline">
-                  <input type="radio" id="type" th:field="*{type}" th:value="${type.getKey()}" th:label="${type.getValue()}" class="form-check-input">
-                  <label th:text="${type.getValue()}"/>
+                <div th:each="type : ${T(com.example.genie.domain.report.model.Type).values()}" class="form-check form-check-inline">
+                  <input type="radio" id="type" th:field="*{type}" th:value="${type.getIndex()}" th:label="${type.getLabel()}" class="form-check-input">
+                  <label th:text="${type.label}"/>
                 </div>
               </div>
             </div>

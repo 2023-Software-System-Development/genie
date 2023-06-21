@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css"
+          integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script>
@@ -11,34 +13,6 @@
             window.location.href = "/pot/" + potId;
         }
     </script>
-    <style>
-        /* myPage_info 위치 조정 */
-        .mypage-info-container {
-            margin: 150px auto 0;
-            width: 140%;
-        }
-
-        /* myPage_info 테이블 크기 조정 */
-        .mypage-info-container table {
-            width: 100%;
-        }
-        .outer {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            justify-content: center;
-            align-items: center;
-            margin-top: 55px;
-        }
-
-        .card {
-            flex-basis: 33.33%;
-            box-sizing: border-box;
-        }
-        .card:hover {
-            border-width: thick;
-        }
-    </style>
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
@@ -49,11 +23,12 @@
                 <div style="width:80%; height:100%; margin:auto; align:center;" th:include="/myPage/mypage_menu.html"></div>
             </td>
             <td style="width:75%;">
-                <div><!-- class="mypage-info-container"-->
+                <div class="mypage-info-container">
                     <!--<h5>내가 만든 팟</h5>-->
-                    <div th:label="potList" class="outer">
-                        <div th:each="pot, stat : ${userApplyPotList}" class="card border-primary mb-3" style="max-width: 20rem;">
-                            <div class="row-md-4" th:onclick="'handleOuterClick(\'' + ${pot.potId} + '\')'" >
+                    <div th:label="potList" class="myPageListOuter">
+                        <div th:each="pot, stat : ${userApplyPotList}" class="card border-primary mb-3"
+                             style="max-width: 20rem;">
+                            <div class="row-md-4" th:onclick="'handleOuterClick(\'' + ${pot.potId} + '\')'">
                                 <div class="card-header" th:text="${pot.potName}"></div>
                                 <div class="card-header" th:text="${pot.ottType}"></div>
 
@@ -65,7 +40,32 @@
                             </div>
                         </div>
                     </div>
-
+                    <div style="text-align: center; margin: auto">
+                        <nav style="text-align: center">
+                            <ul class="pagination pagination-sm"
+                                th:with="start=${T(java.lang.Math).floor(userApplyPotList.number/10)*10 + 1}, last=(${start + 9 < userApplyPotList.totalPages ? start + 9 : userApplyPotList.totalPages})">
+                                <li th:class="${userApplyPotList.first} ? 'disabled'" class="page-item ">
+                                    <a class="page-link"
+                                       th:href="${userApplyPotList.first} ? '#' :@{/user/joinPotList(page=${userPotList.number})}"
+                                       aria-label="Previous">
+                                        <span aria-hidden="true">&lt;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item " th:each="page: ${#numbers.sequence(start, last)}"
+                                    th:class="${page == userApplyPotList.number + 1} ? 'active'">
+                                    <a class="page-link" th:text="${page}"
+                                       th:href="@{/user/joinPotList(page=${page})}"></a>
+                                </li>
+                                <li class="page-item " th:class="${userApplyPotList.last} ? 'disabled'">
+                                    <a class="page-link"
+                                       th:href="${userApplyPotList.last} ? '#' : @{/user/joinPotList(page=${userPotList.number + 2})}"
+                                       aria-label="Next">
+                                        <span aria-hidden="true">&gt;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </td>
         </tr>
