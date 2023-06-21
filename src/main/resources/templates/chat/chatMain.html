@@ -5,8 +5,6 @@
     <title>채팅</title>
 </head>
 <body>
-<h1>채팅방</h1>
-
 <div id="chatConnect">
     <button onclick="startChat()">채팅 시작하기</button>
 </div>
@@ -20,24 +18,42 @@
 </div>
 
 <style>
+    #chatBox {
+        height: 850px;
+        overflow-y: auto;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 0 auto;
+        display: flex;
+        width: 80%;
+        flex-direction: column-reverse; /* 최신 메시지를 위로 표시하기 위해 역순으로 정렬 */
+        align-items: center; /* 수직 가운데 정렬 */
+        justify-content: flex-end; /* 메시지를 하단으로 정렬 */
+        overflow-y: auto;
+    }
     .message-box {
         border-radius: 10px;
         padding: 10px;
-        margin-top: 3px;
-        margin-bottom: 3px;
-        width: 70%; /* 가로 길이 지정 */
-        margin-left: auto;
-        margin-right: auto;
+        margin-top: 10px; /* 상단 여백 추가 */
+        margin-bottom: 10px; /* 하단 여백 추가 */
+        display: inline-block;
+        word-wrap: break-word;
     }
 
-    #chatBox {
+    #chatContainer {
+        width: 70%;
+        height: 1500px;
         overflow-y: auto;
-        max-height: 300px; /* 원하는 높이 값으로 변경 (예: 300px) */
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 10px;
     }
 
     #inputContainer {
         position: fixed;
-        bottom: 20px; /* 원하는 여백 값으로 변경 */
+        bottom: 20px;
         left: 50%;
         transform: translateX(-50%);
         width: 70%;
@@ -65,26 +81,29 @@
         color: black;
     }
 
-    /* 내가 입력한 채팅 메시지 박스 색상 */
     .my-message-box {
         background-color: #D9E5FF;
+        margin-left: auto; /* 오른쪽으로 정렬 */
     }
 
-    /* 다른 사람이 입력한 채팅 메시지 박스 색상 */
     .other-message-box {
         background-color: #DAD9FF;
+        margin-right: auto; /* 왼쪽으로 정렬 */
     }
 
-    /* 입장 메시지 박스 색상 */
-    .join-message-box {
+    .join-message-box, .exit-message-box, .date-message-box {
         background-color: #D5D5D5;
+        text-align: center;
+        margin: 10px auto; /* 중앙 정렬 */
     }
 
-    /* 퇴장 메시지 박스 색상 */
-    .exit-message-box {
-        background-color: #D5D5D5;
+    .message-time {
+        color: gray;
+        font-size: 0.8em;
+        margin-top: 5px;
     }
 
+    /* 기타 스타일 유지 */
 </style>
 
 <script th:inline="javascript">
@@ -94,7 +113,6 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
-
     let sock;
     let isSocketOpen = false;
 
@@ -141,6 +159,14 @@
         sock.send(JSON.stringify(message));
     }
 
+    function sendExitMessage() {
+        let message = {
+            type: 'exit',
+            username: username,
+        };
+        sock.send(JSON.stringify(message));
+    }
+
     function handleMessage(message) {
         let chatBox = document.getElementById('chatBox');
         let messageBox = document.createElement('div');
@@ -156,7 +182,19 @@
                 messageBox.innerHTML = `<strong>${message.username}</strong> 님이 퇴장하셨습니다.`;
                 break;
             case 'chat':
+                let currentDate = new Date().toLocaleDateString(); // 현재 날짜
+                let time = new Date().toLocaleTimeString(); // 작성 시간
                 messageBox.innerHTML = `<strong>${message.username}</strong>: ${message.text}`;
+                let timeElement = document.createElement('div');
+                timeElement.className = 'message-time';
+                timeElement.textContent = time;
+
+                // 날짜 메시지 생성
+                let dateMessageBox = document.createElement('div');
+                dateMessageBox.className = 'date-message-box';
+                dateMessageBox.textContent = currentDate;
+
+                messageBox.appendChild(timeElement);
                 if (message.username === username) {
                     // 내가 보낸 메시지인 경우
                     messageBox.classList.add('my-message-box');
@@ -164,14 +202,22 @@
                     // 다른 사람이 보낸 메시지인 경우
                     messageBox.classList.add('other-message-box');
                 }
+
+                // 이전 날짜 메시지 가져오기
+                let prevDateElement = chatBox.querySelector('.date-message-box');
+                if (!prevDateElement || prevDateElement.textContent !== currentDate) {
+                    chatBox.insertBefore(dateMessageBox, chatBox.firstChild); // 날짜 메시지 추가
+                }
+
                 break;
             default:
                 break;
         }
 
-        chatBox.appendChild(messageBox);
-        chatBox.scrollTop = chatBox.scrollHeight;
+        chatBox.insertBefore(messageBox, chatBox.firstChild); // 가장 최근 메시지를 위에 추가
     }
+
+
 
     function sendMessage() {
         let input = document.getElementById('message');
@@ -195,4 +241,11 @@
         }
     });
 
+    window.onbeforeunload = function() {
+        if (isSocketOpen) {
+            sendExitMessage();
+        }
+    };
 </script>
+</body>
+</html>
