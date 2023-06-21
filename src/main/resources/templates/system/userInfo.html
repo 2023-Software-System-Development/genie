@@ -25,6 +25,12 @@
     </tr>
     <tr>
       <th scope="row">
+        권한
+      </th>
+      <td th:text="${user.role}"></td>
+    </tr>
+    <tr>
+      <th scope="row">
         아이디
       </th>
       <td th:text="${user.userLoginId}"></td>
@@ -60,6 +66,12 @@
       <td th:text="${user.reliabilityScore}"></td>
     </tr>
   </table>
+  <br>
+  <div th:if="${!user.role.equals('ADMIN')}">
+    <form th:action="@{/user/addRole(userId = ${userId})}" method="post">
+      <button class="btn btn-outline-secondary my-2 my-sm-0">관리자로 임명</button>
+    </form>
+  </div>
 </div>
 </body>
 </html>

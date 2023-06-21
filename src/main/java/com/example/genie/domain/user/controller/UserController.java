@@ -17,9 +17,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -65,5 +63,11 @@ public class UserController {
         UserInfo user = userService.getUserInfo(userId);
         model.addAttribute("user", user);
         return "system/userInfo";
+    }
+
+    @PostMapping("/addRole")
+    public String addRole(@RequestParam Long userId){
+        userService.addRole(userId);
+        return "redirect:/user/userList";
     }
 }
