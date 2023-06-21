@@ -12,6 +12,7 @@ import com.example.genie.domain.pot.service.PotService;
 import com.example.genie.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,7 @@ public class InterestService {
   
     public Page<PotObject> getUserInterestPotList(Authentication authentication, Pageable pageable){
         User user = userUtils.getUser(authentication);
-        Page<Pot> pots = interestRepository.findPotByUser_Id(user.getId(), pageable);
+        Page<Pot> pots = interestRepository.findPotByUser_Id(user.getId(), PageRequest.of(pageable.getPageNumber()-1, pageable.getPageSize()));
         return pots.map(pot -> PotMapper.toPotObject(pot));
 
     }

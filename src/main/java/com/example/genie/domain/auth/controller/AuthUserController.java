@@ -31,10 +31,8 @@ public class AuthUserController {
     @Autowired
     AuthUserService userAuthUserService;
     PotService potService;
-    ReliabilityService reliabilityService;
-
     @RequestMapping("/")
-    public String home(Model model, @ModelAttribute PotSearchForm potSearchForm, @PageableDefault(page = 0) Pageable pageable, Authentication authentication){
+    public String home(Model model, @ModelAttribute PotSearchForm potSearchForm, @PageableDefault(page = 0, size = 8) Pageable pageable, Authentication authentication){
         potSearchForm.setOttType("all");
         Page<PotObject> potList = potService.getPotListBySearch(potSearchForm, pageable);
         model.addAttribute("potList", potList);
