@@ -10,7 +10,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-
+import org.springframework.context.annotation.Scope;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,6 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Log4j2
 @Component
 @RequiredArgsConstructor
+@Scope("prototype") // 각 팟마다 새로운 인스턴스 생성
 public class WebSocketComponent extends TextWebSocketHandler {
 
     public static Map<String, WebSocketSession> sessionMap = new ConcurrentHashMap<>();
