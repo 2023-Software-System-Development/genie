@@ -22,13 +22,11 @@ public class ChatRoom extends BaseEntity {
     @Column(name = "chat_room_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "sender_id")
-    private User sender;
+    @OneToMany(mappedBy = "chatRoom", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<User> senders = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "receiver_id")
-    private User receiver;
+    @OneToMany(mappedBy = "chatRoom", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<User> receivers = new ArrayList<>();
 
     @OneToMany(mappedBy = "chatRoom", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ChatMessage> messages = new ArrayList<>();
@@ -38,8 +36,8 @@ public class ChatRoom extends BaseEntity {
     }
 
     @Builder
-    public ChatRoom(User sender, User receiver) {
-        this.sender = sender;
-        this.receiver = receiver;
+    public ChatRoom(List<User> senders, List<User> receivers) {
+        this.senders = senders;
+        this.receivers = receivers;
     }
 }
