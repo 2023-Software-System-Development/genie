@@ -64,10 +64,10 @@
 <div th:include="/mainPage/navigator.html"></div>
 <div class="formOuterStyle">
 <div class="formStyle">
-<form action="@{/pot}" th:action th:object="${potCreateForm}" method="post">
+<form style="width:80%; height:800px; margin:auto; align:center;" action="@{/pot}" th:action th:object="${potCreateForm}" method="post">
   <div>
     <label for="potName">팟 이름</label>
-    <input type="text" id="potName" name="potName" th:field="*{potName}" class="form-control" placeholder="팟 이름을 입력하세요">
+    <input style="width:50%;" type="text" id="potName" name="potName" th:field="*{potName}" class="form-control" placeholder="팟 이름을 입력하세요">
     <!--
         <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
     -->
