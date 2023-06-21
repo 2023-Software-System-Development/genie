@@ -27,8 +27,10 @@ public class User extends BaseEntity {
     private Long id;
 
     private String userName;
+    @Column(unique = true)
     private String userLoginId;
     private String userPw;
+    @Column(unique = true)
     private String userNickName;
     private String phoneNumber;
     private String email;

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css"
+          integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div style="width:100%;" th:include="/system/systemNav.html"></div>
+<div style="text-align: center; padding: 50px">
+    <table class="table table-hover" style="width: 70%; margin: auto;">
+        <tr class="table-info">
+            <th colspan="2" scope="row">
+                신고 내역
+            </th>
+        </tr>
+        <tr>
+            <th scope="row">
+                신고 번호
+            </th>
+            <td th:text="${reportInfoObject.reportId}"></td>
+        </tr>
+        <tr>
+            <th scope="row">
+                신고 타입
+            </th>
+            <td th:text="${reportInfoObject.type.getLabel()}"></td>
+        </tr>
+        <tr>
+            <th scope="row">
+                닉네임
+            </th>
+            <td th:text="${reportInfoObject.userNickName}"></td>
+        </tr>
+        <tr>
+            <th scope="row">
+                신고내용
+            </th>
+            <td th:text="(${reportInfoObject.contents})"></td>
+        </tr>
+        <tr>
+            <th scope="row">
+                신고 회원 번호
+            </th>
+            <td>
+                <a th:href="@{user/userInfo/{userId}(userId=${reportInfoObject.userId})}">
+                    [[${reportInfoObject.userId}]]
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                사진
+            </th>
+            <td>
+                <img th:src="${reportInfoObject.imageUrl}" alt="no Img">
+            </td>
+        </tr>
+    </table>
+    <br>
+    <div style="display: inline-flex">
+    <form method="post" th:action="@{/report/{reportId}/confirm(reportId=${reportInfoObject.reportId}, userNickName=${reportInfoObject.userNickName}, type=${reportInfoObject.type.index})}">
+        <button class="btn btn-secondary my-2 my-sm-0" style="margin-right: 2px">confirm</button>
+    </form>
+    <form method="post" th:action="@{/report/{reportId}/reject(reportId=${reportInfoObject.reportId})}">
+        <button class="btn btn-secondary my-2 my-sm-0">reject</button>
+    </form>
+    </div>
+</div>
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.example.genie.domain.report.controller;
 
 import com.example.genie.common.util.UserUtils;
 import com.example.genie.domain.report.entity.Report;
+import com.example.genie.domain.report.model.Type;
 import com.example.genie.domain.report.form.ReportForm;
 import com.example.genie.domain.report.model.ReportInfoObject;
 import com.example.genie.domain.report.model.ReportObject;
@@ -16,10 +17,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @AllArgsConstructor
@@ -28,15 +27,6 @@ public class ReportController {
     final private ReportService reportService;
     final private UserUtils userUtils;
 
-    @ModelAttribute("reportType")
-    public Map<Integer, String> reportType(){
-        Map<Integer, String> reportType = new HashMap<>();
-        reportType.put(0, "탈주");
-        reportType.put(1, "욕설/비방");
-        reportType.put(2, "잠수");
-        reportType.put(3, "기타");
-        return reportType;
-    }
     @GetMapping
     public String reportForm(@ModelAttribute ReportForm reportForm){
         return "/report/report";
@@ -55,25 +45,31 @@ public class ReportController {
         return "redirect:/report";
     }
 
-
     //신고 확인 후 신뢰도 깎기
-    @PostMapping("/confirm")
-    public void reduceReliability(@ModelAttribute ReportInfoObject reportInfoObject) {
-        reportService.reduceReliability(reportInfoObject);
+    @PostMapping("/{reportId}/confirm")
+    public String confirmReport(@PathVariable Long reportId, @RequestParam Integer type, @RequestParam String userNickName) {
+        reportService.confirmReport(reportId, type, userNickName);
+        return "redirect:/report/list";
     }
-
+    //신고 확인 후 거절
+    @PostMapping("/{reportId}/reject")
+    public String rejectReport(@PathVariable Long reportId) {
+        reportService.rejectReport(reportId);
+        return "redirect:/report/list";
+    }
     //유저들의 신고 내역 확인
     @GetMapping("/list")
     public String getReportList(Model model) {
         List<ReportObject> reportObjectList = reportService.getReportObjectList();
         model.addAttribute("reportList", reportObjectList);
-        return "report/home";
+        return "system/report";
     }
 
     @GetMapping("/{reportId}")
     public String getReport(@PathVariable Long reportId, Model model) {
         ReportInfoObject reportInfoObject = reportService.getReport(reportId);
-        return "report/reportInfo";
+        model.addAttribute("reportInfoObject", reportInfoObject);
+        return "system/reportInfo";
     }
 
 

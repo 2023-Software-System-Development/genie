@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css"
+        integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div style="width:100%;" th:include="/system/systemNav.html"></div>
+<div style="text-align: center; padding: 50px">
+  <table class="table table-hover" style="width: 70%; margin: auto; text-align: center;">
+    <tr class="table-info">
+      <th colspan="2" scope="row">
+        회원 조회
+      </th>
+    </tr>
+    <tr>
+      <th scope="row">
+        회원 번호
+      </th>
+      <td th:text="${user.id}"></td>
+    </tr>
+    <tr>
+      <th scope="row">
+        아이디
+      </th>
+      <td th:text="${user.userLoginId}"></td>
+    </tr>
+    <tr>
+      <th scope="row">
+        이름
+      </th>
+      <td th:text="${user.userName}"></td>
+    </tr>
+    <tr>
+      <th scope="row">
+        닉네임
+      </th>
+      <td th:text="(${user.userNickName})"></td>
+    </tr>
+    <tr>
+      <th scope="row">
+        전화번호
+      </th>
+      <td th:text="${user.phoneNumber}"></td>
+    </tr>
+    <tr>
+      <th scope="row">
+        이메일
+      </th>
+      <td><a th:href="@{mailTo:${user.email}}">[[${user.email}]]</a></td>
+    </tr>
+    <tr>
+      <th scope="row">
+        신뢰도
+      </th>
+      <td th:text="${user.reliabilityScore}"></td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>
