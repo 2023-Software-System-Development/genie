@@ -173,6 +173,36 @@
     margin-top: 80px;
     /*padding: 0px;*/
 }
+.formOuterStyle2{
+    width: 95%;
+    height: 100%;
+    border-collapse: collapse;
+    border-radius: 13px;
+    border: none;
+    align: center;
+    font-size: 15pt;
+    margin:auto;
+    /*text-align: center;*/
+    background-color: #ffffff;
+}
+.formStyle2{
+    /*width: 95%;
+    height: 100%;
+    margin: auto;
+    align: center;
+    top: 50px;
+
+    border: #E69A9C solid 3px;
+    border-radius: 13px;*/
+    width: 90%; /* 테이블 가로 너비 조정 */
+    height: 650px; /* 테이블 세로 높이 조정 */
+    /*top: 50px;*/
+    margin:auto;
+    border: #E69A9C solid 3px;
+    border-radius: 13px;
+    margin-top: 80px;
+    /*padding: 0px;*/
+}
 .formStyle1{
     /*width: 95%;
     height: 100%;
