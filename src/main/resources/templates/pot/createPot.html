@@ -62,9 +62,9 @@
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
-<div class="formOuterStyle">
-<div class="formStyle">
-<form style="width:80%; height:800px; margin:auto; align:center;" action="@{/pot}" th:action th:object="${potCreateForm}" method="post">
+<!--<div class="formOuterStyle">-->
+<div class="formStyle1">
+<form style="width:50%; height:100%; margin:auto; margin-top:6%;" action="@{/pot}" th:action th:object="${potCreateForm}" method="post">
   <div>
     <label for="potName">팟 이름</label>
     <input style="width:50%;" type="text" id="potName" name="potName" th:field="*{potName}" class="form-control" placeholder="팟 이름을 입력하세요">
@@ -121,7 +121,7 @@
   <div style="margin-bottom: 20px;">
     <label for="price">가격</label>
     <div style="display: flex; align-items: center;">
-      <input type="text" id="price" name="price" readonly>
+      <input type="text" id="price" class="form-control" name="price" readonly>
     </div>
     <!--
       <input type="text" id="price" name="price" th:field="*{price}" class="form-control" placeholder="가격을 입력하세요">
@@ -133,18 +133,18 @@
   <div style="margin-bottom: 40px;">
     <label for="term">사용기간</label>
     <div style="display: flex; align-items: center;">
-      <input type="text" id="term" name="term" th:field="*{term}" class="form-control" style="width: 70%;">
+      <input type="text" id="term" name="term" th:field="*{term}" class="form-control" style="width: 50%;">
       <span style="margin-left: 5px;">개월</span>
     </div>    <!--
         <p th:if="${#fields.hasErrors('term')}" th:errorclass="error" th:errors="*{term}" />
     -->
   </div>
-  <div>
+  <div style="margin:auto; align:center;">
     <button type="button" class="btn btn-secondary my-2 my-sm-0">취소</button>
     <button type="submit" class="btn btn-secondary my-2 my-sm-0">팟 생성하기</button>
   </div>
 </form>
 </div>
-</div>
+<!--</div>-->
 </body>
 </html>
