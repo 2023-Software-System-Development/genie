@@ -136,8 +136,8 @@
                                 로그아웃
                             </button>
                         </form>
-                        <form th:action="@{/system}">
-                            <button sec:authorize="hasRole('ADMIN')" class="btn btn-secondary my-2 my-sm-0" type="submit">
+                        <form th:action="@{/user/userList}">
+                            <button style="margin-left: 2px" sec:authorize="hasRole('ADMIN')" class="btn btn-secondary my-2 my-sm-0" type="submit">
                                 관리자 페이지
                             </button>
                         </form>
