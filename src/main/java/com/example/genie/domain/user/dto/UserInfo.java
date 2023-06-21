@@ -15,9 +15,9 @@ public class UserInfo {
     private String email;
     private LocalDateTime birth;
     private Integer reliabilityScore;
-
+    private String role;
     @Builder
-    public UserInfo(Long id, String userName, String userLoginId, String userNickName, String phoneNumber, String email, LocalDateTime birth, Integer reliabilityScore) {
+    public UserInfo(Long id, String userName, String userLoginId, String userNickName, String phoneNumber, String email, LocalDateTime birth, Integer reliabilityScore, String role) {
         this.id = id;
         this.userName = userName;
         this.userLoginId = userLoginId;
@@ -26,5 +26,6 @@ public class UserInfo {
         this.email = email;
         this.birth = birth;
         this.reliabilityScore = reliabilityScore;
+        this.role = role;
     }
 }

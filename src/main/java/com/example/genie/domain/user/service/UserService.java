@@ -67,4 +67,9 @@ public class UserService {
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not founded"));
         return UserMapper.toUserInfo(user);
     }
+    public void addRole(Long userId){
+        User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not founded"));
+        user.updateRole(Role.ADMIN);
+        userRepository.save(user);
+    }
 }

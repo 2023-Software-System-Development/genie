@@ -29,4 +29,5 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         // 클라이언트->서버로 발행하는 메세지에 대한 endpoint 설정 : 구독에 대한 메세지
         registry.setApplicationDestinationPrefixes("/pub");
     }
+
 }

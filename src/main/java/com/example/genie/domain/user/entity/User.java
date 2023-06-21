@@ -57,4 +57,5 @@ public class User extends BaseEntity {
     public void updateReliability(Integer reliabilityScore){
         this.reliabilityScore = reliabilityScore;
     }
+    public void updateRole(Role role){this.role = role;}
 }

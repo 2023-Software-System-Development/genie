@@ -14,6 +14,7 @@ public class UserMapper {
                 .birth(user.getBirth())
                 .phoneNumber(user.getPhoneNumber())
                 .reliabilityScore(user.getReliabilityScore())
+                .role(user.getRole().name())
                 .build();
     }
 }
