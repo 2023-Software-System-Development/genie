@@ -1,10 +1,10 @@
-package com.example.genie.domain.report.entity;
+package com.example.genie.domain.report.model;
 
 import lombok.Getter;
 
 @Getter
 public
-enum Score {
+enum Type {
     탈주("탈주", 50),
     욕설_비방("욕설/비방", 10),
     잠수("잠수", 40);
@@ -12,7 +12,7 @@ enum Score {
     private final String label;
     private final Integer score;
 
-    Score(String label, Integer score) {
+    Type(String label, Integer score) {
         this.label = label;
         this.score = score;
     }
@@ -23,5 +23,8 @@ enum Score {
     public String getLabel() {return this.label; }
     public int getIndex() {
         return ordinal();
+    }
+    public static Type getType(Integer i){
+        return Type.values()[i];
     }
 }

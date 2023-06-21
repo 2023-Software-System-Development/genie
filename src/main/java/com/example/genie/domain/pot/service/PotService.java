@@ -2,8 +2,10 @@ package com.example.genie.domain.pot.service;
 
 import com.example.genie.common.exception.CustomException;
 import com.example.genie.common.util.UserUtils;
+import com.example.genie.domain.apply.entity.Apply;
 import com.example.genie.domain.apply.entity.State;
 import com.example.genie.domain.apply.repository.ApplyRepository;
+import com.example.genie.domain.chat.service.ChatService;
 import com.example.genie.domain.interest.entity.Interest;
 import com.example.genie.domain.interest.repository.InterestRepository;
 import com.example.genie.domain.pot.entity.Pot;
@@ -12,10 +14,8 @@ import com.example.genie.domain.pot.mapper.PotMapper;
 import com.example.genie.domain.pot.model.PotInfoObject;
 import com.example.genie.domain.pot.model.PotObject;
 import com.example.genie.domain.pot.repository.PotRepository;
-//import com.example.genie.domain.pot.repository.PotRepositoryCustom;
 import com.example.genie.domain.pot.repository.PotRepositoryCustom;
 import com.example.genie.domain.user.entity.User;
-import com.example.genie.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,8 +26,8 @@ import org.springframework.validation.BindingResult;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -35,10 +35,10 @@ public class PotService {
 
     private final PotRepository potRepository;
     private final PotRepositoryCustom potRepositoryCustom;
-    private final UserRepository userRepository;
     private final UserUtils userUtils;
     private final ApplyRepository applyRepository;
     private final InterestRepository interestRepository;
+    private final ChatService chatService;
 
     public void createPot(Authentication authentication, PotCreateForm potCreateForm, BindingResult bindingResult) {
         User user = userUtils.getUser(authentication);
@@ -104,16 +104,12 @@ public class PotService {
         applyRepository.deleteByStateAndPot_Id(State.REJECTED, potId);
         applyRepository.deleteByStateAndPot_Id(State.APPLY, potId);
         potRepository.save(pot);
-    }
-
-    public void editRecruitingPot(Long potId, PotInfoObject potInfoObject) {
-        Pot pot = potRepository.findById(potId).orElseThrow(() -> new EntityNotFoundException("Pot not found"));
-        pot.updateRecruiting(potInfoObject);
-    }
-
-    public void editOngoingPot(Long potId, PotInfoObject potInfoObject) {
-        Pot pot = potRepository.findById(potId).orElseThrow(() -> new EntityNotFoundException("Pot not found"));
-        pot.updateOngoing(potInfoObject);
+        List<User> potUsers = new ArrayList<>();
+        potUsers.add(pot.getMaster());
+        for (Apply apply : pot.getApplies()) {
+            potUsers.add(apply.getApplicant());
+        }
+       chatService.createChatRoom(potUsers);
     }
 
     public Pot getPotEntity(Long potId) {

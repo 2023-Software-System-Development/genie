@@ -3,6 +3,8 @@ package com.example.genie.domain.user.entity;
 import com.example.genie.common.domain.BaseEntity;
 import com.example.genie.domain.apply.entity.Apply;
 import com.example.genie.domain.auth.service.Role;
+import com.example.genie.domain.chat.entity.ChatRoom;
+import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.reliability.entity.Reliability;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,8 +29,10 @@ public class User extends BaseEntity {
     private Long id;
 
     private String userName;
+    @Column(unique = true)
     private String userLoginId;
     private String userPw;
+    @Column(unique = true)
     private String userNickName;
     private String phoneNumber;
     private String email;
@@ -38,6 +42,10 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Apply> applies = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chat_room_id")
+    ChatRoom chatRoom;
 
     @Builder
     public User(String userName, String userLoginId, String userPw, String userNickName, String phoneNumber, String email, LocalDateTime birth, String accountNumber, String bankName, Integer reliabilityScore, Role role) {
@@ -55,4 +63,5 @@ public class User extends BaseEntity {
     public void updateReliability(Integer reliabilityScore){
         this.reliabilityScore = reliabilityScore;
     }
+    public void updateRole(Role role){this.role = role;}
 }

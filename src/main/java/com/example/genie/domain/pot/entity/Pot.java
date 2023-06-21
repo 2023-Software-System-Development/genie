@@ -2,9 +2,8 @@ package com.example.genie.domain.pot.entity;
 
 import com.example.genie.common.domain.BaseEntity;
 import com.example.genie.domain.apply.entity.Apply;
+import com.example.genie.domain.chat.entity.ChatRoom;
 import com.example.genie.domain.interest.entity.Interest;
-import com.example.genie.domain.pot.form.PotEditOngoingForm;
-import com.example.genie.domain.pot.form.PotEditRecruitingForm;
 import com.example.genie.domain.pot.form.PotStartForm;
 import com.example.genie.domain.pot.model.PotInfoObject;
 import com.example.genie.domain.user.entity.User;
@@ -15,8 +14,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,20 +67,9 @@ public class Pot extends BaseEntity {
     @OneToMany(mappedBy = "pot", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Interest> interests = new ArrayList<>();
 
-    public void updateRecruiting(PotInfoObject potInfoObject) {
-        this.potName = potInfoObject.getPotName();
-        this.ottType = potInfoObject.getOttType();
-        this.price = potInfoObject.getPrice();
-        this.recruit = potInfoObject.getRecruit();
-        this.term = potInfoObject.getTerm();
-    }
-
-    public void updateOngoing(PotInfoObject potInfoObject) {
-        this.ottId = potInfoObject.getOttId();
-        this.ottPw = potInfoObject.getOttPw();
-        this.startDate = potInfoObject.getStartDate();
-        this.endDate = potInfoObject.getEndDate();
-    }
+    @OneToOne
+    @JoinColumn(name = "chat_room_id")
+    private ChatRoom chatRoom;
 
     public void addAdditionalInfo(PotStartForm potStartForm) {
         this.ottId = potStartForm.getOttId();
@@ -97,6 +83,10 @@ public class Pot extends BaseEntity {
 
     public void changeState() {
         this.state = State.ONGOING;
+    }
+
+    public void addChatRoom(ChatRoom chatRoom) {
+        this.chatRoom = chatRoom;
     }
 
     @Builder

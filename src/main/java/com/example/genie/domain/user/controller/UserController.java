@@ -6,6 +6,7 @@ import com.example.genie.domain.apply.service.ApplyService;
 import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.pot.model.PotInfoObject;
 import com.example.genie.domain.pot.model.PotObject;
+import com.example.genie.domain.user.dto.UserInfo;
 import com.example.genie.domain.user.entity.User;
 import com.example.genie.domain.user.service.UserService;
 import lombok.AllArgsConstructor;
@@ -16,8 +17,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -49,5 +49,25 @@ public class UserController {
         model.addAttribute("userPotList", userPotList);
 
         return "myPage/mypot_list";
+    }
+
+    @GetMapping("/userList")
+    public String getUserList(Model model){
+       List<UserInfo> userList = userService.getAllUser();
+       model.addAttribute("userList", userList);
+       return "system/userList";
+    }
+
+    @GetMapping("/userInfo/{userId}")
+    public String getUserInfo(@PathVariable Long userId, Model model){
+        UserInfo user = userService.getUserInfo(userId);
+        model.addAttribute("user", user);
+        return "system/userInfo";
+    }
+
+    @PostMapping("/addRole")
+    public String addRole(@RequestParam Long userId){
+        userService.addRole(userId);
+        return "redirect:/user/userList";
     }
 }

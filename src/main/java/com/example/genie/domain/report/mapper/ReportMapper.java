@@ -18,6 +18,7 @@ public class ReportMapper {
     public static ReportInfoObject toReportInfoObject(Report report) {
         return ReportInfoObject.builder()
                 .reportId(report.getId())
+                .userId(report.getUserId())
                 .contents(report.getContents())
                 .userNickName(report.getUserNickName())
                 .type(report.getType())
