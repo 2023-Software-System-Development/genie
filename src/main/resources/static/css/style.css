@@ -173,6 +173,25 @@
     margin-top: 80px;
     /*padding: 0px;*/
 }
+.formStyle1{
+    /*width: 95%;
+    height: 100%;
+    margin: auto;
+    align: center;
+    top: 50px;
+
+    border: #E69A9C solid 3px;
+    border-radius: 13px;*/
+    width: 90%; /* 테이블 가로 너비 조정 */
+    height: 600px; /* 테이블 세로 높이 조정 */
+    /*top: 50px;*/
+    border: #E69A9C solid 3px;
+    border-radius: 13px;
+    margin-top: 80px;
+    margin:auto;
+    align:center;
+    /*padding: 0px;*/
+}
 .myPageOuterStyle{
     margin: auto;
     width: 1400px;
