@@ -4,7 +4,7 @@ import com.example.genie.domain.reliability.entity.Reliability;
 import com.example.genie.domain.reliability.mapper.ReliabilityMapper;
 import com.example.genie.domain.reliability.repository.ReliabilityRepository;
 import com.example.genie.domain.report.entity.Report;
-import com.example.genie.domain.report.entity.Score;
+import com.example.genie.domain.report.model.Type;
 import com.example.genie.domain.report.form.ReportForm;
 import com.example.genie.domain.report.mapper.ReportMapper;
 import com.example.genie.domain.report.model.ReportInfoObject;
@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +38,7 @@ public class ReportService {
                 .userNickName(reportForm.getUserNickName())
                 .imageUrl(fileName)
                 .contents(reportForm.getContents())
+                .isConfirmed(false)
                 .build();
 
 
@@ -44,20 +46,24 @@ public class ReportService {
 
     }
 
-    public void reduceReliability(ReportInfoObject reportInfoObject) {
-        int type = reportInfoObject.getType();
-        Score[] scores = Score.values();
-        Score score = scores[type];
-        User user = userRepository.findUserByUserNickName(reportInfoObject.getUserNickName());
+    @Transactional
+    public void confirmReport(Long reportId, Integer type, String userNickName) {
+        Type score = Type.getType(type);
+        User user = userRepository.findUserByUserNickName(userNickName);
         Integer userScore = user.getReliabilityScore();
         userScore -= score.getScore();
         user.updateReliability(userScore);
-        Report report = reportRepository.findById(reportInfoObject.getReportId()).orElseThrow(() -> new EntityNotFoundException("Pot not found"));
+        Report report = reportRepository.findById(reportId).orElseThrow(() -> new EntityNotFoundException("Report not found"));
         report.changeIsConfirmed(true);
         Reliability reliability = ReliabilityMapper.mapToReliabilityWithUser(user, score.getLabel(), score.getScore());
         reliabilityRepository.save(reliability);
     }
 
+    public void rejectReport(Long reportId){
+        Report report = reportRepository.findById(reportId).orElseThrow(() -> new EntityNotFoundException("Report not found"));
+        report.changeIsConfirmed(true);
+        reportRepository.save(report);
+    }
     public List<ReportObject> getReportObjectList() {
         List<Report> reports = reportRepository.findReportByIsConfirmedFalse();
         List<ReportObject> reportObjects = reports.stream()

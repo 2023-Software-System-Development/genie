@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/_variables.css">
+  <link rel="stylesheet" type="text/css" href="/css/_bootswatch.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css"
+        integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
+  <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <style>
+    .login-signup {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      align-items: center;
+    }
+    .login-signup a {
+      color: blue;
+      text-decoration: underline;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .login-signup a:first-child {
+      margin-left: 0;
+    }
+    .ott{
+      visibility: visible;
+      color: white;
+      font-size: x-large;
+    }
+    .ott:hover{
+      color: #F2E2DB;
+      /*font-size: xx-large;*/
+    }
+  </style>
+</head>
+<body>
+<nav style="width:100%; height:150px;" class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <table style="width:100%; height:150px;">
+    <tr>
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <td>
+          <a class="navbar-brand" href="#">
+            <img class="logo_nav" src="/image/logo/logo_transparent.png" alt="로고">
+          </a>
+        </td>
+        <td style="width:150px; height:45px;">
+          <a class="nav-item" href="/user/userList" >
+            <span class="ott">회원 관리</span>
+          </a>
+        </td>
+        <td style="width:150px; height:45px;">
+          <a class="nav-item" href="/report/list">
+            <span class="ott">신고 관리</span>
+          </a>
+        </td>
+        <td style="width:150px; height:45px;">
+          <a class="nav-item" href="/report/list">
+            <span class="ott">Admin</span>
+          </a>
+        </td>
+        <td style="width:900px;"></td>
+        <td style="width:800px; height:45px; align:right;">
+          <div class="login-signup">
+            <form th:action="@{/user/logout}" class="d-flex ml-auto">
+              <button sec:authorize="isAuthenticated()" class="btn btn-secondary my-2 my-sm-0" type="submit">
+                로그아웃
+              </button>
+            </form>
+              <button onclick="this.location.href='/'" style="margin-left: 2px" sec:authorize="hasRole('ADMIN')" class="btn btn-secondary my-2 my-sm-0" type="submit">
+                메인 페이지
+              </button>
+          </div>
+        </td>
+      </div>
+    </tr>
+  </table>
+  </div>
+  </tr>
+  </table>
+</nav>
+</body>
+</html>
