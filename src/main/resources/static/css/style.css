@@ -156,14 +156,22 @@
     background-color: #ffffff;
 }
 .formStyle{
-    width: 95%;
+    /*width: 95%;
     height: 100%;
     margin: auto;
     align: center;
     top: 50px;
-    margin-top: 80px;
+
+    border: #E69A9C solid 3px;
+    border-radius: 13px;*/
+    width: 90%; /* 테이블 가로 너비 조정 */
+    height: 600px; /* 테이블 세로 높이 조정 */
+    margin: 20px auto auto 20px; /* 왼쪽으로 이동시키기 위해 margin 속성 수정 */
+    /*top: 50px;*/
     border: #E69A9C solid 3px;
     border-radius: 13px;
+    margin-top: 80px;
+    /*padding: 0px;*/
 }
 .myPageOuterStyle{
     margin: auto;
