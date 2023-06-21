@@ -182,12 +182,14 @@
 
     border: #E69A9C solid 3px;
     border-radius: 13px;*/
-    width: 90%; /* 테이블 가로 너비 조정 */
-    height: 600px; /* 테이블 세로 높이 조정 */
-    /*top: 50px;*/
+    position: relative;
+    width: 80%; /* 테이블 가로 너비 조정 */
+    height: 800px; /* 테이블 세로 높이 조정 */
+    top: 50px;
     border: #E69A9C solid 3px;
     border-radius: 13px;
-    margin-top: 80px;
+    /*margin-top: 580px;*/
+    font-size: 15pt;
     margin:auto;
     align:center;
     /*padding: 0px;*/
