@@ -64,24 +64,31 @@
     <table class="table2" style="width:100%; ">
         <tr>
             <td style="width:25%;">
-                <!-- 왼쪽 테이블: mypage_menu.html -->
                 <div style="width:80%; height:100%; margin:auto; align:center;" th:include="/myPage/mypage_menu.html"></div>
             </td>
             <td style="width:75%;">
-                <!-- 오른쪽 테이블: mypage_info.html -->
-                <table>
-<!--                <table style="width:100%; height: 800px; border-collapse: collapse;">-->
+                <div class="formStyle">
+                    <h5 style="text-align:center; margin-top:40px;">신뢰도 이력</h5>
+                <table class="table table-hover" style="width: 70%; margin: auto; text-size:15pt; margin-top:10px; text-align: center;">
+                    <tr class="table-primary">
+                        <th scope="row">
+                            history
+                        </th>
+                        <th scope="row">
+                            score
+                        </th>
+                    </tr>
                     <div th:each="reliability, stat : ${reliabilityList}" style="max-width: 20rem;">
                     <tr>
-                        <th style="width:70%">history</th>
                         <td th:text="${reliability.history}"></td>
-
-                        <th style="width:30%">score</th>
                         <td th:text="${reliability.score}"></td>
                     </tr>
+                    </div>
                 </table>
+                </div>
             </td>
         </tr>
     </table>
+</div>
 </body>
 </html>
