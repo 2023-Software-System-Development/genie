@@ -50,6 +50,8 @@ public class ReportService {
     public void confirmReport(Long reportId, Integer type, String userNickName) {
         Type score = Type.getType(type);
         User user = userRepository.findUserByUserNickName(userNickName);
+        if(user == null)
+            throw new EntityNotFoundException();
         Integer userScore = user.getReliabilityScore();
         userScore -= score.getScore();
         user.updateReliability(userScore);

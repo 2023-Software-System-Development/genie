@@ -1,4 +1,4 @@
-package com.example.genie;
+package com.example.genie.common.config;
 
 import com.example.genie.domain.auth.controller.LoginAuthHandler;
 import com.example.genie.domain.auth.controller.LoginFailureHandler;
