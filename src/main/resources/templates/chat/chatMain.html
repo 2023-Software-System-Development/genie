@@ -5,11 +5,8 @@
     <title>채팅</title>
 </head>
 <body>
-<div id="chatConnect">
-    <button onclick="startChat()">채팅 시작하기</button>
-</div>
 
-<div id="chat" hidden="hidden">
+<div id="chat">
     <div id="chatBox"></div>
     <div id="inputContainer">
         <input id="message">
@@ -113,6 +110,26 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
+    function getPotIdFromUrl() {
+        let urlParts = window.location.pathname.split('/');
+        return urlParts[urlParts.length - 2];
+    }
+    function sendChatRoomInfo(potId) {
+        let message = {
+            type: 'chatRoomInfo',
+            potId: potId,
+        };
+        sock.send(JSON.stringify(message));
+    }
+    // startChat() 함수를 호출하기 위해 페이지 로드 이벤트를 감지
+    window.addEventListener('DOMContentLoaded', function () {
+        startChat();
+        let potId = getPotIdFromUrl();
+        if (potId) {
+            sendChatRoomInfo(potId);
+        }
+    });
+
     let sock;
     let isSocketOpen = false;
 
@@ -146,8 +163,9 @@
     }
 
     function startChat() {
-        document.getElementById('chatConnect').style.display = 'none';
-        document.getElementById('chat').removeAttribute('hidden');
+        // document.getElementById('chatConnect').style.display = 'none';
+        // document.getElementById('chat').removeAttribute('hidden');
+        document.getElementById('chat').style.display = 'block'; // chat 요소 표시
         connectSocket();
     }
 
@@ -182,21 +200,17 @@
                 messageBox.innerHTML = `<strong>${message.username}</strong> 님이 퇴장하셨습니다.`;
                 break;
             case 'chat':
-                let currentDate = message.currentDate;
+                let currentDate = new Date().toLocaleDateString(); // 현재 날짜
                 let time = new Date().toLocaleTimeString(); // 작성 시간
                 messageBox.innerHTML = `<strong>${message.username}</strong>: ${message.text}`;
                 let timeElement = document.createElement('div');
                 timeElement.className = 'message-time';
                 timeElement.textContent = time;
 
-                // 날짜가 변경되면 날짜 메시지를 생성하여 추가
-                let prevDateElement = chatBox.querySelector('.date-message-box');
-                if (!prevDateElement || prevDateElement.textContent !== currentDate) {
-                    let dateMessageBox = document.createElement('div');
-                    dateMessageBox.className = 'date-message-box';
-                    dateMessageBox.textContent = currentDate;
-                    chatBox.insertBefore(dateMessageBox, chatBox.firstChild);
-                }
+                // 날짜 메시지 생성
+                let dateMessageBox = document.createElement('div');
+                dateMessageBox.className = 'date-message-box';
+                dateMessageBox.textContent = currentDate;
 
                 messageBox.appendChild(timeElement);
                 if (message.username === username) {
@@ -206,6 +220,13 @@
                     // 다른 사람이 보낸 메시지인 경우
                     messageBox.classList.add('other-message-box');
                 }
+
+                // 이전 날짜 메시지 가져오기
+                let prevDateElement = chatBox.querySelector('.date-message-box');
+                if (!prevDateElement || prevDateElement.textContent !== currentDate) {
+                    chatBox.insertBefore(dateMessageBox, chatBox.firstChild); // 날짜 메시지 추가
+                }
+
                 break;
             default:
                 break;
@@ -216,17 +237,18 @@
 
 
 
-
     function sendMessage() {
         let input = document.getElementById('message');
         let text = input.value.trim();
         input.value = '';
 
         if (text !== '') {
+            let potId = window.location.pathname.split('/')[2]; // 채팅방 URL에서 pot의 pk 값을 추출
             let message = {
                 type: 'chat',
                 username: username,
                 text: text,
+                potId: potId,
             };
             sock.send(JSON.stringify(message));
         }
