@@ -8,6 +8,7 @@ import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -55,7 +56,11 @@ public class WebSocketComponent extends TextWebSocketHandler {
 
         // 현재 클라이언트에게 입장 메시지 전송
         sendMessage(session, joinMessage);
+
+        // 인증 정보를 세션 속성으로 설정
+        session.getAttributes().put("authentication", authentication);
     }
+
 
     private void sendMessageToAll(String message) {
         sessionMap.values().forEach(session -> {
@@ -81,14 +86,6 @@ public class WebSocketComponent extends TextWebSocketHandler {
             sendMessageToAll(currentDateMessage);
         }
 
-        sessionMap.forEach((sessionId, sessionInMap) -> {
-            try {
-                sessionInMap.sendMessage(message);
-            } catch (IOException e) {
-                log.error("Failed to send message to WebSocket session", e);
-            }
-        });
-
         // 인증 정보 가져오기
         Authentication authentication = (Authentication) session.getAttributes().get("authentication");
 
@@ -106,23 +103,34 @@ public class WebSocketComponent extends TextWebSocketHandler {
 
             // potId를 기반으로 채팅 메시지 저장
             if (potId != null) {
+                // 채팅방에 저장된 이전 채팅 내용 보여주기 (처음 접속한 경우에만)
+                if (chatHistory.size() == 1) { // chatHistory가 처음에 비어있을 때
+                    // 이전 메시지 전송
+                    List<String> chatMessages = chatService.getChatMessages(potId);
+                    for (String chatMessage : chatMessages) {
+                        sendMessage(session, chatMessage);
+                    }
+                }
                 saveChatMessage(authentication, payload, potId);
                 log.info("Saved chat message to the database - potId: {}, message: {}", potId, payload);
-
-                // potId를 기반으로 채팅방 메시지 가져오기
-                List<String> chatMessages = chatService.getChatMessages(potId);
-
-                // 가져온 메시지를 클라이언트에게 전송
-                for (String chatMessage : chatMessages) {
-                    sendMessage(session, chatMessage);
-                }
             } else {
                 log.warn("potId not found in message payload: {}", payload);
             }
+
+            sessionMap.values().stream()
+                    .filter(s -> s.getId().equals(session.getId())) // 현재 세션에만 전송
+                    .forEach(s -> {
+                        try {
+                            s.sendMessage(message);
+                        } catch (IOException e) {
+                            log.error("Failed to send message to WebSocket session", e);
+                        }
+                    });
         } else {
             log.warn("Authentication not found for WebSocket session");
         }
     }
+
 
     private void saveChatMessage(Authentication authentication, String message, Long potId) {
         try {
@@ -174,3 +182,4 @@ public class WebSocketComponent extends TextWebSocketHandler {
         }
     }
 }
+
