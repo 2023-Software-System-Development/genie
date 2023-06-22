@@ -2,10 +2,8 @@ package com.example.genie.domain.pot.service;
 
 import com.example.genie.common.exception.CustomException;
 import com.example.genie.common.util.UserUtils;
-import com.example.genie.domain.apply.entity.Apply;
 import com.example.genie.domain.apply.entity.State;
 import com.example.genie.domain.apply.repository.ApplyRepository;
-import com.example.genie.domain.chat.service.ChatService;
 import com.example.genie.domain.interest.entity.Interest;
 import com.example.genie.domain.interest.repository.InterestRepository;
 import com.example.genie.domain.pot.entity.Pot;
@@ -26,8 +24,6 @@ import org.springframework.validation.BindingResult;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -38,7 +34,6 @@ public class PotService {
     private final UserUtils userUtils;
     private final ApplyRepository applyRepository;
     private final InterestRepository interestRepository;
-    private final ChatService chatService;
 
     public void createPot(Authentication authentication, PotCreateForm potCreateForm, BindingResult bindingResult) {
         User user = userUtils.getUser(authentication);
@@ -104,12 +99,6 @@ public class PotService {
         applyRepository.deleteByStateAndPot_Id(State.REJECTED, potId);
         applyRepository.deleteByStateAndPot_Id(State.APPLY, potId);
         potRepository.save(pot);
-        List<User> potUsers = new ArrayList<>();
-        potUsers.add(pot.getMaster());
-        for (Apply apply : pot.getApplies()) {
-            potUsers.add(apply.getApplicant());
-        }
-       chatService.createChatRoom(potUsers);
     }
 
     public Pot getPotEntity(Long potId) {

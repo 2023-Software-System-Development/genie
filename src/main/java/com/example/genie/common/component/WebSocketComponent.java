@@ -1,8 +1,12 @@
 package com.example.genie.common.component;
 
+import com.example.genie.domain.chat.service.ChatService;
 import com.example.genie.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -10,7 +14,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import org.springframework.context.annotation.Scope;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
 
 
 @Log4j2
@@ -26,13 +31,11 @@ import java.util.concurrent.ConcurrentHashMap;
 @Scope("prototype") // 각 팟마다 새로운 인스턴스 생성
 public class WebSocketComponent extends TextWebSocketHandler {
 
+    private final UserService userService;
+    private final ChatService chatService;
 
     private Map<String, WebSocketSession> sessionMap = new ConcurrentHashMap<>();
-    private final UserService userService;
-
-    // 이전 메시지를 저장하기 위한 리스트
     private List<String> chatHistory = new ArrayList<>();
-    // 현재 날짜 저장
     private String currentDate = "";
 
     @Override
@@ -69,7 +72,7 @@ public class WebSocketComponent extends TextWebSocketHandler {
     }
 
     @Override
-    public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
+    public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws IOException {
         String payload = message.getPayload().toString();
         boolean isDateChanged = checkDateChange(payload);
 
@@ -86,11 +89,51 @@ public class WebSocketComponent extends TextWebSocketHandler {
             }
         });
 
-        // 새로운 메시지를 받았을 때, 이전 메시지 리스트에 추가
-        chatHistory.add(payload);
+        // 인증 정보 가져오기
+        Authentication authentication = (Authentication) session.getAttributes().get("authentication");
+
+        if (authentication != null) {
+            chatHistory.add(payload);
+
+            // potId 추출
+            Long potId = null;
+            try {
+                JSONObject jsonObject = new JSONObject(payload);
+                potId = jsonObject.getLong("potId");
+            } catch (JSONException e) {
+                log.error("Failed to extract potId from message payload: {}", payload);
+            }
+
+            // potId를 기반으로 채팅 메시지 저장
+            if (potId != null) {
+                saveChatMessage(authentication, payload, potId);
+                log.info("Saved chat message to the database - potId: {}, message: {}", potId, payload);
+
+                // potId를 기반으로 채팅방 메시지 가져오기
+                List<String> chatMessages = chatService.getChatMessages(potId);
+
+                // 가져온 메시지를 클라이언트에게 전송
+                for (String chatMessage : chatMessages) {
+                    sendMessage(session, chatMessage);
+                }
+            } else {
+                log.warn("potId not found in message payload: {}", payload);
+            }
+        } else {
+            log.warn("Authentication not found for WebSocket session");
+        }
     }
+
+    private void saveChatMessage(Authentication authentication, String message, Long potId) {
+        try {
+            chatService.saveChatMessage(authentication, message, potId);
+            log.info("Saved chat message to the database");
+        } catch (Exception e) {
+            log.error("Failed to save chat message to the database", e);
+        }
+    }
+
     private boolean checkDateChange(String message) {
-        // 이전 메시지가 없는 경우 또는 날짜가 변경되었을 경우 true 반환
         if (chatHistory.isEmpty()) {
             return true;
         }
@@ -105,6 +148,7 @@ public class WebSocketComponent extends TextWebSocketHandler {
 
         return isDateChanged;
     }
+
     private String getCurrentDate(String message) {
         return message.substring(0, 10);
     }
@@ -115,15 +159,18 @@ public class WebSocketComponent extends TextWebSocketHandler {
         return currentDateMessage;
     }
 
-
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
         sessionMap.remove(session.getId());
 
-        Authentication authentication = (Authentication) session.getPrincipal();
-        String username = userService.getUserNickName(authentication);
-        String leaveMessage = username + "님이 퇴장했습니다.";
-        sendMessageToAll(leaveMessage);
-    }
+        Authentication authentication = (Authentication) session.getAttributes().get("authentication");
 
+        if (authentication != null) {
+            String username = userService.getUserNickName(authentication);
+            String leaveMessage = username + "님이 퇴장했습니다.";
+            sendMessageToAll(leaveMessage);
+        } else {
+            log.warn("Authentication not found for WebSocket session");
+        }
+    }
 }

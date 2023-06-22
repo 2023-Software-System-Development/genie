@@ -2,10 +2,9 @@ package com.example.genie.domain.pot.entity;
 
 import com.example.genie.common.domain.BaseEntity;
 import com.example.genie.domain.apply.entity.Apply;
-import com.example.genie.domain.chat.entity.ChatRoom;
+import com.example.genie.domain.chat.entity.Chat;
 import com.example.genie.domain.interest.entity.Interest;
 import com.example.genie.domain.pot.form.PotStartForm;
-import com.example.genie.domain.pot.model.PotInfoObject;
 import com.example.genie.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -67,9 +66,8 @@ public class Pot extends BaseEntity {
     @OneToMany(mappedBy = "pot", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Interest> interests = new ArrayList<>();
 
-    @OneToOne
-    @JoinColumn(name = "chat_room_id")
-    private ChatRoom chatRoom;
+    @OneToMany(mappedBy = "pot", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Chat> messages = new ArrayList<>();
 
     public void addAdditionalInfo(PotStartForm potStartForm) {
         this.ottId = potStartForm.getOttId();
@@ -83,10 +81,6 @@ public class Pot extends BaseEntity {
 
     public void changeState() {
         this.state = State.ONGOING;
-    }
-
-    public void addChatRoom(ChatRoom chatRoom) {
-        this.chatRoom = chatRoom;
     }
 
     @Builder
