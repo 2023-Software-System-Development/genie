@@ -42,7 +42,6 @@ public class WebSocketComponent extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws IOException {
         sessionMap.put(session.getId(), session);
-        // 새로운 클라이언트가 입장했음을 다른 클라이언트에게 알리는 메시지를 전송
 
         // 이전 메시지 전송
         for (String message : chatHistory) {
@@ -60,7 +59,6 @@ public class WebSocketComponent extends TextWebSocketHandler {
         // 인증 정보를 세션 속성으로 설정
         session.getAttributes().put("authentication", authentication);
     }
-
 
     private void sendMessageToAll(String message) {
         sessionMap.values().forEach(session -> {
@@ -117,15 +115,8 @@ public class WebSocketComponent extends TextWebSocketHandler {
                 log.warn("potId not found in message payload: {}", payload);
             }
 
-            sessionMap.values().stream()
-                    .filter(s -> s.getId().equals(session.getId())) // 현재 세션에만 전송
-                    .forEach(s -> {
-                        try {
-                            s.sendMessage(message);
-                        } catch (IOException e) {
-                            log.error("Failed to send message to WebSocket session", e);
-                        }
-                    });
+            // 모든 세션에게 메시지 전송
+            sendMessageToAll(payload);
         } else {
             log.warn("Authentication not found for WebSocket session");
         }
@@ -182,4 +173,3 @@ public class WebSocketComponent extends TextWebSocketHandler {
         }
     }
 }
-
