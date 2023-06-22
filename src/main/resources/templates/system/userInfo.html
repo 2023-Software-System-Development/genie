@@ -57,7 +57,7 @@
       <th scope="row">
         이메일
       </th>
-      <td><a th:href="@{mailTo:${user.email}}">[[${user.email}]]</a></td>
+      <td><a th:href="@{mailTo:{email}(email=${user.email})}">[[${user.email}]]</a></td>
     </tr>
     <tr>
       <th scope="row">
