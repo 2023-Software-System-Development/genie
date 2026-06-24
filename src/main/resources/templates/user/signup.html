@@ -3,63 +3,60 @@
       xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/css/_variables.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
-    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<style>
-label{
-    font-size: large;
-    color: #5a5a5a;
-}
-</style>
+    <title>회원가입 - genie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/clay.css">
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
-<div class="signupForm">
-<div class="signupFormInner">
-<form th:action="@{/user/signup}" th:object="${userForm}" method="post">
-    <h2>Sign up</h2><br>
-    <div>
-        <label for="userName">이름</label>
-        <input type="text" id="userName" th:field="*{userName}" class="form-control" placeholder="이름을 입력하세요">
-        <p th:if="${#fields.hasErrors('userName')}" th:errorclass="error" th:errors="*{userName}" />
+
+<div class="auth-wrap" style="max-width:520px;">
+    <div class="auth-card stack-lg">
+        <div class="stack-sm">
+            <h1 class="display-sm">genie 시작하기 🪔</h1>
+            <p class="body-sm muted">팟을 만들고 함께할 사람을 찾아보세요.</p>
+        </div>
+        <form th:action="@{/user/signup}" th:object="${userForm}" method="post" class="stack-md">
+            <div class="field">
+                <label for="userName">이름</label>
+                <input class="input" type="text" id="userName" th:field="*{userName}" placeholder="이름을 입력하세요">
+                <p class="field-error" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></p>
+            </div>
+            <div class="field">
+                <label for="userLoginId">아이디</label>
+                <input class="input" type="text" id="userLoginId" th:field="*{userLoginId}" placeholder="아이디를 입력하세요">
+                <p class="field-error" th:if="${#fields.hasErrors('userLoginId')}" th:errors="*{userLoginId}"></p>
+            </div>
+            <div class="field">
+                <label for="userPw">비밀번호</label>
+                <input class="input" type="password" id="userPw" th:field="*{userPw}" placeholder="8~15자로 입력하세요">
+                <p class="field-error" th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}"></p>
+            </div>
+            <div class="field">
+                <label for="userPwCheck">비밀번호 확인</label>
+                <input class="input" type="password" id="userPwCheck" th:field="*{userPwCheck}" placeholder="비밀번호를 다시 입력하세요">
+                <p class="field-error" th:if="${#fields.hasErrors('userPwCheck')}" th:errors="*{userPwCheck}"></p>
+            </div>
+            <div class="field">
+                <label for="userNickName">닉네임</label>
+                <input class="input" type="text" id="userNickName" th:field="*{userNickName}" placeholder="닉네임을 입력하세요">
+                <p class="field-error" th:if="${#fields.hasErrors('userNickName')}" th:errors="*{userNickName}"></p>
+            </div>
+            <div class="field">
+                <label for="phoneNumber">전화번호</label>
+                <input class="input" type="text" id="phoneNumber" th:field="*{phoneNumber}" placeholder="전화번호를 입력하세요">
+                <p class="field-error" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></p>
+            </div>
+            <div class="field">
+                <label for="email">이메일</label>
+                <input class="input" type="text" id="email" th:field="*{email}" placeholder="이메일을 입력하세요">
+                <p class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+            </div>
+            <button type="submit" class="btn btn--primary btn--block btn--lg">회원가입</button>
+        </form>
+        <p class="body-sm center muted">이미 계정이 있으신가요? <a class="link" href="/user/login">로그인</a></p>
     </div>
-    <div>
-        <label for="userLoginId">아이디</label>
-        <input type="text" id="userLoginId" th:field="*{userLoginId}" class="form-control" placeholder="아이디를 입력하세요">
-        <p th:if="${#fields.hasErrors('userLoginId')}" th:errorclass="error" th:errors="*{userLoginId}" />
-    </div>
-    <div>
-        <label for="userPw">비밀번호</label>
-        <input type="password" id="userPw" th:field="*{userPw}" class="form-control" placeholder="비밀번호를 입력하세요">
-        <p th:if="${#fields.hasErrors('userPw')}" th:errorclass="error" th:errors="*{userPw}" />
-    </div>
-    <div>
-        <label for="userPwCheck">비밀번호 확인</label>
-        <input type="password" id="userPwCheck" th:field="*{userPwCheck}" class="form-control" placeholder="비밀번호를 다시 입력하세요">
-        <p th:if="${#fields.hasErrors('userPwCheck')}" th:errorclass="error" th:errors="*{userPwCheck}" />
-    </div>
-    <div>
-        <label for="userNickName">닉네임</label>
-        <input type="text" id="userNickName" th:field="*{userNickName}" class="form-control" placeholder="닉네임 입력하세요">
-    </div><p/>
-    <div>
-        <label for="phoneNumber">전화번호</label>
-        <input type="text" id="phoneNumber" th:field="*{phoneNumber}" class="form-control" placeholder="전화번호를 입력하세요">
-    </div><p/>
-    <div>
-        <label for="email">email</label>
-        <input type="text" id="email" th:field="*{email}" class="form-control" placeholder="이메일를 입력하세요">
-        <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}" />
-    </div><p/>
-    <div>
-        <button type="submit" class="btn btn-secondary my-2 my-sm-0">전송</button>
-    </div>
-</form>
-</div>
 </div>
 </body>
 </html>

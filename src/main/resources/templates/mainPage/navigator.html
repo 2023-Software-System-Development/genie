@@ -3,179 +3,78 @@
       xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/css/_variables.css">
-    <link rel="stylesheet" type="text/css" href="/css/_bootswatch.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css"
-          integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
-    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <style>
-        .login-signup {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            display: flex;
-            align-items: center;
-        }
-        .login-signup2 {
-            position: absolute;
-            top: 70px;
-            right: 370px;
-            display: flex;
-            align-items: center;
-        }
-        .login-signup3 {
-            position: absolute;
-            top: 70px;
-            right: 10px;
-            display: flex;
-            align-items: center;
-        }
-
-        .login-signup a {
-            color: blue;
-            text-decoration: underline;
-            margin-left: 10px;
-            cursor: pointer;
-        }
-
-        .login-signup a:first-child {
-            margin-left: 0;
-        }
-        .ott{
-            visibility: visible;
-            color: white;
-            font-size: x-large;
-        }
-        .myPage{
-            visibility: visible;
-            color: Black;
-            font-size: x-large;
-        }
-        .ott:hover{
-            color: #F2E2DB;
-            /*font-size: xx-large;*/
-        }
-        .myPage:hover{
-            color: #F2E2DB;
-            /*font-size: xx-large;*/
-        }
-    </style>
 </head>
 <body>
-<nav style="width:100%; height:150px;" class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <table style="width:100%; height:150px;">
-        <tr>
-            <div class="collapse navbar-collapse" id="navbarColor01">
-                <td>
-                    <a class="navbar-brand" href="/pot/list?ottType=all">
-                        <img class="logo_nav" src="/image/logo/logo_transparent.png" alt="로고">
-                    </a>
-                </td>
+<!-- 디자인 시스템: 이 내비를 include 하는 모든 페이지에서 로드됨 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/clay.css">
 
-            <!--<div style="text-align:center;" class="navbar-nav me-auto">-->
-                <td style="width:150px; height:45px;">
-                    <a class="nav-item" href="/pot/list?ottType=DisneyPlus" >
-                        <span class="ott">Disney+</span>
-                    </a>
-                </td>
-                <td style="width:150px; height:45px;">
-                    <a class="nav-item" href="/pot/list?ottType=NetFlix">
-                        <span class="ott">NETFLIX</span>
-                    </a>
-                </td>
-                <td style="width:150px; height:45px;">
-                    <a class="nav-item" href="/pot/list?ottType=Watcha">
-                        <span class="ott">WATCHA</span>
-                    </a>
-                </td>
-                <td style="width:150px; height:45px;">
-                    <a class="nav-item" href="/pot/list?ottType=Wavve">
-                        <span class="ott">wavve</span>
-                    </a>
-                </td>
-                <td style="width:150px; height:45px;">
-                    <a class="nav-item"  href="/user/info">
-                        <span class="myPage">MyPage</span>
-                    </a>
-                </td>
-                <td style="width:500px;"></td>
-                <td style="width:800px; height:45px; align:right;">
-                    <!--<div class="login-signup3">-->
-                    <form style="width:500px;" name="potSearchForm" action="/pot/list" class="d-flex" onsubmit="return handleFormSubmit()">
-                        <select class="form-select" style="width: fit-content" name="searchType">
-                            <option value="potName">팟 이름</option>
-                            <option value="remain">남은 인원</option>
-                            <option value="term">기간</option>
-                        </select>
-                        <input name="searchText" class="form-control me-sm-3" type="text" placeholder="Search">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                    <!--</div>-->
-                </td>
-           <!-- </div>-->
-                <td>
-                    <div class="login-signup">
-                        <form th:action="@{/user/login}">
-                            <button sec:authorize="isAnonymous()" class="btn btn-secondary my-2 my-sm-0" type="submit">로그인
-                            </button>
-                        </form> &nbsp;
-                        <form th:action="@{/user/signup}">
-                            <button sec:authorize="isAnonymous()" class="btn btn-secondary my-2 my-sm-0" type="submit">회원가입</button>
-                        </form>
-                    </div>
-                    <div class="login-signup">
-                        <form th:action="@{/user/logout}" method="post" class="d-flex ml-auto">
-                            <button sec:authorize="isAuthenticated()" class="btn btn-secondary my-2 my-sm-0" type="submit">
-                                로그아웃
-                            </button>
-                        </form>
-                        <form th:action="@{/user/userList}">
-                            <button style="margin-left: 2px" sec:authorize="hasRole('ADMIN')" class="btn btn-secondary my-2 my-sm-0" type="submit">
-                                관리자 페이지
-                            </button>
-                        </form>
-                    </div>
-                </td>
-            </div>
-        </tr>
-    </table>
+<header class="clay-nav">
+    <div class="clay-nav__inner">
+        <a class="clay-nav__brand" href="/pot/list?ottType=all">
+            <span class="mark">🧞</span> genie
+        </a>
 
+        <nav class="clay-nav__menu">
+            <a class="clay-nav__link" href="/pot/list?ottType=DisneyPlus">Disney+</a>
+            <a class="clay-nav__link" href="/pot/list?ottType=NetFlix">NETFLIX</a>
+            <a class="clay-nav__link" href="/pot/list?ottType=Watcha">WATCHA</a>
+            <a class="clay-nav__link" href="/pot/list?ottType=Wavve">wavve</a>
+            <a class="clay-nav__link" href="/user/info">마이페이지</a>
+        </nav>
 
+        <div class="clay-nav__actions">
+            <form name="potSearchForm" action="/pot/list" class="clay-search" onsubmit="return handleFormSubmit()">
+                <select name="searchType" class="clay-search__select">
+                    <option value="potName">팟 이름</option>
+                    <option value="remain">남은 인원</option>
+                    <option value="term">기간</option>
+                </select>
+                <input name="searchText" class="clay-search__input" type="text" placeholder="검색">
+                <button class="clay-search__btn" type="submit" aria-label="검색">🔍</button>
+            </form>
 
+            <form th:action="@{/user/login}" class="clay-nav__form">
+                <button sec:authorize="isAnonymous()" class="btn btn--secondary" type="submit">로그인</button>
+            </form>
+            <form th:action="@{/user/signup}" class="clay-nav__form">
+                <button sec:authorize="isAnonymous()" class="btn btn--primary" type="submit">회원가입</button>
+            </form>
+            <form th:action="@{/user/logout}" method="post" class="clay-nav__form">
+                <button sec:authorize="isAuthenticated()" class="btn btn--secondary" type="submit">로그아웃</button>
+            </form>
+            <form th:action="@{/user/userList}" class="clay-nav__form">
+                <button sec:authorize="hasRole('ADMIN')" class="btn btn--ghost" type="submit">관리자</button>
+            </form>
+        </div>
+    </div>
+</header>
 
-                <script th:inline="javascript">
-                    function handleFormSubmit() {
-                        var errorMessage = /*[[${errorMessage}]]*/ null;
-                        var searchType = document.forms["potSearchForm"]["searchType"].value;
-                        var searchText = document.forms["potSearchForm"]["searchText"].value;
+<script th:inline="javascript">
+    function handleFormSubmit() {
+        var errorMessage = /*[[${errorMessage}]]*/ null;
+        var searchType = document.forms["potSearchForm"]["searchType"].value;
+        var searchText = document.forms["potSearchForm"]["searchText"].value;
 
-                        if (searchType === "remain" || searchType === "term") {
-                            if (!isNumeric(searchText)) {
-                                errorMessage = "숫자를 입력해주세요";
-                            }
-                        }
+        if (searchType === "remain" || searchType === "term") {
+            if (!isNumeric(searchText)) {
+                errorMessage = "숫자를 입력해주세요";
+            }
+        }
+        if (errorMessage) {
+            alert(errorMessage);
+            return false;
+        }
+        return true;
+    }
 
-                        if (errorMessage) {
-                            alert(errorMessage);
-                            return false; // Prevent form submission
-                        }
-                        return true; // Allow form submission
-                    }
-
-                    function isNumeric(str) {
-                        if (str == null || str.length === 0) {
-                            return false;
-                        }
-
-                        return /^\d+$/.test(str);
-                    }
-                </script>
-            </div>
-        </tr>
-    </table>
-</nav>
+    function isNumeric(str) {
+        if (str == null || str.length === 0) {
+            return false;
+        }
+        return /^\d+$/.test(str);
+    }
+</script>
 </body>
 </html>

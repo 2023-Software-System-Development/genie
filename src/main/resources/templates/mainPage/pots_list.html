@@ -3,31 +3,7 @@
       xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/css/_variables.css">
-    <link rel="stylesheet" type="text/css" href="/css/_bootswatch.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
-    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <style>
-        .outer {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 20px;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .card {
-            flex-basis: 30%;
-            box-sizing: border-box;
-        }
-        .card:hover {
-            border-width: thick;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/clay.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         // CSRF 토큰을 모든 jQuery AJAX 요청 헤더에 자동 첨부
@@ -45,52 +21,56 @@
             window.location.href = "/pot/" + potId;
         }
 
-        function toggleLikeImage(image, potId) {
-            if (image.src.endsWith('empty.png')) {
-                image.src = '/image/like/full.png';
-                saveInterest(potId);
-            } else {
-                image.src = '/image/like/empty.png';
+        function toggleLike(btn, potId) {
+            if (btn.classList.contains('is-liked')) {
+                btn.classList.remove('is-liked');
                 deleteInterest(potId);
+            } else {
+                btn.classList.add('is-liked');
+                saveInterest(potId);
             }
         }
-        function saveInterest(potId){
-            $.ajax({
-                url : "/interest/save/" + potId,
-                type : "POST",
-            }).done(function(result) {
-            }).error(function (error) {
-            });
+
+        function saveInterest(potId) {
+            $.ajax({ url: "/interest/save/" + potId, type: "POST" });
         }
 
-        function deleteInterest(potId){
-            $.ajax({
-                url : "/interest/delete/" + potId,
-                type : "DELETE",
-            }).done(function() {
-            });
+        function deleteInterest(potId) {
+            $.ajax({ url: "/interest/delete/" + potId, type: "DELETE" });
         }
-
     </script>
 </head>
 <body>
-<th:block th:if="${potSearchForm.searchText!=null}">
-   <div style="text-align:center"><h3 th:text="${potSearchForm.searchText}+' 검색 결과입니다.'"/></div>
-</th:block>
-<th:block th:if="${potList.getSize()==0 || potList == null}">
-    <div style="text-align:center"><h3>검색 결과가 없습니다.</h3></div>
-</th:block>
-<div th:label="potList" class="outer">
-    <div th:each="pot, stat : ${potList}" class="card border-primary mb-3" style="max-width: 20rem;">
-        <img sec:authorize="isAuthenticated()" id="likeImage" th:src="${pot.wish}? '/image/like/full.png' : '/image/like/empty.png'"  th:onclick="'toggleLikeImage(this, ' + ${pot.potId} +')'" style="width: 20px; height: 20px; margin-left: auto;">
-        <div class="row-md-4" th:onclick="'handleOuterClick(\'' + ${pot.potId} + '\')'" >
-            <div class="card-header" th:text="${pot.potName}"></div>
-            <div class="card-header" th:text="${pot.ottType}"></div>
+<div class="container">
+    <th:block th:if="${potSearchForm.searchText!=null}">
+        <h2 class="display-sm" style="margin-bottom:24px;" th:text="${potSearchForm.searchText} + ' 검색 결과'">검색 결과</h2>
+    </th:block>
 
-            <div class="card-body">
-                <p class="card-title" th:text="'모집인원 : ' + ${pot.recruit}"></p>
-                <p class="card-title" th:text="'현재인원 : ' + (${pot.recruit} - ${pot.remain})"></p>
-                <p class="card-title" th:text="'기간 : ' + ${pot.term}"></p>
+    <th:block th:if="${potList.getSize()==0 || potList == null}">
+        <div class="card--cream card" style="text-align:center;padding:64px;">
+            <div style="font-size:48px;">🪔</div>
+            <p class="title-md" style="margin-top:12px;">아직 모집 중인 팟이 없어요</p>
+            <p class="body-sm muted">첫 번째 팟을 만들어 보세요.</p>
+        </div>
+    </th:block>
+
+    <div class="grid grid--4">
+        <div th:each="pot, stat : ${potList}" class="pot-card"
+             th:classappend="'pot-card--c' + ${stat.index % 5}"
+             th:onclick="'handleOuterClick(' + ${pot.potId} + ')'">
+
+            <button type="button" sec:authorize="isAuthenticated()" class="like-btn"
+                    th:classappend="${pot.wish} ? 'is-liked' : ''"
+                    th:onclick="'event.stopPropagation();toggleLike(this,' + ${pot.potId} + ')'"></button>
+
+            <div class="pot-card__top">
+                <span class="pot-card__ott" th:text="${pot.ottType}">OTT</span>
+            </div>
+            <h3 class="pot-card__name" th:text="${pot.potName}">팟 이름</h3>
+            <div class="pot-card__meta">
+                <span>모집 <b th:text="${pot.recruit}">4</b></span>
+                <span>현재 <b th:text="${pot.recruit - pot.remain}">2</b></span>
+                <span>기간 <b th:text="|${pot.term}개월|">3개월</b></span>
             </div>
         </div>
     </div>
