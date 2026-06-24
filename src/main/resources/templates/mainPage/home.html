@@ -35,7 +35,7 @@
 </section>
 
 <!-- 팟 목록 -->
-<section id="pots" class="section" style="padding-top:0; scroll-margin-top:80px;">
+<section id="pots" class="section" style="padding-top:var(--s-xxl); scroll-margin-top:80px;">
     <div th:include="/mainPage/pots_list.html"></div>
 
     <div class="container">
@@ -52,6 +52,16 @@
                th:href="${potList.last} ? '#' : @{/pot/list(page=${potList.number + 2})}">&gt;</a>
             <a th:href="@{/pot/list(page=${potList.totalPages})}">마지막</a>
         </nav>
+    </div>
+</section>
+
+<!-- 팟 만들기 유도 CTA (빈 공간을 채워 레이아웃 안정화) -->
+<section class="container" style="padding-bottom:var(--s-section);">
+    <div class="cta-band" style="background:linear-gradient(135deg,var(--brand-lavender),var(--brand-peach));">
+        <h2 class="display-md">찾는 팟이 없나요?</h2>
+        <p class="lead" style="margin:14px 0 26px;color:#3a2a4a;">원하는 OTT 팟을 직접 만들고 함께할 팟원을 모아보세요.</p>
+        <a class="btn btn--primary btn--lg" th:href="@{/pot}" sec:authorize="isAuthenticated()">팟 만들기</a>
+        <a class="btn btn--primary btn--lg" th:href="@{/user/signup}" sec:authorize="isAnonymous()">무료로 시작하기</a>
     </div>
 </section>
 
