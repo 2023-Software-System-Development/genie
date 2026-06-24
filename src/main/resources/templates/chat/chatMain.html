@@ -185,10 +185,6 @@
     // startChat() 함수를 호출하기 위해 페이지 로드 이벤트를 감지
     window.addEventListener('DOMContentLoaded', function () {
         startChat();
-        let potId = getPotIdFromUrl();
-        if (potId) {
-            sendChatRoomInfo(potId);
-        }
     });
 
     let sock;
@@ -206,7 +202,10 @@
             sock = new SockJS('/chat');
             sock.onopen = function () {
                 isSocketOpen = true;
-                sendJoinMessage();
+                let potId = getPotIdFromUrl();
+                if (potId) {
+                    sendChatRoomInfo(potId);
+                }
             };
 
             sock.onmessage = function (e) {

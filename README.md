@@ -9,7 +9,7 @@
 - **개발 인원**: 4명 (Backend / Frontend)
 - **분반**: 소프트웨어 시스템 개발 01분반
 
-![썸네일](./docs/screenshots/01-home.png)
+![썸네일](./docs/thumbnail.png)
 
 # 목차
 
