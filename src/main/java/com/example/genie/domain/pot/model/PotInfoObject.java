@@ -3,8 +3,6 @@ package com.example.genie.domain.pot.model;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
-
 @Getter
 public class PotInfoObject {
     private final Long potId;
@@ -18,13 +16,15 @@ public class PotInfoObject {
     private final String ottPw;
     private final String startDate;
     private final String endDate;
+    private final String bankName;
+    private final String accountNumber;
     private final String masterName;
     private final Long masterId;
     private final boolean isMaster;
 
     @Builder
     public PotInfoObject(Long potId, String potName, String ottType, Integer price, Integer recruit, Integer remain, Integer term,
-                         String ottId, String ottPw, String startDate, String endDate,
+                         String ottId, String ottPw, String startDate, String endDate, String bankName, String accountNumber,
                          String masterName, Long masterId, boolean isMaster) {
         this.potId = potId;
         this.potName = potName;
@@ -37,6 +37,8 @@ public class PotInfoObject {
         this.ottPw = ottPw;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.bankName = bankName;
+        this.accountNumber = accountNumber;
         this.masterName = masterName;
         this.masterId = masterId;
         this.isMaster  = isMaster;

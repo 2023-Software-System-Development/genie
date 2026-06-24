@@ -34,11 +34,13 @@ public class PotMapper {
                 .recruit(pot.getRecruit())
                 .remain(pot.getRemain())
                 .term(pot.getTerm())
-                // OTT 계정 정보는 master 또는 승인된 멤버에게만 노출
+                // OTT 계정/계좌 정보는 master 또는 승인된 멤버에게만 노출
                 .ottId(canSeeCredentials ? pot.getOttId() : null)
                 .ottPw(canSeeCredentials ? pot.getOttPw() : null)
                 .startDate(pot.getStartDate())
                 .endDate(pot.getEndDate())
+                .bankName(canSeeCredentials ? pot.getBankName() : null)
+                .accountNumber(canSeeCredentials ? pot.getAccountNumber() : null)
                 .masterName(pot.getMaster().getUserNickName())
                 .masterId(pot.getMaster().getId())
                 .isMaster(isMaster)

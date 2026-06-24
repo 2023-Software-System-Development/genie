@@ -13,7 +13,6 @@
 <!--고정된 nav-->
 <div th:include="/mainPage/navigator.html"></div>
 
-<script src="/js/scripts.js"></script>
 <th:block th:if="${error}">
     <script>
         top.alert('이미 인원이 다 찼습니다.');
@@ -35,29 +34,32 @@
                     <tr>
                         <th scope="col">닉네임</th>
                         <th scope="col">신뢰도</th>
-                        <th scope="col" colspan="2">승인</th>
+                        <th scope="col" style="text-align:right;">관리</th>
                     </tr>
                 </thead>
                 <tbody>
                 <tr th:each="user: ${userList}">
                     <th scope="row" th:text="${user.userNickName}"></th>
                     <td th:text="${user.reliabilityScore}"></td>
-                    <td>
-                        <form name="approve" id="approve" th:action="@{/pot/apply/approve}" method="post">
-                            <input type="hidden" name="userId" th:value="${user.id}">
-                            <input type="hidden" name="potId" th:value="${pot.id}">
-                            <input type="hidden" name="state" value="1">
-                            <input class="btn btn--primary" type="button" onclick="openModal()" value="승인">
-                        </form>
+                    <td style="text-align:right;">
+                        <div style="display:inline-flex;gap:var(--s-xs);justify-content:flex-end;">
+                            <form th:action="@{/pot/apply/approve}" method="post" style="margin:0;">
+                                <input type="hidden" name="userId" th:value="${user.id}">
+                                <input type="hidden" name="potId" th:value="${pot.id}">
+                                <input type="hidden" name="state" value="1">
+                                <button type="submit" class="btn btn--primary" onclick="return confirm('이 회원을 승인하시겠습니까?')">승인</button>
+                            </form>
+                            <form th:action="@{/pot/apply/approve}" method="post" style="margin:0;">
+                                <input type="hidden" name="userId" th:value="${user.id}">
+                                <input type="hidden" name="potId" th:value="${pot.id}">
+                                <input type="hidden" name="state" value="2">
+                                <button type="submit" class="btn btn--secondary">거절</button>
+                            </form>
+                        </div>
                     </td>
-                    <td>
-                        <form th:action="@{/pot/apply/approve}" method="post">
-                            <input type="hidden" name="userId" th:value="${user.id}">
-                            <input type="hidden" name="potId" th:value="${pot.id}">
-                            <input type="hidden" name="state" value="2">
-                            <input class="btn btn--secondary" type="submit" value="거절">
-                        </form>
-                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(userList)}">
+                    <td colspan="3" class="muted" style="text-align:center;padding:20px 0;">아직 신청한 사람이 없습니다.</td>
                 </tr>
                 </tbody>
             </table>
@@ -98,17 +100,6 @@
         </div>
     </div>
 
-    <!--모달창 영역-->
-    <div id="modal" class="modal" style="display:none;position:fixed;inset:0;width:100%;height:100%;background-color:rgba(0,0,0,0.4);z-index:100;align-items:center;justify-content:center;">
-        <div class="card" style="background:var(--canvas);max-width:420px;width:90%;" role="document">
-            <h5 class="title-lg" style="margin-bottom:var(--s-sm);" th:text="${pot.potName}">승인</h5>
-            <p class="body-md" style="margin-bottom:var(--s-lg);">정말 승인하시겠습니까?</p>
-            <div style="display:flex;gap:var(--s-sm);justify-content:flex-end;">
-                <button type="button" class="btn btn--secondary" data-bs-dismiss="modal" onclick="closeModal()">취소</button>
-                <button type="button" class="btn btn--primary" onclick="document.getElementById('approve').submit()">확인</button>
-            </div>
-        </div>
-    </div>
 </div>
 </body>
 </html>

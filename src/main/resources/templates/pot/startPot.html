@@ -57,14 +57,13 @@
             </div>
             <div class="field">
                 <label for="bankName">은행</label>
-                <select id="bankName"
-                       name="startDate" th:field="*{bankName}" class="input">
+                <select id="bankName" th:field="*{bankName}" class="input">
                     <option value="신한">신한</option>
-                    <option value="신한">국민</option>
-                    <option value="신한">카카오뱅크</option>
-                    <option value="신한">토스뱅크</option>
-                    <option value="신한">기업</option>
-                    <option value="신한">농협</option>
+                    <option value="국민">국민</option>
+                    <option value="카카오뱅크">카카오뱅크</option>
+                    <option value="토스뱅크">토스뱅크</option>
+                    <option value="기업">기업</option>
+                    <option value="농협">농협</option>
                     <option value="한국시티은행">한국시티은행</option>
                 </select>
                 <p class="field-error" th:if="${#fields.hasErrors('bankName')}" th:errorclass="field-error" th:errors="*{bankName}" />
