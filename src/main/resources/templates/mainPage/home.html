@@ -25,17 +25,17 @@
             <div style="display:flex; gap:12px; flex-wrap:wrap;">
                 <a class="btn btn--primary btn--lg" th:href="@{/pot}" sec:authorize="isAuthenticated()">팟 만들기</a>
                 <a class="btn btn--primary btn--lg" th:href="@{/user/signup}" sec:authorize="isAnonymous()">무료로 시작하기</a>
-                <a class="btn btn--secondary btn--lg" href="/pot/list?ottType=all">모집 중인 팟 보기</a>
+                <a class="btn btn--secondary btn--lg" href="#pots">모집 중인 팟 보기</a>
             </div>
         </div>
         <div class="hero__art">
-            <img class="logo-mark" src="/image/logo/genie-logo-mark-v5.svg" alt="genie">
+            <img class="hero__image" src="/image/hero/genie-ott-pot-hero.svg" alt="OTT 팟을 함께 보는 장면">
         </div>
     </div>
 </section>
 
 <!-- 팟 목록 -->
-<section class="section" style="padding-top:0;">
+<section id="pots" class="section" style="padding-top:0; scroll-margin-top:80px;">
     <div th:include="/mainPage/pots_list.html"></div>
 
     <div class="container">

@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" role="img" aria-labelledby="ht">
+  <title id="ht">램프에서 OTT 팟이 피어나는 genie 일러스트</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fdf3ea"/>
+      <stop offset="0.5" stop-color="#fbeede"/>
+      <stop offset="1" stop-color="#efe5fb"/>
+    </linearGradient>
+    <radialGradient id="blobLav" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#b8a4ed" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#b8a4ed" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="blobPeach" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffb084" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#ffb084" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffe9a8" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="cardPink" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff7aaa"/><stop offset="1" stop-color="#ff4d8b"/>
+    </linearGradient>
+    <linearGradient id="cardLav" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#cbb8f3"/><stop offset="1" stop-color="#b8a4ed"/>
+    </linearGradient>
+    <linearGradient id="cardPeach" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffc79a"/><stop offset="1" stop-color="#ffb084"/>
+    </linearGradient>
+    <linearGradient id="smoke" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#ffb084" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#b8a4ed" stop-opacity="0.12"/>
+    </linearGradient>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="190%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#41203a" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="600" height="450" fill="url(#bg)"/>
+  <circle cx="470" cy="110" r="170" fill="url(#blobLav)"/>
+  <circle cx="110" cy="380" r="150" fill="url(#blobPeach)"/>
+  <circle cx="300" cy="360" r="120" fill="url(#glow)"/>
+
+  <!-- 연기 -->
+  <path d="M360 340 C 318 290, 366 232, 312 176" stroke="url(#smoke)" stroke-width="24" stroke-linecap="round" fill="none" opacity="0.55"/>
+
+  <!-- 떠 있는 OTT 카드 (램프가 만들어준 팟) -->
+  <g filter="url(#soft)">
+    <g transform="rotate(-11 256 150)">
+      <rect x="198" y="98" width="126" height="88" rx="16" fill="url(#cardLav)"/>
+      <path d="M246 128 l26 14 l-26 14 Z" fill="#fffaf0"/>
+    </g>
+    <g transform="rotate(12 372 150)">
+      <rect x="316" y="104" width="120" height="86" rx="16" fill="url(#cardPeach)"/>
+      <path d="M362 134 l22 13 l-22 13 Z" fill="#fffaf0"/>
+    </g>
+    <g transform="rotate(2 312 176)">
+      <rect x="244" y="128" width="138" height="96" rx="18" fill="url(#cardPink)"/>
+      <circle cx="313" cy="176" r="27" fill="#fffaf0" opacity="0.95"/>
+      <path d="M305 163 l19 13 l-19 13 Z" fill="#ff4d8b"/>
+    </g>
+  </g>
+
+  <!-- 마법 램프 -->
+  <ellipse cx="300" cy="422" rx="104" ry="17" fill="#41203a" opacity="0.08"/>
+  <g transform="translate(183 226) scale(0.435)" filter="url(#soft)">
+    <path transform="translate(33 62) scale(0.84)" fill="#fffaf0"
+      d="M203.72 87.938c-2.082.017-4.18.31-6.282.874c-13.45 3.608-21.412 17.53-17.782 31.094c1.384 5.172 4.235 9.52 8 12.75c-31.85 15.446-53.498 45.172-59.28 78.72l-22.532 7.593c-11.235-2.877-21.416-4.2-30.53-4.095c-14.696.167-26.65 4.02-35.908 10.97c-18.518 13.896-23.316 38.02-19.53 60.655c3.784 22.636 15.81 45.127 34.343 59.344c18.532 14.216 44.715 18.96 71.03 4.875c4.43-2.373 8.776-4.81 12.813-6.97c2.993 10.772 14.018 17.16 24.75 14.28c10.253-2.75 16.547-12.963 14.656-23.31c16.984 10.05 34.495 15.674 52.186 17.405c-14.094 20.893-32.316 39.57-53.97 54.78c27.754 27.726 224.764-24.853 229.626-61.592c-26.89-2.484-52.525-9.935-75.562-21.563c67.995-43.983 128.655-133.27 160.656-234.563l-42.47 14.344c-44.11 67.313-122.214 103.81-167.155 28a107.9 107.9 0 0 0-53-9.593c1.656-4.69 1.95-9.913.564-15.093c-3.063-11.443-13.392-18.998-24.625-18.906zM76.062 233.53c5.11-.027 10.865.51 17.312 1.75c18.656 36.728 39.31 63.938 61.188 82.845c-.767.113-1.546.263-2.313.47q-.22.058-.438.124c-2.846.324-5.588 1.044-8.218 1.936c-9.64 3.27-18.73 9.084-27.156 13.594c-20.655 11.056-36.95 7.41-50.844-3.25c-13.895-10.66-24.256-29.5-27.28-47.594c-3.027-18.094.948-34.097 12.31-42.625c5.683-4.263 13.943-7.186 25.438-7.25z"/>
+  </g>
+
+  <!-- 반짝임 -->
+  <path d="M438 252 l7 18 l18 7 l-18 7 l-7 18 l-7 -18 l-18 -7 l18 -7 Z" fill="#e8b94a"/>
+  <path d="M168 262 l5 13 l13 5 l-13 5 l-5 13 l-5 -13 l-13 -5 l13 -5 Z" fill="#ff6b5a"/>
+  <circle cx="470" cy="330" r="7" fill="#fffaf0"/>
+  <circle cx="150" cy="180" r="6" fill="#fffaf0"/>
+  <circle cx="418" cy="190" r="5" fill="#e8b94a"/>
+</svg>
