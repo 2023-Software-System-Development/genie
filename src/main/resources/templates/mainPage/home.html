@@ -14,8 +14,9 @@
 <body>
 <div th:include="/mainPage/navigator.html"></div>
 
-<!-- 히어로 -->
-<section class="container hero">
+<!-- 히어로: 메인(전체) 뷰에서만 표시. 특정 OTT 필터/검색 결과에서는 숨김 -->
+<section class="container hero"
+         th:if="${(potSearchForm.ottType == null or potSearchForm.ottType == 'all') and potSearchForm.searchText == null}">
     <div class="hero__grid">
         <div class="stack-lg">
             <span class="eyebrow">OTT 팟 구하기</span>
@@ -23,8 +24,8 @@
             <p class="lead">넷플릭스, 디즈니+, 왓챠, 웨이브.<br>믿을 수 있는 팟원과 구독료를 나눠요.</p>
             <div style="display:flex; gap:12px; flex-wrap:wrap;">
                 <a class="btn btn--primary btn--lg" th:href="@{/pot}" sec:authorize="isAuthenticated()">팟 만들기</a>
-                <a class="btn btn--primary btn--lg" th:href="@{/user/login}" sec:authorize="isAnonymous()">시작하기</a>
-                <a class="btn btn--secondary btn--lg" href="/pot/list?ottType=all">팟 둘러보기</a>
+                <a class="btn btn--primary btn--lg" th:href="@{/user/signup}" sec:authorize="isAnonymous()">무료로 시작하기</a>
+                <a class="btn btn--secondary btn--lg" href="/pot/list?ottType=all">모집 중인 팟 보기</a>
             </div>
         </div>
         <div class="hero__art">
