@@ -3,6 +3,7 @@
       xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="/image/logo/favicon-v5.png">
     <title>로그인 - genie</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,8 +17,9 @@
 
 <div class="auth-wrap">
     <div class="auth-card stack-lg">
+        <img class="auth-logo" src="/image/logo/genie-logo-v5.svg" alt="genie">
         <div class="stack-sm">
-            <h1 class="display-sm">다시 오셨네요 🧞</h1>
+            <h1 class="display-sm">다시 오셨네요</h1>
             <p class="body-sm muted">genie 계정으로 로그인하세요.</p>
         </div>
         <form th:action="@{/loginProc}" method="post" class="stack-md">

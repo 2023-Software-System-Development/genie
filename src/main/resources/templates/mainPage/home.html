@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="icon" href="/image/logo/favicon-v5.png">
     <title>genie - OTT 팟 구하기</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -27,7 +28,7 @@
             </div>
         </div>
         <div class="hero__art">
-            <div class="emoji">🧞</div>
+            <img class="logo-mark" src="/image/logo/genie-logo-mark-v5.svg" alt="genie">
         </div>
     </div>
 </section>
@@ -58,7 +59,10 @@
     <div class="container">
         <div class="clay-footer__cols">
             <div>
-                <div class="clay-footer__brand">🧞 genie</div>
+                <div class="clay-footer__brand">
+                    <img class="clay-footer__brand-mark" src="/image/logo/genie-logo-mark-v5.svg" alt="" aria-hidden="true">
+                    genie
+                </div>
                 <p class="body-sm muted" style="margin-top:8px;">믿을 수 있는 OTT 팟 구하기</p>
             </div>
             <div>

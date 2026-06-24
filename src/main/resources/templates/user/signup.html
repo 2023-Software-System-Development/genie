@@ -3,6 +3,7 @@
       xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="/image/logo/favicon-v5.png">
     <title>회원가입 - genie</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,8 +14,9 @@
 
 <div class="auth-wrap" style="max-width:600px;">
     <div class="auth-card stack-lg">
+        <img class="auth-logo" src="/image/logo/genie-logo-v5.svg" alt="genie">
         <div class="stack-sm">
-            <h1 class="display-sm">genie 시작하기 🪔</h1>
+            <h1 class="display-sm">genie 시작하기</h1>
             <p class="body-sm muted">팟을 만들고 함께할 사람을 찾아보세요.</p>
         </div>
         <form th:action="@{/user/signup}" th:object="${userForm}" method="post" class="stack-md">
