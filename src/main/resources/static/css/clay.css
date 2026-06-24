@@ -242,7 +242,7 @@ select.input{height:44px;}
 /* ---------- footer ---------- */
 /* 콘텐츠가 적은 페이지에서도 푸터를 화면 하단에 고정(스티키 푸터) */
 .page-shell{min-height:100vh;display:flex;flex-direction:column;}
-.clay-footer{background:var(--surface-soft);padding:56px 0 0;margin-top:var(--s-xxl);}
+.clay-footer{background:var(--surface-soft);padding:56px 0 0;margin-top:auto;}
 .clay-footer__cols{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:var(--s-xl);}
 .clay-footer__brand{display:flex;align-items:center;gap:8px;font-weight:600;font-size:20px;letter-spacing:-0.03em;color:var(--ink);}
 .clay-footer__brand-mark{width:28px;height:28px;border-radius:8px;display:block;}
