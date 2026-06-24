@@ -3,148 +3,140 @@
       xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
-  <link rel="stylesheet" type="text/css" href="/css/_variables.css">
-  <link rel="stylesheet" type="text/css" href="/css/_bootswatch.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
-  <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-  <script>
-    function updateOptions(ottType) {
-      var optionsContainer = document.getElementById("recruit");
-
-      if (ottType === "disney+") {
-        optionsContainer.innerHTML = `
-        <input type="radio" name="recruit" value="3" th:field="*{recruit}" onclick="updatePrice('02')"> 4
-      `;
-      } else if (ottType === "netflix") {
-        optionsContainer.innerHTML = `
-        <input type="radio" name="recruit" value="1" th:field="*{recruit}" onclick="updatePrice('11')"> 2
-        <input type="radio" name="recruit" value="3" th:field="*{recruit}" onclick="updatePrice('12')"> 4
-      `;
-      } else if (ottType === "watcha") {
-        optionsContainer.innerHTML = `
-        <input type="radio" name="recruit" value="1" th:field="*{recruit}" onclick="updatePrice('21')"> 2
-        <input type="radio" name="recruit" value="3" th:field="*{recruit}" onclick="updatePrice('22')"> 4
-      `;
-      } else if (ottType === "wavve") {
-        optionsContainer.innerHTML = `
-        <input type="radio" name="recruit" value="1" th:field="*{recruit}" onclick="updatePrice('31')"> 2
-        <input type="radio" name="recruit" value="3" th:field="*{recruit}" onclick="updatePrice('32')"> 4
-      `;
-      }
-    }
-    function updatePrice(recruit1) {
-      var priceField = document.getElementById("price");
-
-      if (recruit1 === "01") {
-        priceField.value = "010";
-      } else if (recruit1 === "02") {
-        priceField.value = "9900";
-      } else if (recruit1 === "11") {
-        priceField.value = "13500";
-      } else if (recruit1 === "12") {
-        priceField.value = "17000";
-      } else if (recruit1 === "21") {
-        priceField.value = "10900";
-      } else if (recruit1 === "22") {
-        priceField.value = "13900";
-      } else if (recruit1 === "31") {
-        priceField.value = "10900";
-      } else if (recruit1 === "32") {
-        priceField.value = "13900";
-      }
-    }
-
-  </script>
+  <title>팟 만들기</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/clay.css">
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
-<!--<div class="formOuterStyle">-->
-<div class="formStyle1">
-<form style="width:50%; height:100%; margin:auto; margin-top:6%;" th:action="@{/pot}" th:object="${potCreateForm}" method="post">
-  <div>
-    <label for="potName">팟 이름</label>
-    <input style="width:50%;" type="text" id="potName" name="potName" th:field="*{potName}" class="form-control" placeholder="팟 이름을 입력하세요">
-    <!--
-        <p th:if="${#fields.hasErrors('potName')}" th:errorclass="error" th:errors="*{potName}" />
-    -->
-  </div>
-  <div>
-    <label for="ottType" class="mt-4">사용할 OTT 서비스 종류</label>
-    <div class="form-group">
-      <div class="form-check">
-        <input class="form-check-input" type="radio" id="ottType" name="ottType" th:field="*{ottType}" onclick="updateOptions('disney+')" value="DisneyPlus">
-        <label class="form-check-label" for="ottType">
-          Disney+
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" id="ottType" name="ottType" th:field="*{ottType}" onclick="updateOptions('netflix')" value="Netflix">
-        <label class="form-check-label" for="ottType">
-          Netflix
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" id="ottType" name="ottType" th:field="*{ottType}"  onclick="updateOptions('watcha')" value="Watcha">
-        <label class="form-check-label" for="ottType">
-          Watcha
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" id="ottType" name="ottType" th:field="*{ottType}" onclick="updateOptions('wavve')" value="Wavve">
-        <label class="form-check-label" for="ottType">
-          Wavve
-        </label>
-      </div>
-      <!--<div class="form-check disabled">
-        <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled="">
-        <label class="form-check-label" for="optionsRadios3">
-          Option three is disabled
-        </label>
-      </div>-->
-    </div>
-    </label>
-  </div>
-  <div style="margin-bottom: 20px;">
-    <label for="recruit" class="mt-4">모집 인원</label>
-    <div id="recruit">
-      <!--<input type="radio" name="recruit" value="1" th:field="*{recruit}"> 1
-      <input type="radio" name="recruit" value="2" th:field="*{recruit}"> 2-->
-    </div>
-    <!--
-      <p th:if="${#fields.hasErrors('recruit')}" th:errorclass="error" th:errors="*{recruit}" />
-  -->
-  </div>
-  <div style="margin-bottom: 20px;">
-    <label for="price">가격</label>
-    <div style="display: flex; align-items: center;">
-      <input type="text" id="price" class="form-control" name="price" readonly>
-    </div>
-    <!--
-      <input type="text" id="price" name="price" th:field="*{price}" class="form-control" placeholder="가격을 입력하세요">
 
-        <p th:if="${#fields.hasErrors('price')}" th:errorclass="error" th:errors="*{price}" />
-    -->
+<script>
+  function updateOptions(ottType) {
+    var optionsContainer = document.getElementById("recruit");
 
+    if (ottType === "disney+") {
+      optionsContainer.innerHTML = `
+      <input type="radio" name="recruit" value="3" th:field="*{recruit}" onclick="updatePrice('02')"> 4
+    `;
+    } else if (ottType === "netflix") {
+      optionsContainer.innerHTML = `
+      <input type="radio" name="recruit" value="1" th:field="*{recruit}" onclick="updatePrice('11')"> 2
+      <input type="radio" name="recruit" value="3" th:field="*{recruit}" onclick="updatePrice('12')"> 4
+    `;
+    } else if (ottType === "watcha") {
+      optionsContainer.innerHTML = `
+      <input type="radio" name="recruit" value="1" th:field="*{recruit}" onclick="updatePrice('21')"> 2
+      <input type="radio" name="recruit" value="3" th:field="*{recruit}" onclick="updatePrice('22')"> 4
+    `;
+    } else if (ottType === "wavve") {
+      optionsContainer.innerHTML = `
+      <input type="radio" name="recruit" value="1" th:field="*{recruit}" onclick="updatePrice('31')"> 2
+      <input type="radio" name="recruit" value="3" th:field="*{recruit}" onclick="updatePrice('32')"> 4
+    `;
+    }
+  }
+  function updatePrice(recruit1) {
+    var priceField = document.getElementById("price");
+
+    if (recruit1 === "01") {
+      priceField.value = "010";
+    } else if (recruit1 === "02") {
+      priceField.value = "9900";
+    } else if (recruit1 === "11") {
+      priceField.value = "13500";
+    } else if (recruit1 === "12") {
+      priceField.value = "17000";
+    } else if (recruit1 === "21") {
+      priceField.value = "10900";
+    } else if (recruit1 === "22") {
+      priceField.value = "13900";
+    } else if (recruit1 === "31") {
+      priceField.value = "10900";
+    } else if (recruit1 === "32") {
+      priceField.value = "13900";
+    }
+  }
+
+</script>
+
+<div class="container section">
+  <div style="max-width:560px;margin:0 auto;" class="stack-lg">
+    <div class="stack-sm center">
+      <span class="eyebrow">🪔 NEW POT</span>
+      <h1 class="display-sm">팟 만들기</h1>
+      <p class="lead muted">함께 볼 OTT 팟을 새로 만들어보세요</p>
+    </div>
+
+    <form class="card card--pad-xl stack-lg" th:action="@{/pot}" th:object="${potCreateForm}" method="post">
+      <div class="field">
+        <label for="potName">팟 이름</label>
+        <input type="text" id="potName" name="potName" th:field="*{potName}" class="input" placeholder="팟 이름을 입력하세요">
+        <!--
+            <p th:if="${#fields.hasErrors('potName')}" th:errorclass="field-error" th:errors="*{potName}" />
+        -->
+      </div>
+
+      <div class="field">
+        <label for="ottType">사용할 OTT 서비스 종류</label>
+        <div class="stack-sm">
+          <label class="body-md" style="display:flex;align-items:center;gap:var(--s-xs);font-weight:400;">
+            <input type="radio" id="ottType" name="ottType" th:field="*{ottType}" onclick="updateOptions('disney+')" value="DisneyPlus">
+            Disney+
+          </label>
+          <label class="body-md" style="display:flex;align-items:center;gap:var(--s-xs);font-weight:400;">
+            <input type="radio" id="ottType" name="ottType" th:field="*{ottType}" onclick="updateOptions('netflix')" value="Netflix">
+            Netflix
+          </label>
+          <label class="body-md" style="display:flex;align-items:center;gap:var(--s-xs);font-weight:400;">
+            <input type="radio" id="ottType" name="ottType" th:field="*{ottType}"  onclick="updateOptions('watcha')" value="Watcha">
+            Watcha
+          </label>
+          <label class="body-md" style="display:flex;align-items:center;gap:var(--s-xs);font-weight:400;">
+            <input type="radio" id="ottType" name="ottType" th:field="*{ottType}" onclick="updateOptions('wavve')" value="Wavve">
+            Wavve
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="recruit">모집 인원</label>
+        <div id="recruit" class="body-md" style="display:flex;gap:var(--s-md);align-items:center;flex-wrap:wrap;">
+          <!--<input type="radio" name="recruit" value="1" th:field="*{recruit}"> 1
+          <input type="radio" name="recruit" value="2" th:field="*{recruit}"> 2-->
+        </div>
+        <!--
+          <p th:if="${#fields.hasErrors('recruit')}" th:errorclass="field-error" th:errors="*{recruit}" />
+      -->
+      </div>
+
+      <div class="field">
+        <label for="price">가격</label>
+        <input type="text" id="price" class="input" name="price" readonly>
+        <!--
+          <input type="text" id="price" name="price" th:field="*{price}" class="input" placeholder="가격을 입력하세요">
+
+            <p th:if="${#fields.hasErrors('price')}" th:errorclass="field-error" th:errors="*{price}" />
+        -->
+      </div>
+
+      <div class="field">
+        <label for="term">사용기간</label>
+        <div style="display:flex;align-items:center;gap:var(--s-xs);">
+          <input type="text" id="term" name="term" th:field="*{term}" class="input" style="max-width:160px;">
+          <span class="body-md muted">개월</span>
+        </div>
+        <!--
+            <p th:if="${#fields.hasErrors('term')}" th:errorclass="field-error" th:errors="*{term}" />
+        -->
+      </div>
+
+      <div style="display:flex;gap:var(--s-sm);justify-content:flex-end;">
+        <button type="button" class="btn btn--secondary">취소</button>
+        <button type="submit" class="btn btn--primary">팟 생성하기</button>
+      </div>
+    </form>
   </div>
-  <div style="margin-bottom: 40px;">
-    <label for="term">사용기간</label>
-    <div style="display: flex; align-items: center;">
-      <input type="text" id="term" name="term" th:field="*{term}" class="form-control" style="width: 50%;">
-      <span style="margin-left: 5px;">개월</span>
-    </div>    <!--
-        <p th:if="${#fields.hasErrors('term')}" th:errorclass="error" th:errors="*{term}" />
-    -->
-  </div>
-  <div style="margin:auto; align:center;">
-    <button type="button" class="btn btn-secondary my-2 my-sm-0">취소</button>
-    <button type="submit" class="btn btn-secondary my-2 my-sm-0">팟 생성하기</button>
-  </div>
-</form>
 </div>
-<!--</div>-->
 </body>
 </html>

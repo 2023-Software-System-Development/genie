@@ -37,7 +37,7 @@
     <div th:include="/mainPage/pots_list.html"></div>
 
     <div class="container">
-        <nav class="clay-pager"
+        <nav class="clay-pager" th:if="${potList.totalPages > 1}"
              th:with="start=${T(java.lang.Math).floor(potList.number/10)*10 + 1},
                       last=(${start + 9 < potList.totalPages ? start + 9 : potList.totalPages})">
             <a th:href="@{/pot/list(page=1)}">처음</a>

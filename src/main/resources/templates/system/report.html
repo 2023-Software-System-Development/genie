@@ -3,32 +3,38 @@
       xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css"
-          integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <title>신고 관리</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/clay.css">
 </head>
 <body>
-<div style="width:100%;" th:include="/system/systemNav.html"></div>
-<div>
-<div style="text-align: center; padding: 50px">
-    <table class="table table-hover" style="width: 50%; margin: auto; text-align: center">
-        <h3>신고 내역</h3>
-        <thead>
-        <tr class="table-primary">
-            <th scope="col">신고번호</th><th scope="col">내용</th>
-        </tr>
-        </thead>
-        <tbody>
-        <th:block th:each="report: ${reportList}">
-                <tr class="table-light">
-                    <th scope="row"><a th:href="@{/report/{reportId}(reportId = ${report.reportId})}">#[[${report.reportId}]]</a></th>
-                    <td th:text="${report.contents}"/>
+<div th:include="/system/systemNav.html"></div>
+<div class="container section">
+    <div class="stack-lg">
+        <div class="stack-sm">
+            <p class="eyebrow">🚨 genie 관리자</p>
+            <h1 class="display-sm">신고 내역</h1>
+            <p class="muted body-md">접수된 신고 목록입니다. 번호를 눌러 상세 내용을 확인하세요.</p>
+        </div>
+        <div class="card card--cream card--pad-xl">
+            <table class="clay-table">
+                <thead>
+                <tr>
+                    <th scope="col">신고번호</th><th scope="col">내용</th>
                 </tr>
-        </th:block>
-        </tbody>
-    </table>
-</div>
+                </thead>
+                <tbody>
+                <th:block th:each="report: ${reportList}">
+                    <tr>
+                        <th scope="row"><a class="link" th:href="@{/report/{reportId}(reportId = ${report.reportId})}">#[[${report.reportId}]]</a></th>
+                        <td th:text="${report.contents}"/>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
 </html>

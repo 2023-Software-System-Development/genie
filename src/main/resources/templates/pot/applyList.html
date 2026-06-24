@@ -2,100 +2,109 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns="http://www.w3.org/1999/html">
 <head>
-    <script src="/js/scripts.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
     <title>신청 목록</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/clay.css">
 </head>
 <body>
 <!--고정된 nav-->
 <div th:include="/mainPage/navigator.html"></div>
+
+<script src="/js/scripts.js"></script>
 <th:block th:if="${error}">
     <script>
         top.alert('이미 인원이 다 찼습니다.');
     </script>
 </th:block>
-<br><br>
-<div name="userList"style="margin: auto; text-align: center" >
-    <table class="table table-hover" style="width: 50%; margin: auto;">
-        <h3 th:text="${pot.potName}"/><p th:text="'남은인원: '+ ${pot.remain} +'/'+${pot.recruit}"/>
-        <thead>
-            <tr style="background-color: #E69A9C; color:black;">
-                <th scope="col">닉네임</th><th scope="col">신뢰도</th><td colspan="3">승인</td>
-            </tr>
-        </thead>
-        <tbody>
-        <tr class="table-light" th:each="user: ${userList}">
-            <th scope="row" th:text="${user.userNickName}"/>
-            <td th:text="${user.reliabilityScore}"/>
-            <td>
-                <form name="approve" id="approve" th:action="@{/pot/apply/approve}" method="post">
-                    <input type="hidden" name="userId" th:value="${user.id}">
-                    <input type="hidden" name="potId" th:value="${pot.id}">
-                    <input type="hidden" name="state" value="1">
-                    <input class="btn btn-primary" type="button" onclick="openModal()" value="승인">
+
+<div class="container section">
+    <div name="userList" style="max-width:720px;margin:0 auto;" class="stack-lg">
+        <div class="stack-sm">
+            <span class="eyebrow">🪔 APPLICANTS</span>
+            <h1 class="display-sm" th:text="${pot.potName}"></h1>
+            <p class="lead muted" th:text="'남은인원: '+ ${pot.remain} +'/'+${pot.recruit}"></p>
+        </div>
+
+        <div class="card card--pad-xl">
+            <h2 class="title-lg" style="margin-bottom:var(--s-md);">신청 목록</h2>
+            <table class="clay-table">
+                <thead>
+                    <tr>
+                        <th scope="col">닉네임</th>
+                        <th scope="col">신뢰도</th>
+                        <th scope="col" colspan="2">승인</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user: ${userList}">
+                    <th scope="row" th:text="${user.userNickName}"></th>
+                    <td th:text="${user.reliabilityScore}"></td>
+                    <td>
+                        <form name="approve" id="approve" th:action="@{/pot/apply/approve}" method="post">
+                            <input type="hidden" name="userId" th:value="${user.id}">
+                            <input type="hidden" name="potId" th:value="${pot.id}">
+                            <input type="hidden" name="state" value="1">
+                            <input class="btn btn--primary" type="button" onclick="openModal()" value="승인">
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{/pot/apply/approve}" method="post">
+                            <input type="hidden" name="userId" th:value="${user.id}">
+                            <input type="hidden" name="potId" th:value="${pot.id}">
+                            <input type="hidden" name="state" value="2">
+                            <input class="btn btn--secondary" type="submit" value="거절">
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card card--pad-xl">
+            <h2 class="title-lg" style="margin-bottom:var(--s-md);">멤버 현황</h2>
+            <table class="clay-table">
+                <thead>
+                <tr>
+                    <th scope="col">닉네임</th>
+                    <th scope="col">신뢰도</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row" th:text="${pot.master.userNickName}"></th>
+                    <td th:text="${pot.master.reliabilityScore}"></td>
+                </tr>
+                <tr th:each="member: ${memberList}">
+                    <th scope="row" th:text="${member.userNickName}"></th>
+                    <td th:text="${member.reliabilityScore}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="center" style="display:flex;gap:var(--s-sm);justify-content:center;flex-wrap:wrap;">
+            <th:block th:if="${pot.remain == 0}">
+                <form th:if="${pot.state.name().equals('RECRUITING')}" th:action="@{/pot/{potId}/start(potId = ${pot.id})}">
+                    <button class="btn btn--primary">시작하기</button>
                 </form>
-            <td>
-            <td>
-            <form th:action="@{/pot/apply/approve}" method="post">
-                <input type="hidden" name="userId" th:value="${user.id}">
-                <input type="hidden" name="potId" th:value="${pot.id}">
-                <input type="hidden" name="state" value="2">
-                <input class="btn btn-primary" type="submit" value="거절">
-            </form>
-        </tr>
-        </tbody>
-    </table>
-
-    <hr>
-    <br><br>
-    <table class="table table-hover" style="width: 50%; margin: auto;">
-        <p>멤버 현황</p>
-        <thead>
-        <tr class="table-primary">
-            <th scope="col">닉네임</th><th scope="col">신뢰도</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="table-light">
-            <th scope="row" th:text="${pot.master.userNickName}"></th>
-            <td th:text="${pot.master.reliabilityScore}"></td>
-        </tr>
-        <tr class="table-light" th:each="member: ${memberList}">
-            <th scope="row" th:text="${member.userNickName}"/>
-            <td th:text="${member.reliabilityScore}"/>
-        </tr>
-        </tbody>
-    </table>
-    <br>
-    <div style="text-align: center;">
-        <th:block th:if="${pot.remain == 0}">
-            <form th:if="${pot.state.name().equals('RECRUITING')}" th:action="@{/pot/{potId}/start(potId = ${pot.id})}">
-                <button class="btn btn-primary">시작하기</button>
-            </form>
-            <form th:if="${pot.state.name().equals('ONGOING')}" th:action="@{/pot/{potId}/main(potId = ${pot.id})}">
-                <button class="btn btn-primary">입장하기</button>
-            </form>
-        </th:block>
-        <button class="btn btn-light" onclick="window.history.back()">뒤로가기</button>
-
+                <form th:if="${pot.state.name().equals('ONGOING')}" th:action="@{/pot/{potId}/main(potId = ${pot.id})}">
+                    <button class="btn btn--primary">입장하기</button>
+                </form>
+            </th:block>
+            <button class="btn btn--secondary" onclick="window.history.back()">뒤로가기</button>
+        </div>
     </div>
-    </script>
+
     <!--모달창 영역-->
-    <div id="modal" class="modal" style=" width: 100%; height: 100%; background-color: rgba(0,0,0,0.4);">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" th:text="${pot.potName}">승인</h5>
-                </div>
-                <div class="modal-body">
-                    <p>정말 승인하시겠습니까?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="document.getElementById('approve').submit()">확인</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModal()">취소</button>
-                </div>
+    <div id="modal" class="modal" style="display:none;position:fixed;inset:0;width:100%;height:100%;background-color:rgba(0,0,0,0.4);z-index:100;align-items:center;justify-content:center;">
+        <div class="card" style="background:var(--canvas);max-width:420px;width:90%;" role="document">
+            <h5 class="title-lg" style="margin-bottom:var(--s-sm);" th:text="${pot.potName}">승인</h5>
+            <p class="body-md" style="margin-bottom:var(--s-lg);">정말 승인하시겠습니까?</p>
+            <div style="display:flex;gap:var(--s-sm);justify-content:flex-end;">
+                <button type="button" class="btn btn--secondary" data-bs-dismiss="modal" onclick="closeModal()">취소</button>
+                <button type="button" class="btn btn--primary" onclick="document.getElementById('approve').submit()">확인</button>
             </div>
         </div>
     </div>

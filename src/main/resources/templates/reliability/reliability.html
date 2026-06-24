@@ -1,94 +1,46 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
-    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script>
-        function OuterClick(potId) {
-            window.location.href = "/reliability";
-        }
-    </script>
-    <style>
-
-        /*!* 공통 스타일 *!*/
-        /*table {*/
-        /*    border-collapse: collapse;*/
-        /*    width: 100%;*/
-        /*    height: auto;*/
-        /*}*/
-        /*td {*/
-        /*    padding: 10px;*/
-        /*    !*border: 1px solid #000000;*!*/
-        /*}*/
-        /*th {*/
-        /*    padding: 10px;*/
-        /*    font-weight: bold;*/
-        /*    text-align: center;*/
-        /*    !*border: 1px solid #000000;*!*/
-        /*}*/
-        /*.small-text {*/
-        /*    font-size: 12px;*/
-        /*}*/
-
-        /*!* 테이블 1 스타일 *!*/
-        /*.table1 {*/
-        /*    background-color: #F2F2F2;*/
-        /*    margin-bottom: 10px;*/
-        /*    width: 50%; !* 테이블 크기 조정 *!*/
-        /*    border-collapse: collapse;*/
-        /*}*/
-        /*.table2 {*/
-        /*    background-color: #D4D3D3;*/
-        /*    width: 50%; !* 테이블 크기 조정 *!*/
-        /*    border-collapse: collapse;*/
-        /*}*/
-        /*.table1 th {*/
-        /*    text-align: left;*/
-        /*}*/
-        /*.table2 th {*/
-        /*    text-align: left;*/
-        /*}*/
-        .mypage-info-container table {
-            width: 100%;
-        }
-    </style>
-
+    <title>신뢰도 이력</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/clay.css">
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
 <div th:fragment="content" th:remove="tag">
-    <table class="table2" style="width:100%; ">
-        <tr>
-            <td style="width:25%;">
-                <div style="width:80%; height:100%; margin:auto; align:center;" th:include="/myPage/mypage_menu.html"></div>
-            </td>
-            <td style="width:75%;">
-                <div class="formStyle">
-                    <h5 style="text-align:center; margin-top:40px;">신뢰도 이력</h5>
-                <table class="table table-hover" style="width: 70%; margin: auto; text-size:15pt; margin-top:10px; text-align: center;">
-                    <tr class="table-primary">
-                        <th scope="row">
-                            history
-                        </th>
-                        <th scope="row">
-                            score
-                        </th>
-                    </tr>
-                    <div th:each="reliability, stat : ${reliabilityList}" style="max-width: 20rem;">
-                    <tr>
-                        <td th:text="${reliability.history}"></td>
-                        <td th:text="${reliability.score}"></td>
-                    </tr>
-                    </div>
-                </table>
+    <div class="container section">
+        <div class="grid" style="grid-template-columns:280px 1fr;align-items:start;">
+            <aside>
+                <div th:include="/myPage/mypage_menu.html"></div>
+            </aside>
+            <main class="stack-lg">
+                <div class="stack-sm">
+                    <p class="eyebrow">My Page</p>
+                    <h1 class="display-sm">⭐ 신뢰도 이력</h1>
+                    <p class="lead muted">활동에 따라 쌓인 신뢰도 점수 변동 내역이에요.</p>
                 </div>
-            </td>
-        </tr>
-    </table>
+
+                <div class="card card--pad-xl" style="overflow-x:auto;">
+                    <table class="clay-table">
+                        <thead>
+                        <tr>
+                            <th scope="col">내역 (History)</th>
+                            <th scope="col" style="text-align:right;">점수 (Score)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="reliability, stat : ${reliabilityList}">
+                            <td th:text="${reliability.history}"></td>
+                            <td style="text-align:right;font-weight:600;color:var(--ink);" th:text="${reliability.score}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
 </div>
 </body>
 </html>

@@ -3,11 +3,10 @@
       xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css"
-          integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
-    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <title>내가 만든 팟 - genie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/clay.css">
     <script>
         function handleOuterClick(potId) {
             window.location.href = "/pot/" + potId;
@@ -17,57 +16,56 @@
 <body>
 <div th:include="/mainPage/navigator.html"></div>
 <div th:fragment="content" th:remove="tag">
-    <table class="table2" style="width:100%;">
-        <tr>
-            <td style="width:25%;">
-                <div style="width:80%; height:100%; margin:auto; align:center;" th:include="/myPage/mypage_menu.html"></div>
-            </td>
-            <td style="width:75%;">
-                <div class="mypage-info-container">
-                    <div th:label="potList" class="myPageListOuter">
-                        <div th:each="pot, stat : ${userPotList}" class="card border-primary mb-3"
-                             style="max-width: 20rem;">
-                            <div class="row-md-4" th:onclick="'handleOuterClick(\'' + ${pot.potId} + '\')'">
-                                <div class="card-header" th:text="${pot.potName}"></div>
-                                <div class="card-header" th:text="${pot.ottType}"></div>
+    <div class="container section">
+        <div class="stack-lg" style="margin-bottom:var(--s-lg);">
+            <p class="eyebrow">🪔 MY GENIE</p>
+            <h1 class="display-sm">내가 만든 팟</h1>
+        </div>
+        <div class="grid" style="grid-template-columns:280px 1fr;align-items:start;">
+            <!-- 왼쪽: mypage_menu.html -->
+            <div th:include="/myPage/mypage_menu.html"></div>
+            <!-- 오른쪽: 내가 만든 팟 목록 -->
+            <div class="stack-lg">
+                <div th:if="${userPotList.totalElements == 0}" class="card card--cream"
+                     style="text-align:center;padding:64px;">
+                    <div style="font-size:48px;">🪔</div>
+                    <p class="title-md" style="margin-top:12px;">아직 만든 팟이 없어요</p>
+                    <p class="body-sm muted">새로운 팟을 만들어 보세요.</p>
+                </div>
 
-                                <div class="card-body">
-                                    <p class="card-title" th:text="'모집인원 : ' + ${pot.recruit}"></p>
-                                    <p class="card-title" th:text="'현재인원 : ' + (${pot.recruit} - ${pot.remain})"></p>
-                                    <p class="card-title" th:text="'기간 : ' + ${pot.term}"></p>
-                                </div>
-                            </div>
+                <div class="grid grid--2">
+                    <div th:each="pot, stat : ${userPotList}" class="pot-card"
+                         th:classappend="'pot-card--c' + ${stat.index % 5}"
+                         th:onclick="'handleOuterClick(\'' + ${pot.potId} + '\')'">
+                        <div class="pot-card__top">
+                            <span class="pot-card__ott" th:text="${pot.ottType}">OTT</span>
+                        </div>
+                        <h3 class="pot-card__name" th:text="${pot.potName}">팟 이름</h3>
+                        <div class="pot-card__meta">
+                            <span>모집 <b th:text="${pot.recruit}">4</b></span>
+                            <span>현재 <b th:text="${pot.recruit - pot.remain}">2</b></span>
+                            <span>기간 <b th:text="|${pot.term}개월|">3개월</b></span>
                         </div>
                     </div>
-                    <div style="width: 100%; text-align: center">
-                        <nav style="text-align: center">
-                            <ul class="pagination pagination-sm"
-                                th:with="start=${T(java.lang.Math).floor(userPotList.number/10)*10 + 1}, last=(${start + 9 < userPotList.totalPages ? start + 9 : userPotList.totalPages})">
-                                <li th:class="${userPotList.first} ? 'disabled'" class="page-item ">
-                                    <a class="page-link"
-                                       th:href="${userPotList.first} ? '#' :@{/user/potList(page=${userPotList.number})}"
-                                       aria-label="Previous">
-                                        <span aria-hidden="true">&lt;</span>
-                                    </a>
-                                </li>
-                                <li class="page-item " th:each="page: ${#numbers.sequence(start, last)}"
-                                    th:class="${page == userPotList.number + 1} ? 'active'">
-                                    <a class="page-link" th:text="${page}" th:href="@{/user/potList(page=${page})}"></a>
-                                </li>
-                                <li class="page-item " th:class="${userPotList.last} ? 'disabled'">
-                                    <a class="page-link"
-                                       th:href="${userPotList.last} ? '#' : @{/user/potList(page=${userPotList.number + 2})}"
-                                       aria-label="Next">
-                                        <span aria-hidden="true">&gt;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
                 </div>
-            </td>
-        </tr>
-    </table>
+
+                <nav class="clay-pager" th:if="${userPotList.totalPages > 1}"
+                     th:with="start=${T(java.lang.Math).floor(userPotList.number/10)*10 + 1}, last=(${start + 9 < userPotList.totalPages ? start + 9 : userPotList.totalPages})">
+                    <span th:if="${userPotList.first}" class="is-disabled">&lt;</span>
+                    <a th:unless="${userPotList.first}"
+                       th:href="@{/user/potList(page=${userPotList.number})}" aria-label="Previous">&lt;</a>
+
+                    <a th:each="page: ${#numbers.sequence(start, last)}"
+                       th:classappend="${page == userPotList.number + 1} ? 'is-active'"
+                       th:text="${page}" th:href="@{/user/potList(page=${page})}">1</a>
+
+                    <span th:if="${userPotList.last}" class="is-disabled">&gt;</span>
+                    <a th:unless="${userPotList.last}"
+                       th:href="@{/user/potList(page=${userPotList.number + 2})}" aria-label="Next">&gt;</a>
+                </nav>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

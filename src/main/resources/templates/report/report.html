@@ -3,72 +3,60 @@
       xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
-  <link rel="stylesheet" type="text/css" href="/css/_variables.css">
-  <link rel="stylesheet" type="text/css" href="/css/_bootswatch.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
-  <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <title>회원 신고 - genie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/clay.css">
 </head>
 <body>
-<div style="width:100%;" th:include="/mainPage/navigator.html"></div>
+<div th:include="/mainPage/navigator.html"></div>
 <th:block th:if="${success != null && success}">
   <script>alert('신고가 정상적으로 접수되었습니다.')</script>
 </th:block>
 
-<table class="table2" style="width:100%; height:700px; background-color: #ffffff;">
-  <tr>
-    <td style="width:25%;">
-      <!-- 왼쪽 테이블: mypage_menu.html -->
-      <div style="width:80%; height:100%; margin:auto; align:center;" th:include="/myPage/mypage_menu.html"></div>
-    </td>
-    <td style="width:75%; height:100%;">
-      <!-- 오른쪽 테이블: mypage_info.html -->
-      <!--<div class="formOuterStyle">-->
-      <div class="formStyle">
-        <div style="margin-top: 5%;">
-        <h4 style="text-align:center;">회원 신고</h4>
-        <form style="width:80%; height:70%; margin:auto; align:center;" th:action="@{/report}" th:object="${reportForm}" method="post" enctype="multipart/form-data">
-          <div>
-            <label for="userNickname">회원 닉네임: </label>
-            <input type="text" id="userNickname" th:field="*{userNickName}" class="form-control" placeholder="신고할 회원 닉네임을 입력하세요.">
-            <p th:if="${#fields.hasErrors('userNickName')}" th:errorclass="error" th:errors="*{userNickName}" />
-          </div>
-          <div>
-            <label for="type" class="mt-4">사유: </label>
-            <div class="form-group">
-              <div class="form-check">
-                <div th:each="type : ${T(com.example.genie.domain.report.model.Type).values()}" class="form-check form-check-inline">
-                  <input type="radio" id="type" th:field="*{type}" th:value="${type.getIndex()}" th:label="${type.getLabel()}" class="form-check-input">
-                  <label th:text="${type.label}"/>
-                </div>
-              </div>
-            </div>
-            </label>
-          </div>
-          <div>
-            <label for="contents">내용: </label>
-            <input type="text" id="contents" th:field="*{contents}" class="form-control" placeholder="신고할 내용을 입력하세요.">
-            <p th:if="${#fields.hasErrors('contents')}" th:errorclass="error" th:errors="*{contents}" />
+<div class="container section">
+  <div style="max-width:560px;margin:0 auto;" class="stack-lg">
+    <div class="stack-sm center">
+      <span class="eyebrow">🚨 REPORT</span>
+      <h1 class="display-sm">회원 신고</h1>
+      <p class="lead muted">팟에서 문제가 있었던 회원을 신고해주세요</p>
+    </div>
 
-          </div>
-          &nbsp;  &nbsp;
-          <div>
-            <label for="image">증거 자료</label>
-            <input type="file" id="image" th:field="*{image}" class="form-control">
-          </div>
-          <br>
-          <div>
-            <button type="button" class="btn btn-secondary my-2 my-sm-0">취소</button>
-            <button type="submit" class="btn btn-secondary my-2 my-sm-0">신고하기</button>
-          </div>
-        </form>
+    <form class="card card--pad-xl stack-lg" th:action="@{/report}" th:object="${reportForm}" method="post" enctype="multipart/form-data">
+      <div class="field">
+        <label for="userNickname">회원 닉네임</label>
+        <input type="text" id="userNickname" th:field="*{userNickName}" class="input" placeholder="신고할 회원 닉네임을 입력하세요">
+        <p class="field-error" th:if="${#fields.hasErrors('userNickName')}" th:errors="*{userNickName}"></p>
+      </div>
+
+      <div class="field">
+        <label>사유</label>
+        <div class="stack-sm">
+          <label th:each="type : ${T(com.example.genie.domain.report.model.Type).values()}" class="body-md"
+                 style="display:flex;align-items:center;gap:var(--s-xs);font-weight:400;">
+            <input type="radio" th:field="*{type}" th:value="${type.getIndex()}">
+            <span th:text="${type.label}">사유</span>
+          </label>
         </div>
       </div>
-   <!-- </div>-->
-    </td>
-  </tr>
-</table>
+
+      <div class="field">
+        <label for="contents">내용</label>
+        <textarea id="contents" th:field="*{contents}" class="input" placeholder="신고할 내용을 입력하세요"></textarea>
+        <p class="field-error" th:if="${#fields.hasErrors('contents')}" th:errors="*{contents}"></p>
+      </div>
+
+      <div class="field">
+        <label for="image">증거 자료</label>
+        <input type="file" id="image" th:field="*{image}" class="input">
+      </div>
+
+      <div style="display:flex;gap:var(--s-sm);justify-content:flex-end;">
+        <button type="button" class="btn btn--secondary">취소</button>
+        <button type="submit" class="btn btn--primary">신고하기</button>
+      </div>
+    </form>
+  </div>
+</div>
 </body>
 </html>

@@ -3,31 +3,39 @@
       xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css"
-        integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <title>회원 관리</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/clay.css">
 </head>
 <body>
-<div style="width:100%;" th:include="/system/systemNav.html"></div>
-<div style="text-align: center; padding: 50px">
-  <table class="table table-hover" style="width: 50%; margin: auto; text-align: center">
-    <h3>회원 관리</h3>
-    <thead>
-    <tr class="table-primary">
-      <th scope="col">회원 번호</th><th scope="col">아이디</th><th scope="col">이름</th>
-    </tr>
-    </thead>
-    <tbody>
-    <th:block th:each="user: ${userList}">
-        <tr class="table-light" th:onclick="">
-          <th><a th:href="@{/user/userInfo/{userId}(userId=${user.id})}">#[[${user.id}]]</a></th>
-          <td th:text="${user.userLoginId}"/>
-          <td th:text="${user.userName}"/>
+<div th:include="/system/systemNav.html"></div>
+<div class="container section">
+  <div class="stack-lg">
+    <div class="stack-sm">
+      <p class="eyebrow">🧞 genie 관리자</p>
+      <h1 class="display-sm">회원 관리</h1>
+      <p class="muted body-md">등록된 회원 목록입니다. 번호를 눌러 상세 정보를 확인하세요.</p>
+    </div>
+    <div class="card card--cream card--pad-xl">
+      <table class="clay-table">
+        <thead>
+        <tr>
+          <th scope="col">회원 번호</th><th scope="col">아이디</th><th scope="col">이름</th>
         </tr>
-    </th:block>
-    </tbody>
-  </table>
+        </thead>
+        <tbody>
+        <th:block th:each="user: ${userList}">
+          <tr th:onclick="">
+            <th scope="row"><a class="link" th:href="@{/user/userInfo/{userId}(userId=${user.id})}">#[[${user.id}]]</a></th>
+            <td th:text="${user.userLoginId}"/>
+            <td th:text="${user.userName}"/>
+          </tr>
+        </th:block>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 </body>
 </html>

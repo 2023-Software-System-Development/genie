@@ -3,62 +3,61 @@
       xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/css/_variables.css">
-    <link rel="stylesheet" type="text/css" href="/css/_bootswatch.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css"
-          integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
-    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script th:inline="javascript">
-        function setDate() { <!--팟 종료일은 팟 시작일 + 팟 기간-->
-            let value = document.getElementById('startDate').value;
-            let date = new Date(value);
-            let m = [[${pot.term}]];
-            date.setMonth(date.getMonth() + m);
-            document.getElementById('endDate').valueAsDate = date;
-        }
-    </script>
     <title>팟 시작</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/clay.css">
 </head>
 <body>
 <div th:include="/mainPage/navigator.html"></div>
-<div class="formOuterStyle">
-    <div class="formStyle">
-        <h2 th:text="${pot.potName}"/>
+
+<script th:inline="javascript">
+    function setDate() { <!--팟 종료일은 팟 시작일 + 팟 기간-->
+        let value = document.getElementById('startDate').value;
+        let date = new Date(value);
+        let m = [[${pot.term}]];
+        date.setMonth(date.getMonth() + m);
+        document.getElementById('endDate').valueAsDate = date;
+    }
+</script>
+
+<div class="container section">
+    <div style="max-width:560px;margin:0 auto;" class="stack-lg">
+        <div class="stack-sm center">
+            <span class="eyebrow">🪔 START POT</span>
+            <h1 class="display-sm" th:text="${pot.potName}"></h1>
+            <p class="lead muted">팟을 시작하기 위한 정보를 입력하세요</p>
+        </div>
+
         <form name="potStartForm" th:action="@{/pot/{potId}/start(potId = ${pot.potId})}" th:object="${potStartForm}"
-              method="post">
-            <p th:if="${#fields.hasErrors()}">error</p>
-            <div>
+              method="post" class="card card--pad-xl stack-lg">
+            <p class="field-error" th:if="${#fields.hasErrors()}">error</p>
+            <div class="field">
                 <label for="ottId">OTT id</label>
-                <input type="text" id="ottId" name="ottId" th:field="*{ottId}" class="form-control">
-
-                    <p th:if="${#fields.hasErrors('ottId')}" th:errorclass="error" th:errors="*{ottId}" />
-
+                <input type="text" id="ottId" name="ottId" th:field="*{ottId}" class="input">
+                <p class="field-error" th:if="${#fields.hasErrors('ottId')}" th:errorclass="field-error" th:errors="*{ottId}" />
             </div>
-            <div>
+            <div class="field">
                 <label for="ottPw">OTT pwd</label>
-                <input type="password" id="ottPw" name="ottPw" th:field="*{ottPw}" class="form-control">
-                    <p th:if="${#fields.hasErrors('ottPw')}" th:errorclass="error" th:errors="*{ottPw}" />
+                <input type="password" id="ottPw" name="ottPw" th:field="*{ottPw}" class="input">
+                <p class="field-error" th:if="${#fields.hasErrors('ottPw')}" th:errorclass="field-error" th:errors="*{ottPw}" />
             </div>
-            <div>
+            <div class="field">
                 <label for="startDate">시작일</label>
                 <input type="date" th:min="${#dates.format(#dates.createNow(),'YYYY-MM-dd')}" id="startDate"
-                       name="startDate" th:field="*{startDate}" class="form-control" onchange="setDate()">
-                    <p th:if="${#fields.hasErrors('startDate')}" th:errorclass="error" th:errors="*{startDate}" />
+                       name="startDate" th:field="*{startDate}" class="input" onchange="setDate()">
+                <p class="field-error" th:if="${#fields.hasErrors('startDate')}" th:errorclass="field-error" th:errors="*{startDate}" />
             </div>
-            <div>
+            <div class="field">
                 <label for="endDate">종료일</label>
-                <input type="date" id="endDate" name="endDate" th:field="*{endDate}" class="form-control"
+                <input type="date" id="endDate" name="endDate" th:field="*{endDate}" class="input"
                        readonly="true">
-                    <p th:if="${#fields.hasErrors('endDate')}" th:errorclass="error" th:errors="*{endDate}" />
-
+                <p class="field-error" th:if="${#fields.hasErrors('endDate')}" th:errorclass="field-error" th:errors="*{endDate}" />
             </div>
-            <div>
+            <div class="field">
                 <label for="bankName">은행</label>
                 <select id="bankName"
-                       name="startDate" th:field="*{bankName}" class="form-select">
+                       name="startDate" th:field="*{bankName}" class="input">
                     <option value="신한">신한</option>
                     <option value="신한">국민</option>
                     <option value="신한">카카오뱅크</option>
@@ -67,16 +66,16 @@
                     <option value="신한">농협</option>
                     <option value="한국시티은행">한국시티은행</option>
                 </select>
-                <p th:if="${#fields.hasErrors('bankName')}" th:errorclass="error" th:errors="*{bankName}" />
+                <p class="field-error" th:if="${#fields.hasErrors('bankName')}" th:errorclass="field-error" th:errors="*{bankName}" />
             </div>
-            <div>
+            <div class="field">
                 <label for="accountNumber">계좌번호</label>
-                <input type="text" id="accountNumber" name="accountNumber" th:field="*{accountNumber}" class="form-control">
-                <p th:if="${#fields.hasErrors('accountNumber')}" th:errorclass="error" th:errors="*{accountNumber}" />
+                <input type="text" id="accountNumber" name="accountNumber" th:field="*{accountNumber}" class="input">
+                <p class="field-error" th:if="${#fields.hasErrors('accountNumber')}" th:errorclass="field-error" th:errors="*{accountNumber}" />
             </div>
-            <div style="margin-top: 30px">
-                <button type="button" class="btn btn-secondary my-2 my-sm-0">취소</button>
-                <button type="submit" class="btn btn-secondary my-2 my-sm-0">팟 시작하기</button>
+            <div style="display:flex;gap:var(--s-sm);justify-content:flex-end;">
+                <button type="button" class="btn btn--secondary">취소</button>
+                <button type="submit" class="btn btn--primary">팟 시작하기</button>
             </div>
         </form>
     </div>

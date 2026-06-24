@@ -209,7 +209,7 @@ textarea.input{height:auto;padding:12px 16px;min-height:120px;resize:vertical;}
 select.input{height:44px;}
 .field-error{color:var(--error);font-size:13px;}
 
-.auth-wrap{max-width:440px;margin:0 auto;padding:var(--s-xxl) 0;}
+.auth-wrap{max-width:480px;margin:0 auto;padding:var(--s-xxl) 0;}
 .auth-card{background:var(--canvas);border:1px solid var(--hairline);border-radius:var(--r-xl);padding:var(--s-xl);}
 
 /* ---------- badges / pills ---------- */

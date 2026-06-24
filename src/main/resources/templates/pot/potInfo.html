@@ -3,140 +3,119 @@
       xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/css/_variables.css">
-    <link rel="stylesheet" type="text/css" href="/css/_bootswatch.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script src="/js/scripts.js"></script>
-    <script>
-        function redirectToEdit(potId) {
-            window.location.href = "/pot/edit/?potId=" + potId;
-        }
-        function redirectToDelete(potId) {
-            window.location.href = "/pot/delete?potId=" + potId;
-        }
-        function redirectToApply(potId) {
-            window.location.href = "/pot/apply?potId=" + potId;
-        }
-        function redirectToStart(potId) {
-            window.location.href = "/pot/" + potId + "/start";
-        }
-        function redirectToMain(potId) {
-            window.location.href = "/pot/" + potId + "/main";
-        }
-    </script>
+    <title>팟 상세정보</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/clay.css">
 </head>
 <body>
+<div th:include="/mainPage/navigator.html"></div>
+
+<script src="/js/scripts.js"></script>
+<script>
+    function redirectToEdit(potId) {
+        window.location.href = "/pot/edit/?potId=" + potId;
+    }
+    function redirectToDelete(potId) {
+        window.location.href = "/pot/delete?potId=" + potId;
+    }
+    function redirectToApply(potId) {
+        window.location.href = "/pot/apply?potId=" + potId;
+    }
+    function redirectToStart(potId) {
+        window.location.href = "/pot/" + potId + "/start";
+    }
+    function redirectToMain(potId) {
+        window.location.href = "/pot/" + potId + "/main";
+    }
+</script>
+
 <th:block th:if="${param.applySuccess}">
     <script>
         top.alert("가입 신청이 완료되었습니다.");
     </script>
 </th:block>
-<div th:include="/mainPage/navigator.html"></div>
-<div class="formOuterStyle2">
-    <div class="formStyle2">
-<div th:label="pot" style="margin-top:50px;" class="outer">
-    &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
-<table class="table table-hover" style="width: 70%; margin: auto; text-align: center;">
-        <tr class="table-primary">
-            <th colspan="2" scope="row">
-                팟 상세정보
-            </th>
-        </tr>
-        <tr>
-            <th scope="row">
-                팟 이름
-            </th>
-            <td th:text="${pot.potName}"></td>
-        </tr>
-        <tr>
-            <th scope="row">
-                OTT 종류
-            </th>
-            <td th:text="${pot.ottType}"></td>
-        </tr>
-        <tr>
-            <th scope="row">
-                모집인원
-            </th>
-            <td th:text="${pot.recruit}"></td>
-        </tr>
-        <tr>
-            <th scope="row">
-                현재인원
-            </th>
-            <td th:text="(${pot.recruit} - ${pot.remain})"></td>
-        </tr>
-        <tr>
-            <th scope="row">
-                기간
-            </th>
-            <td th:text="${pot.term}"></td>
-        </tr>
-        <tr>
-            <th scope="row">
-                팟장 이름
-            </th>
-            <td th:text="${pot.masterName}"></td>
-        </tr>
-</table>
-</div>
-    </div>
-</div>
-&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-<table style="margin:auto; text-align:center; width: 70%">
-    <tr th:if="${pot.isMaster}">
-        <td>
-            <button type="submit" class="btn btn-primary" onclick="openModal()">삭제하기</button>
-            <form th:if="${isOngoing!=null && !isOngoing}" action="/pot/apply/users" style="display: inline;">
-                <input type="hidden" name="potId" th:value="${pot.potId}" />
-                <button type="submit" class="btn btn-primary">신청 리스트 보기</button>
-            </form>
-        </td>
-    </tr>
-    <tr th:if="${!pot.isMaster}">
-        <td th:if="${state == null}"> <!--아직 신청 안 했으면-->
-            <button th:onclick="'redirectToApply('+${pot.potId}+')'" type="button" class="btn btn-primary">신청하기</button>
-        </td>
-        <th:block th:if="${state != null}">
-            <td th:if="${state.equals('APPLY') || state.equals('REJECTED')}">
-                <button type="button" class="btn btn-primary" disabled>신청하기</button><br>
-                <p>이미 가입 신청이 완료되었습니다.</p>
-            </td>
-            <td th:if="${state.equals('APPROVED')}">
-                <p>팟 가입이 승인되었습니다.</p>
-            </td>
-        </th:block>
-    </tr>
-    <tr th:if="${pot.isMaster && pot.remain == 0 && !isOngoing}">
-        <td>
-            <button th:onclick="'redirectToStart('+${pot.potId}+')'" type="button" class="btn btn-primary">시작하기</button>
-        </td>
-    </tr>
-    <tr th:if="${isOngoing}">
-        <td>
-            <button th:onclick="'redirectToMain('+${pot.potId}+')'" type="button" class="btn btn-primary">입장하기</button>
-        </td>
-    </tr>
-</table>
-<!--모달창 영역-->
-<div id="modal" class="modal" style=" width: 100%; height: 100%; background-color: rgba(0,0,0,0.4);">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" th:text="${pot.potName}">삭제</h5>
+
+<div class="container section">
+    <div style="max-width:640px;margin:0 auto;" class="stack-lg">
+        <div th:label="pot" class="card card--pad-xl">
+            <div class="stack-sm" style="margin-bottom:var(--s-md);">
+                <span class="eyebrow">🪔 POT DETAIL</span>
+                <h1 class="display-sm" th:text="${pot.potName}"></h1>
             </div>
-            <div class="modal-body">
-                <p>정말 삭제하시겠습니까?</p>
+            <table class="clay-table">
+                <tr>
+                    <th scope="row">팟 이름</th>
+                    <td th:text="${pot.potName}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">OTT 종류</th>
+                    <td th:text="${pot.ottType}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">모집인원</th>
+                    <td th:text="${pot.recruit}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">현재인원</th>
+                    <td th:text="${pot.recruit - pot.remain}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">기간</th>
+                    <td th:text="${pot.term}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">팟장 이름</th>
+                    <td th:text="${pot.masterName}"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="stack-sm center">
+            <th:block th:if="${pot.isMaster}">
+                <div class="center" style="display:flex;gap:var(--s-sm);justify-content:center;flex-wrap:wrap;">
+                    <button type="submit" class="btn btn--secondary" onclick="openModal()">삭제하기</button>
+                    <form th:if="${isOngoing!=null && !isOngoing}" action="/pot/apply/users" style="display:inline;">
+                        <input type="hidden" name="potId" th:value="${pot.potId}" />
+                        <button type="submit" class="btn btn--primary">신청 리스트 보기</button>
+                    </form>
+                </div>
+            </th:block>
+
+            <th:block th:if="${!pot.isMaster}">
+                <div th:if="${state == null}"> <!--아직 신청 안 했으면-->
+                    <button th:onclick="'redirectToApply('+${pot.potId}+')'" type="button" class="btn btn--primary btn--lg">신청하기</button>
+                </div>
+                <th:block th:if="${state != null}">
+                    <div class="stack-sm" th:if="${state.equals('APPLY') || state.equals('REJECTED')}">
+                        <button type="button" class="btn btn--primary btn--lg" disabled>신청하기</button>
+                        <p class="body-md muted">이미 가입 신청이 완료되었습니다.</p>
+                    </div>
+                    <div th:if="${state.equals('APPROVED')}">
+                        <p class="body-md">팟 가입이 승인되었습니다.</p>
+                    </div>
+                </th:block>
+            </th:block>
+
+            <div th:if="${pot.isMaster && pot.remain == 0 && !isOngoing}">
+                <button th:onclick="'redirectToStart('+${pot.potId}+')'" type="button" class="btn btn--primary btn--lg">시작하기</button>
             </div>
-            <div class="modal-footer">
-                <form th:action="@{/pot/delete(potId=${potId})}" method="post">
-                    <button type="submit" class="btn btn-primary" >확인</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModal()">취소</button>
-                </form>
+            <div th:if="${isOngoing}">
+                <button th:onclick="'redirectToMain('+${pot.potId}+')'" type="button" class="btn btn--primary btn--lg">입장하기</button>
             </div>
         </div>
+    </div>
+</div>
+
+<!--모달창 영역-->
+<div id="modal" class="modal" style="display:none;position:fixed;inset:0;width:100%;height:100%;background-color:rgba(0,0,0,0.4);z-index:100;align-items:center;justify-content:center;">
+    <div class="card" style="background:var(--canvas);max-width:420px;width:90%;" role="document">
+        <h5 class="title-lg" style="margin-bottom:var(--s-sm);" th:text="${pot.potName}">삭제</h5>
+        <p class="body-md" style="margin-bottom:var(--s-lg);">정말 삭제하시겠습니까?</p>
+        <form th:action="@{/pot/delete(potId=${potId})}" method="post" style="display:flex;gap:var(--s-sm);justify-content:flex-end;">
+            <button type="button" class="btn btn--secondary" data-bs-dismiss="modal" onclick="closeModal()">취소</button>
+            <button type="submit" class="btn btn--primary">확인</button>
+        </form>
     </div>
 </div>
 </body>

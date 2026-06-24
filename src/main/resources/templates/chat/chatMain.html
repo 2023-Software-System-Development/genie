@@ -3,105 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <title>채팅</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/clay.css">
+    <style>
+        .chat-shell {
+            max-width: 720px;
+            margin: var(--s-xl) auto var(--s-section);
+            padding: 0 var(--s-lg);
+        }
+        .chat-panel {
+            background: var(--surface-card);
+            border-radius: var(--r-xl);
+            border: 1px solid var(--hairline);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: var(--s-sm);
+            padding: var(--s-md) var(--s-lg);
+            background: var(--brand-lavender);
+            color: var(--ink);
+        }
+        .chat-header .chat-header__emoji { font-size: 24px; line-height: 1; }
+        .chat-header .chat-header__title {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        #chatBox {
+            height: 70vh;
+            min-height: 420px;
+            overflow-y: auto;
+            padding: var(--s-lg);
+            margin: 0;
+            background: var(--canvas);
+            display: flex;
+            width: 100%;
+            flex-direction: column-reverse; /* 최신 메시지를 위로 표시하기 위해 역순으로 정렬 */
+            align-items: stretch;
+            justify-content: flex-end; /* 메시지를 하단으로 정렬 */
+        }
+        .message-box {
+            border-radius: var(--r-lg);
+            padding: 10px 14px;
+            margin-top: 6px;
+            margin-bottom: 6px;
+            max-width: 75%;
+            display: inline-block;
+            word-wrap: break-word;
+            font-size: 14px;
+            line-height: 1.5;
+            box-shadow: 0 1px 2px rgba(10,10,10,.06);
+        }
+        .message-box strong { font-weight: 600; }
+
+        #inputContainer {
+            display: flex;
+            align-items: center;
+            gap: var(--s-sm);
+            padding: var(--s-md) var(--s-lg);
+            background: var(--surface-soft);
+            border-top: 1px solid var(--hairline);
+            box-sizing: border-box;
+        }
+
+        #inputContainer input {
+            height: 44px;
+            flex: 1;
+            padding: 0 16px;
+            border-radius: var(--r-md);
+            border: 1px solid var(--hairline);
+            background: var(--canvas);
+            color: var(--ink);
+            font-size: 16px;
+            font-family: inherit;
+        }
+        #inputContainer input:focus {
+            outline: none;
+            border-color: var(--ink);
+            border-width: 1.5px;
+        }
+
+        #sendBtn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 44px;
+            padding: 0 22px;
+            border: 1px solid transparent;
+            border-radius: var(--r-md);
+            background: var(--brand-pink);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: transform .08s ease, background .15s ease;
+        }
+        #sendBtn:hover { background: #e63e79; }
+        #sendBtn:active { transform: translateY(1px); }
+
+        .my-message-box {
+            background-color: var(--brand-pink);
+            color: #fff;
+            margin-left: auto; /* 오른쪽으로 정렬 */
+        }
+        .my-message-box strong { color: #fff; }
+
+        .other-message-box {
+            background-color: var(--surface-card);
+            color: var(--ink);
+            margin-right: auto; /* 왼쪽으로 정렬 */
+        }
+
+        .join-message-box, .exit-message-box, .date-message-box {
+            background-color: transparent;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+            box-shadow: none;
+            max-width: none;
+            align-self: center;
+            margin: 10px auto; /* 중앙 정렬 */
+        }
+        .date-message-box {
+            background-color: var(--surface-strong);
+            border-radius: var(--r-pill);
+            padding: 4px 14px;
+        }
+
+        .message-time {
+            color: rgba(255,255,255,.75);
+            font-size: 0.75em;
+            margin-top: 4px;
+        }
+        .other-message-box .message-time { color: var(--muted); }
+
+        /* 기타 스타일 유지 */
+    </style>
 </head>
 <body>
 
-<div id="chat">
-    <div id="chatBox"></div>
-    <div id="inputContainer">
-        <input id="message">
-        <button id="sendBtn">전송</button>
+<div class="chat-shell">
+    <div id="chat" class="chat-panel">
+        <div class="chat-header">
+            <span class="chat-header__emoji">💬</span>
+            <span class="chat-header__title">채팅</span>
+        </div>
+        <div id="chatBox"></div>
+        <div id="inputContainer">
+            <input id="message" placeholder="메시지를 입력하세요...">
+            <button id="sendBtn">전송</button>
+        </div>
     </div>
 </div>
-
-<style>
-    #chatBox {
-        height: 850px;
-        overflow-y: auto;
-        border: 1px solid black;
-        border-radius: 10px;
-        padding: 10px;
-        margin: 0 auto;
-        display: flex;
-        width: 80%;
-        flex-direction: column-reverse; /* 최신 메시지를 위로 표시하기 위해 역순으로 정렬 */
-        align-items: center; /* 수직 가운데 정렬 */
-        justify-content: flex-end; /* 메시지를 하단으로 정렬 */
-        overflow-y: auto;
-    }
-    .message-box {
-        border-radius: 10px;
-        padding: 10px;
-        margin-top: 10px; /* 상단 여백 추가 */
-        margin-bottom: 10px; /* 하단 여백 추가 */
-        display: inline-block;
-        word-wrap: break-word;
-    }
-
-    #chatContainer {
-        width: 70%;
-        height: 1500px;
-        overflow-y: auto;
-        border: 1px solid black;
-        border-radius: 10px;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-
-    #inputContainer {
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 70%;
-        padding: 10px;
-        box-sizing: border-box;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #inputContainer input {
-        height: 30px;
-        flex: 1;
-        border-radius: 10px;
-        margin-right: 10px;
-    }
-
-    #sendBtn {
-        background-color: #e9e9e9;
-        border-radius: 10px;
-        padding: 5px 10px;
-    }
-
-    body {
-        color: black;
-    }
-
-    .my-message-box {
-        background-color: #D9E5FF;
-        margin-left: auto; /* 오른쪽으로 정렬 */
-    }
-
-    .other-message-box {
-        background-color: #DAD9FF;
-        margin-right: auto; /* 왼쪽으로 정렬 */
-    }
-
-    .join-message-box, .exit-message-box, .date-message-box {
-        background-color: #D5D5D5;
-        text-align: center;
-        margin: 10px auto; /* 중앙 정렬 */
-    }
-
-    .message-time {
-        color: gray;
-        font-size: 0.8em;
-        margin-top: 5px;
-    }
-
-    /* 기타 스타일 유지 */
-</style>
 
 <script th:inline="javascript">
     let username = /*[[${username}]]*/ null;

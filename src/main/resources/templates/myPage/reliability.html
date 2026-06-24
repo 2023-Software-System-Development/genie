@@ -2,36 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <style>
-    /* 공통 스타일 */
-    td {
-      padding: 10px;
-      /*border: 1px solid #000000;*/
-    }
-    th {
-      padding: 10px;
-      font-weight: bold;
-      text-align: center;
-      /*border: 1px solid #000000;*/
-    }
-    /* 테이블 1 스타일 */
-    .table1 {
-      background-color: #A9F5F2;
-      text-decoration-color: #1f2326;
-      margin-bottom: 10px;
-      width: 50%; /* 테이블 크기 조정 */
-      border-collapse: collapse;
-      border-radius: 100px;
-    }
-  </style>
+  <title>신뢰도</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/clay.css">
 </head>
 <body>
-<table class="table1" style="width:100%; height:50px;">
-  <tr>
-    <td style="width:50%; font-weight: bold; height:100%; text-align: center; text-color: #000000;">신뢰도</td>
-    <td>  :  </td>
-    <td style="font-weight: bold; text-align: left; text-color: #000000;" th:text="${user.reliabilityScore}"></td>
-  </tr>
-</table>
+<div class="feature-card feature-card--lavender" style="flex-direction:row;align-items:center;justify-content:space-between;min-height:auto;">
+  <div style="display:flex;align-items:center;gap:var(--s-sm);">
+    <span class="fc-emoji">⭐</span>
+    <span class="title-lg">신뢰도</span>
+  </div>
+  <span class="display-sm" th:text="${user.reliabilityScore}">0</span>
+</div>
 </body>
 </html>

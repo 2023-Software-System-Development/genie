@@ -3,53 +3,31 @@
       xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/css/_variables.css">
-    <link rel="stylesheet" type="text/css" href="/css/_bootswatch.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
-    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-    <style>
-        .adopt_main_table {
-            border: 3px solid black;
-            border-collapse: collapse;
-            border-radius: 10px;
-            margin: auto;
-            text-align: center;
-            width: 250px;
-            height: 200px;
-            font-family: 'Y_Spotlight', sans-serif;
-            font-weight: normal;
-            font-style: normal;
-            font-size: 12pt;
-            color: black;
-            background-color: white;
-            line-height: 22px;
-        }
-        .pic {
-            border: 3px solid black;
-            border-collapse: collapse;
-            margin: auto;
-            background-color: #e3f2fd;
-
-        }
-        .name, .ABOUT {
-            border: 3px solid black;
-            border-collapse: collapse;
-            margin: auto;
-        }
-
-    </style>
+    <title>내 팟</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/clay.css">
 </head>
 <body>
-<div>
-    <div class="card border-primary mb-3" style="max-width: 20rem;">
-        <div class="row-md-4">
-            <div class="card-header">내 정보</div>
-            <div class="card-header">내 팟 보기</div>
-            <div class="card-header">회원 신고</div>
+<div class="container section">
+    <div style="max-width:420px;margin:0 auto;">
+        <div class="stack-md">
+            <div class="center stack-sm">
+                <div style="font-size:48px;line-height:1;">🧞</div>
+                <h1 class="display-sm">마이 메뉴</h1>
+            </div>
+            <div class="card card--cream" style="display:flex;align-items:center;gap:var(--s-sm);">
+                <span style="font-size:24px;">🪔</span>
+                <span class="title-md">내 정보</span>
+            </div>
+            <div class="card card--cream" style="display:flex;align-items:center;gap:var(--s-sm);">
+                <span style="font-size:24px;">📦</span>
+                <span class="title-md">내 팟 보기</span>
+            </div>
+            <div class="card card--cream" style="display:flex;align-items:center;gap:var(--s-sm);">
+                <span style="font-size:24px;">🚨</span>
+                <span class="title-md">회원 신고</span>
+            </div>
         </div>
     </div>
 </div>
