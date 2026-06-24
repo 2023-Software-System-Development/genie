@@ -34,6 +34,7 @@ public class User extends BaseEntity {
     private String phoneNumber;
     private String email;
     private LocalDateTime birth;
+    @Enumerated(EnumType.STRING)
     private Role role;
     Integer reliabilityScore;
 
@@ -41,7 +42,7 @@ public class User extends BaseEntity {
     private final List<Apply> applies = new ArrayList<>();
 
     @Builder
-    public User(String userName, String userLoginId, String userPw, String userNickName, String phoneNumber, String email, LocalDateTime birth, String accountNumber, String bankName, Integer reliabilityScore, Role role) {
+    public User(String userName, String userLoginId, String userPw, String userNickName, String phoneNumber, String email, LocalDateTime birth, Integer reliabilityScore, Role role) {
         this.userName = userName;
         this.userLoginId = userLoginId;
         this.userPw = userPw;

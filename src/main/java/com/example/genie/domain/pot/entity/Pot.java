@@ -6,7 +6,6 @@ import com.example.genie.domain.chat.entity.Chat;
 import com.example.genie.domain.interest.entity.Interest;
 import com.example.genie.domain.pot.form.PotStartForm;
 import com.example.genie.domain.user.entity.User;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,9 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-@Builder
 @Table(name = "pot")
 @Entity
 @DynamicUpdate
@@ -100,7 +97,10 @@ public class Pot extends BaseEntity {
         this.state = state;
     }
 
-    public void apporveUser(){
+    public void approveUser(){
+        if (this.remain == null || this.remain <= 0) {
+            throw new IllegalStateException("남은 자리가 없습니다.");
+        }
         this.remain -= 1;
     }
 }

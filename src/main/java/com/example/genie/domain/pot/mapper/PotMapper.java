@@ -18,7 +18,6 @@ public class PotMapper {
                 .recruit(pot.getRecruit())
                 .remain(pot.getRemain())
                 .term(pot.getTerm())
-                .remain(pot.getRemain())
                 .masterName(pot.getMaster().getUserNickName())
                 .masterId(pot.getMaster().getId())
                 .wish(false)
@@ -26,7 +25,7 @@ public class PotMapper {
 
     }
 
-    public static PotInfoObject toPotInfoObject(Pot pot, boolean isMaster) {
+    public static PotInfoObject toPotInfoObject(Pot pot, boolean isMaster, boolean canSeeCredentials) {
         return PotInfoObject.builder()
                 .potId(pot.getId())
                 .potName(pot.getPotName())
@@ -35,8 +34,9 @@ public class PotMapper {
                 .recruit(pot.getRecruit())
                 .remain(pot.getRemain())
                 .term(pot.getTerm())
-                .ottId(pot.getOttId())
-                .ottPw(pot.getOttPw())
+                // OTT 계정 정보는 master 또는 승인된 멤버에게만 노출
+                .ottId(canSeeCredentials ? pot.getOttId() : null)
+                .ottPw(canSeeCredentials ? pot.getOttPw() : null)
                 .startDate(pot.getStartDate())
                 .endDate(pot.getEndDate())
                 .masterName(pot.getMaster().getUserNickName())

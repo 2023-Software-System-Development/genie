@@ -20,6 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
@@ -68,6 +69,7 @@ public class UserService {
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not founded"));
         return UserMapper.toUserInfo(user);
     }
+    @Transactional
     public void addRole(Long userId){
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not founded"));
         user.updateRole(Role.ADMIN);

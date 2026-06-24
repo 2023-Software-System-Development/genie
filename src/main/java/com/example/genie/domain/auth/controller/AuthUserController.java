@@ -2,15 +2,10 @@ package com.example.genie.domain.auth.controller;
 
 import com.example.genie.domain.auth.form.UserForm;
 import com.example.genie.domain.auth.service.AuthUserService;
-import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.pot.form.PotSearchForm;
 import com.example.genie.domain.pot.model.PotObject;
 import com.example.genie.domain.pot.service.PotService;
-import com.example.genie.domain.reliability.Service.ReliabilityService;
-import com.example.genie.domain.reliability.entity.Reliability;
-import com.example.genie.domain.user.entity.User;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -22,15 +17,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
-import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Controller
 public class AuthUserController {
 
-    @Autowired
-    AuthUserService userAuthUserService;
-    PotService potService;
+    private final AuthUserService userAuthUserService;
+    private final PotService potService;
     @RequestMapping("/")
     public String home(Model model, @ModelAttribute PotSearchForm potSearchForm, @PageableDefault(page = 0, size = 8) Pageable pageable, Authentication authentication){
         potSearchForm.setOttType("all");

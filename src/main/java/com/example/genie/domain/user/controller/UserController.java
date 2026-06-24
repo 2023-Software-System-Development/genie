@@ -1,16 +1,10 @@
 package com.example.genie.domain.user.controller;
 
-import com.example.genie.common.util.UserUtils;
-import com.example.genie.domain.apply.entity.Apply;
-import com.example.genie.domain.apply.service.ApplyService;
-import com.example.genie.domain.pot.entity.Pot;
-import com.example.genie.domain.pot.model.PotInfoObject;
 import com.example.genie.domain.pot.model.PotObject;
 import com.example.genie.domain.user.dto.UserInfo;
 import com.example.genie.domain.user.entity.User;
 import com.example.genie.domain.user.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.Banner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;

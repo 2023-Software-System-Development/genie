@@ -1,9 +1,7 @@
 package com.example.genie.common.config;
 
-import com.example.genie.domain.auth.controller.LoginAuthHandler;
 import com.example.genie.domain.auth.controller.LoginFailureHandler;
 import com.example.genie.domain.auth.service.AuthUserService;
-import com.example.genie.domain.auth.service.CustomUserDetails;
 import com.example.genie.domain.auth.service.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,10 +44,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-            http.csrf().disable()// 세션을 사용하지 않고 JWT 토큰을 활용하여 진행, csrf토큰검사를 비활성화
-                .authorizeRequests() // 인증절차에 대한 설정을 진행
+            // 세션/폼 기반 앱이므로 CSRF 보호를 활성화한다(기본값). Thymeleaf 폼은 토큰이 자동 주입됨.
+            http.authorizeRequests() // 인증절차에 대한 설정을 진행
                 .antMatchers("/", "/user/signup", "/user/login", "/loginProc", "/pot/list").permitAll() // 설정된 url은 인증되지 않더라도 누구든 접근 가능
-                    .antMatchers("/report/list", "/report/{reportId}", "/report/{reportId}/confirm", "/report/{reportId}/reject", "/user/userList", "/user/userInfo").hasRole(Role.ADMIN.toString())
+                    .antMatchers("/report/list", "/report/{reportId}", "/report/{reportId}/confirm", "/report/{reportId}/reject",
+                            "/user/userList", "/user/userInfo/**", "/user/addRole").hasRole(Role.ADMIN.toString())
                     .anyRequest().authenticated()// 위 페이지 외 인증이 되어야 접근가능(ROLE에 상관없이)
                 .and()
                 .formLogin().loginPage("/user/login?req=true")  // 접근이 차단된 페이지 클릭시 이동할 url
@@ -57,7 +56,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/pot/list?ottType=all", true)
                 .usernameParameter("userLoginId")      // view form 태그 내에 로그인 할 id 에 맵핑되는 name ( form 의 name )
                 .passwordParameter("userPw")      // view form 태그 내에 로그인 할 password 에 맵핑되는 name ( form 의 name )
-                //.successHandler(new LoginAuthHandler()) // 로그인 성공시 실행되는 메소드
                 .failureHandler(loginFailureHandler) // 로그인 실패시 실행되는 메소드
                 .permitAll()
                 .and()

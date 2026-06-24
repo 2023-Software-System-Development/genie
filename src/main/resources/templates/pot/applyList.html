@@ -30,7 +30,7 @@
             <th scope="row" th:text="${user.userNickName}"/>
             <td th:text="${user.reliabilityScore}"/>
             <td>
-                <form name="approve" id="approve" action="/pot/apply/approve" method="post">
+                <form name="approve" id="approve" th:action="@{/pot/apply/approve}" method="post">
                     <input type="hidden" name="userId" th:value="${user.id}">
                     <input type="hidden" name="potId" th:value="${pot.id}">
                     <input type="hidden" name="state" value="1">
@@ -38,7 +38,7 @@
                 </form>
             <td>
             <td>
-            <form action="/pot/apply/approve" method="post">
+            <form th:action="@{/pot/apply/approve}" method="post">
                 <input type="hidden" name="userId" th:value="${user.id}">
                 <input type="hidden" name="potId" th:value="${pot.id}">
                 <input type="hidden" name="state" value="2">

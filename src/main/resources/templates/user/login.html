@@ -26,7 +26,7 @@
 <div class="loginForm">
     <div class="loginFormInner">
 <h2>Login</h2><br>
-    <form action="/loginProc" method="post">
+    <form th:action="@{/loginProc}" method="post">
         <div>
             <label class="col-form-label mt-2" for="userLoginId">아이디</label>
             <input type="text" id="userLoginId" name="userLoginId" class="form-control-lg form-control me-sm-2" style="width: 500px" placeholder="아이디 입력하세요">

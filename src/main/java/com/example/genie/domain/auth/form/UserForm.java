@@ -41,10 +41,8 @@ public class UserForm {
                 .phoneNumber(phoneNumber)
                 .email(email)
                 .birth(birth)
-                .accountNumber(accountNumber)
-                .bankName(bankName)
                 .role(Role.MEMBER) //회원가입으로 생성된 유저는 일단 Member 권한을 받음
-                .reliabilityScore(0) // 신뢰도 초기값은 100
+                .reliabilityScore(0) // 초기값 0, 회원가입 보너스(+50)는 ReliabilityService에서 별도 적용
                 .build();
         return user;
     }

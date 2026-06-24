@@ -12,24 +12,25 @@ import com.example.genie.domain.report.model.ReportObject;
 import com.example.genie.domain.report.repository.ReportRepository;
 import com.example.genie.domain.user.entity.User;
 import com.example.genie.domain.user.repository.UserRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class ReportService {
-    final private ReportRepository reportRepository;
-    final private FileService fileService;
-    final private UserRepository userRepository;
-    final private ReliabilityRepository reliabilityRepository;
+    private final ReportRepository reportRepository;
+    private final FileService fileService;
+    private final UserRepository userRepository;
+    private final ReliabilityRepository reliabilityRepository;
 
+    @Transactional
     public Report createReport(Long userId, ReportForm reportForm) {
-        String fileName=null;
+        String fileName = null;
         if (reportForm.getImage() != null && !reportForm.getImage().isEmpty())
             fileName = fileService.fileUpload(reportForm.getImage());
         Report report = Report.builder()
@@ -41,43 +42,44 @@ public class ReportService {
                 .isConfirmed(false)
                 .build();
 
-
         return reportRepository.save(report);
-
     }
 
     @Transactional
     public void confirmReport(Long reportId, Integer type, String userNickName) {
         Type score = Type.getType(type);
         User user = userRepository.findUserByUserNickName(userNickName);
-        if(user == null)
-            throw new EntityNotFoundException();
+        if (user == null)
+            throw new EntityNotFoundException("신고 대상 사용자를 찾을 수 없습니다.");
         Integer userScore = user.getReliabilityScore();
         userScore -= score.getScore();
         user.updateReliability(userScore);
         Report report = reportRepository.findById(reportId).orElseThrow(() -> new EntityNotFoundException("Report not found"));
         report.changeIsConfirmed(true);
-        Reliability reliability = ReliabilityMapper.mapToReliabilityWithUser(user, score.getLabel(), score.getScore());
+        // 신뢰도 원장에는 실제 변동값(차감이므로 음수)을 기록해 부호를 일치시킴
+        Reliability reliability = ReliabilityMapper.mapToReliabilityWithUser(user, score.getLabel(), -score.getScore());
         reliabilityRepository.save(reliability);
     }
 
-    public void rejectReport(Long reportId){
+    @Transactional
+    public void rejectReport(Long reportId) {
         Report report = reportRepository.findById(reportId).orElseThrow(() -> new EntityNotFoundException("Report not found"));
         report.changeIsConfirmed(true);
         reportRepository.save(report);
     }
+
+    @Transactional(readOnly = true)
     public List<ReportObject> getReportObjectList() {
         List<Report> reports = reportRepository.findReportByIsConfirmedFalse();
-        List<ReportObject> reportObjects = reports.stream()
+        return reports.stream()
                 .map(ReportMapper::toReportObject)
                 .collect(Collectors.toList());
-        return reportObjects;
     }
 
+    @Transactional(readOnly = true)
     public ReportInfoObject getReport(Long reportId) {
-        Report report = reportRepository.findById(reportId).orElseThrow(() -> new EntityNotFoundException("Pot not found"));
+        Report report = reportRepository.findById(reportId).orElseThrow(() -> new EntityNotFoundException("Report not found"));
         return ReportMapper.toReportInfoObject(report);
     }
-
 
 }

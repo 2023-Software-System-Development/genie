@@ -6,13 +6,12 @@ import com.example.genie.domain.user.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-@Getter @Setter
+@Getter
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-@Table(name = "apply")
+@Table(name = "apply", uniqueConstraints = @UniqueConstraint(name = "uk_apply_pot_user", columnNames = {"pot_id", "user_id"}))
 @Entity
 @DynamicUpdate
 public class Apply extends BaseEntity {
@@ -22,7 +21,7 @@ public class Apply extends BaseEntity {
     @Column(name = "apply_id")
     private Long id;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private State state;
 
     @ManyToOne(fetch = FetchType.LAZY)

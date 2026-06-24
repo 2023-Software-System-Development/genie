@@ -1,6 +1,6 @@
 package com.example.genie.domain.reliability.controller;
 
-import com.example.genie.domain.reliability.Service.ReliabilityService;
+import com.example.genie.domain.reliability.service.ReliabilityService;
 import com.example.genie.domain.reliability.model.ReliabilityInfoObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

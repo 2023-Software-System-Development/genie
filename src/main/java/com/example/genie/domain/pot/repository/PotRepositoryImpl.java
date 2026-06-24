@@ -6,7 +6,6 @@ import com.example.genie.domain.pot.entity.State;
 import com.example.genie.domain.pot.form.PotSearchForm;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.StringPath;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,7 +13,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.util.StringUtils.hasText;
 
@@ -28,6 +26,7 @@ public class PotRepositoryImpl implements PotRepositoryCustom {
         List<Pot> potList = jpaQueryFactory
                 .select(QPot.pot).distinct()
                 .from(QPot.pot)
+                .leftJoin(QPot.pot.master).fetchJoin() // master를 함께 조회해 매핑 시 N+1 방지
                 .where(containWordInPot(potSearchForm.getSearchType(), potSearchForm.getSearchText()),
                         getOttType(potSearchForm.getOttType()),  QPot.pot.state.eq(State.RECRUITING))
                 .orderBy(QPot.pot.createdDate.desc())
@@ -44,25 +43,14 @@ public class PotRepositoryImpl implements PotRepositoryCustom {
                 .from(QPot.pot)
                 .where(containWordInPot(potSearchForm.getSearchType(), potSearchForm.getSearchText()),
                         getOttType(potSearchForm.getOttType()),  QPot.pot.state.eq(State.RECRUITING))
-                .orderBy(QPot.pot.createdDate.desc())
                 .fetchOne();
         return count;
     }
     private BooleanExpression getOttType(String ottType) {
-        if (ottType.equals("all")) {
-            return null; // all로 값이 넘어오면 전체 데이터를 반환
+        if (ottType == null || ottType.equals("all")) {
+            return null; // all 또는 null이면 전체 데이터를 반환
         }
-
-        StringPath areaPath = QPot.pot.ottType;
-        return areaPath.in(ottType);
-    }
-
-    private <T> Page<T> getPageImpl(List<T> list, Pageable pageable) {
-        boolean hasNext = false;
-        if (list.size() > pageable.getPageSize()) {
-            hasNext = true;
-        }
-        return new PageImpl<>(list, pageable, list.size()+1);
+        return QPot.pot.ottType.eq(ottType);
     }
 
     private BooleanBuilder containWordInPot(String searchType, String searchText) {

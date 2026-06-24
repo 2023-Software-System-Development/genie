@@ -30,6 +30,17 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
+        // CSRF 토큰을 모든 jQuery AJAX 요청 헤더에 자동 첨부
+        $(function () {
+            var token = $('meta[name="_csrf"]').attr('content');
+            var header = $('meta[name="_csrf_header"]').attr('content');
+            if (token && header) {
+                $(document).ajaxSend(function (e, xhr) {
+                    xhr.setRequestHeader(header, token);
+                });
+            }
+        });
+
         function handleOuterClick(potId) {
             window.location.href = "/pot/" + potId;
         }

@@ -20,7 +20,7 @@ label{
 <div th:include="/mainPage/navigator.html"></div>
 <div class="signupForm">
 <div class="signupFormInner">
-<form action="@{/user/signup}" th:action th:object="${userForm}" method="post">
+<form th:action="@{/user/signup}" th:object="${userForm}" method="post">
     <h2>Sign up</h2><br>
     <div>
         <label for="userName">이름</label>

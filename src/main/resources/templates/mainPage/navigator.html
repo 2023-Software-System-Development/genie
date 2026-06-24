@@ -127,7 +127,7 @@
                         </form>
                     </div>
                     <div class="login-signup">
-                        <form th:action="@{/user/logout}" class="d-flex ml-auto">
+                        <form th:action="@{/user/logout}" method="post" class="d-flex ml-auto">
                             <button sec:authorize="isAuthenticated()" class="btn btn-secondary my-2 my-sm-0" type="submit">
                                 로그아웃
                             </button>

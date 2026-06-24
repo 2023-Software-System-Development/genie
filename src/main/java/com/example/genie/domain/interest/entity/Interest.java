@@ -12,7 +12,7 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-@Table(name = "inertest")
+@Table(name = "interest", uniqueConstraints = @UniqueConstraint(name = "uk_interest_pot_user", columnNames = {"pot_id", "user_id"}))
 @Entity
 @DynamicUpdate
 public class Interest extends BaseEntity {

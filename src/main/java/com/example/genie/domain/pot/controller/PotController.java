@@ -66,10 +66,10 @@ public class PotController {
         return "redirect:" + previousUrl;
     }
 
-    //팟 삭제 API
+    //팟 삭제 API (master 본인만 가능)
     @PostMapping("/delete")
-    public String deletePot(@RequestParam("potId") Long potId, SessionStatus sessionStatus) {
-        potService.deletePot(potId);
+    public String deletePot(@RequestParam("potId") Long potId, Authentication authentication, SessionStatus sessionStatus) {
+        potService.deletePot(authentication, potId);
         sessionStatus.setComplete();
         return "redirect:/";
     }
@@ -131,7 +131,7 @@ public class PotController {
             model.addAttribute("pot", potService.getPot(authentication, potId));
             return "pot/startPot";
         }
-        potService.getPotStarted(potId, potStartForm);
+        potService.getPotStarted(authentication, potId, potStartForm);
         return "redirect:/pot/" + potId +"/main";  //시작한 팟의 메인 페이지로 가도록 수정 필요
     }
 

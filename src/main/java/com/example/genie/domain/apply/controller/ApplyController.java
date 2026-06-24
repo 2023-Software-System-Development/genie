@@ -7,6 +7,7 @@ import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.pot.service.PotService;
 import com.example.genie.domain.user.entity.User;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,10 +42,14 @@ public class ApplyController {
     }
 
     @GetMapping("/pot/apply/users")
-    //팟에 가입 신청한 유저 리스트
-    public String getPotApplyList(@RequestParam Long potId, Model model){ //Pot 받아오는 방법은 추후 변경
-        List<User> userList = applyService.getApplyUserList(potId);
+    //팟에 가입 신청한 유저 리스트 (master 본인만 조회 가능)
+    public String getPotApplyList(@RequestParam Long potId, Authentication authentication, Model model){
         Pot pot = potService.getPotEntity(potId);
+        User requester = userUtils.getUser(authentication);
+        if (pot.getMaster() == null || !pot.getMaster().getId().equals(requester.getId())) {
+            throw new AccessDeniedException("해당 팟에 대한 권한이 없습니다.");
+        }
+        List<User> userList = applyService.getApplyUserList(potId);
         List<User> memberList = applyService.getApprovedUserList(pot);
         model.addAttribute("pot", pot);
         model.addAttribute("userList", userList);
@@ -52,12 +57,12 @@ public class ApplyController {
         return "pot/applyList";
     }
 
-    //팟 가입 신청 처리 (기존 submitRequest 함수명 변경), 승인: 1, 거절:0
+    //팟 가입 신청 처리 (master 본인만 가능), 승인: 1, 거절:0
     @PostMapping("/pot/apply/approve")
     public String approveApply(@RequestParam Long potId, @RequestParam Long userId, @RequestParam int state, HttpServletRequest request, Model model,RedirectAttributes redirectAttributes, Authentication authentication){
         //1. Apply 상태 변경
         try {
-            applyService.appoveApply(potId, userId, state);
+            applyService.approveApply(potId, userId, state, authentication);
         } catch (PotAlreadyFullException e) {
             model.addAttribute("error", e.getMessage());
             model.addAttribute("pot", potService.getPot(authentication, potId));
