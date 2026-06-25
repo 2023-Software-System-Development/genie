@@ -1,4 +1,4 @@
-package com.example.genie.domain.report.model;
+package com.example.genie.domain.report.dto;
 
 import com.example.genie.common.exception.CustomException;
 import lombok.Getter;

@@ -1,10 +1,10 @@
-package com.example.genie.domain.pot.model;
+package com.example.genie.domain.pot.dto;
 
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class PotInfoObject {
+public class PotInfoDto {
     private final Long potId;
     private final String potName;
     private final String ottType;
@@ -23,7 +23,7 @@ public class PotInfoObject {
     private final boolean isMaster;
 
     @Builder
-    public PotInfoObject(Long potId, String potName, String ottType, Integer price, Integer recruit, Integer remain, Integer term,
+    public PotInfoDto(Long potId, String potName, String ottType, Integer price, Integer recruit, Integer remain, Integer term,
                          String ottId, String ottPw, String startDate, String endDate, String bankName, String accountNumber,
                          String masterName, Long masterId, boolean isMaster) {
         this.potId = potId;

@@ -33,7 +33,7 @@
       <div class="field">
         <label>사유</label>
         <div class="stack-sm">
-          <label th:each="type : ${T(com.example.genie.domain.report.model.Type).values()}" class="body-md"
+          <label th:each="type : ${T(com.example.genie.domain.report.dto.Type).values()}" class="body-md"
                  style="display:flex;align-items:center;gap:var(--s-xs);font-weight:400;">
             <input type="radio" th:field="*{type}" th:value="${type.getIndex()}">
             <span th:text="${type.label}">사유</span>

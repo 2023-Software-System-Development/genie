@@ -3,7 +3,7 @@ package com.example.genie.domain.auth.controller;
 import com.example.genie.domain.auth.form.UserForm;
 import com.example.genie.domain.auth.service.AuthUserService;
 import com.example.genie.domain.pot.form.PotSearchForm;
-import com.example.genie.domain.pot.model.PotObject;
+import com.example.genie.domain.pot.dto.PotDto;
 import com.example.genie.domain.pot.service.PotService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,7 +27,7 @@ public class AuthUserController {
     @RequestMapping("/")
     public String home(Model model, @ModelAttribute PotSearchForm potSearchForm, @PageableDefault(page = 0, size = 8) Pageable pageable, Authentication authentication){
         potSearchForm.setOttType("all");
-        Page<PotObject> potList = potService.getPotListBySearch(potSearchForm, pageable);
+        Page<PotDto> potList = potService.getPotListBySearch(potSearchForm, pageable);
         model.addAttribute("potList", potList);
         model.addAttribute(potSearchForm);
         return "mainPage/home";

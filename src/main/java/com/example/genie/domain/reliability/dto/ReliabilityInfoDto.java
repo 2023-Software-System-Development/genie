@@ -1,16 +1,16 @@
-package com.example.genie.domain.reliability.model;
+package com.example.genie.domain.reliability.dto;
 
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class ReliabilityInfoObject {
+public class ReliabilityInfoDto {
 
     private final String history;
     private final Integer score;
 
     @Builder
-    public ReliabilityInfoObject (String history, Integer score) {
+    public ReliabilityInfoDto (String history, Integer score) {
         this.history = history;
         this.score = score;
     }

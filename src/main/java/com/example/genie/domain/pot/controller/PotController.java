@@ -7,8 +7,8 @@ import com.example.genie.domain.pot.entity.State;
 import com.example.genie.domain.pot.form.PotCreateForm;
 import com.example.genie.domain.pot.form.PotSearchForm;
 import com.example.genie.domain.pot.form.PotStartForm;
-import com.example.genie.domain.pot.model.PotInfoObject;
-import com.example.genie.domain.pot.model.PotObject;
+import com.example.genie.domain.pot.dto.PotInfoDto;
+import com.example.genie.domain.pot.dto.PotDto;
 import com.example.genie.domain.pot.service.PotService;
 import com.example.genie.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -86,7 +86,7 @@ public class PotController {
             potSearchForm.setOttType("all");
         }
         try {
-            Page<PotObject> potObjectList;
+            Page<PotDto> potObjectList;
             if (authentication != null)
                 potObjectList = potService.getPotListBySearch(authentication, potSearchForm, pageable);
             else
@@ -102,7 +102,7 @@ public class PotController {
     //팟 상세 정보 조회 API
     @GetMapping("/{potId}")
     public String getPot(Authentication authentication, @PathVariable Long potId, Model model){
-        PotInfoObject potInfoObject = potService.getPot(authentication, potId);
+        PotInfoDto potInfoObject = potService.getPot(authentication, potId);
         Apply apply = applyService.getApply(potId, authentication);
         Boolean isOngoing;
         model.addAttribute("pot", potInfoObject);
@@ -119,7 +119,7 @@ public class PotController {
     //팟 시작 시, 추가 정보 입력 화면 호출 API
     @GetMapping("/{potId}/start")
     public String getPotStartedForm(@ModelAttribute PotStartForm potStartForm, @PathVariable Long potId, Authentication authentication, Model model) {
-        PotInfoObject pot = potService.getPot(authentication, potId);
+        PotInfoDto pot = potService.getPot(authentication, potId);
         model.addAttribute("pot", pot);
         return "pot/startPot";
     }
@@ -137,7 +137,7 @@ public class PotController {
 
     @GetMapping("/{potId}/main")
     public String potMain(@PathVariable Long potId, Authentication authentication, Model model){
-        PotInfoObject pot = potService.getPot(authentication, potId);
+        PotInfoDto pot = potService.getPot(authentication, potId);
         model.addAttribute("pot", pot);
         return "/pot/potMain";
     }

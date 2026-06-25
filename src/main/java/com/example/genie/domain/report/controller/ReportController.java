@@ -2,10 +2,10 @@ package com.example.genie.domain.report.controller;
 
 import com.example.genie.common.util.UserUtils;
 import com.example.genie.domain.report.entity.Report;
-import com.example.genie.domain.report.model.Type;
+import com.example.genie.domain.report.dto.Type;
 import com.example.genie.domain.report.form.ReportForm;
-import com.example.genie.domain.report.model.ReportInfoObject;
-import com.example.genie.domain.report.model.ReportObject;
+import com.example.genie.domain.report.dto.ReportInfoDto;
+import com.example.genie.domain.report.dto.ReportDto;
 import com.example.genie.domain.report.service.ReportService;
 import com.example.genie.domain.user.entity.User;
 import lombok.AllArgsConstructor;
@@ -60,14 +60,14 @@ public class ReportController {
     //유저들의 신고 내역 확인
     @GetMapping("/list")
     public String getReportList(Model model) {
-        List<ReportObject> reportObjectList = reportService.getReportObjectList();
+        List<ReportDto> reportObjectList = reportService.getReportObjectList();
         model.addAttribute("reportList", reportObjectList);
         return "system/report";
     }
 
     @GetMapping("/{reportId}")
     public String getReport(@PathVariable Long reportId, Model model) {
-        ReportInfoObject reportInfoObject = reportService.getReport(reportId);
+        ReportInfoDto reportInfoObject = reportService.getReport(reportId);
         model.addAttribute("reportInfoObject", reportInfoObject);
         return "system/reportInfo";
     }

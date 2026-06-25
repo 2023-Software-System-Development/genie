@@ -1,7 +1,7 @@
 package com.example.genie.domain.reliability.service;
 import com.example.genie.common.util.UserUtils;
 import com.example.genie.domain.reliability.mapper.ReliabilityMapper;
-import com.example.genie.domain.reliability.model.ReliabilityInfoObject;
+import com.example.genie.domain.reliability.dto.ReliabilityInfoDto;
 import com.example.genie.domain.reliability.repository.ReliabilityRepository;
 import com.example.genie.domain.reliability.entity.Reliability;
 import com.example.genie.domain.user.entity.User;
@@ -19,14 +19,14 @@ public class ReliabilityService {
     private final UserUtils userUtils;
 
     @Transactional(readOnly = true)
-    public Page<ReliabilityInfoObject> getUserReliabilities(Authentication authentication, Pageable pageable){
+    public Page<ReliabilityInfoDto> getUserReliabilities(Authentication authentication, Pageable pageable){
         User user = userUtils.getUser(authentication);
         Page<Reliability> reliabilities = reliabilityRepository.findByUserOrderByCreatedDateDesc(user.getId(), pageable);
         return reliabilities.map(ReliabilityMapper::toReliabilityInfoObject);
     }
 
     @Transactional
-    public void addReliability(User user, ReliabilityInfoObject reliabilityInfoObject){
+    public void addReliability(User user, ReliabilityInfoDto reliabilityInfoObject){
         Reliability reliability = Reliability.builder().user(user).score(reliabilityInfoObject.getScore()).history(reliabilityInfoObject.getHistory()).build();
         user.updateReliability(user.getReliabilityScore() + reliabilityInfoObject.getScore());
         reliabilityRepository.save(reliability);

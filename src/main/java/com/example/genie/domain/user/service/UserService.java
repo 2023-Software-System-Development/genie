@@ -7,8 +7,8 @@ import com.example.genie.domain.apply.repository.ApplyRepository;
 import com.example.genie.domain.auth.service.Role;
 import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.pot.mapper.PotMapper;
-import com.example.genie.domain.pot.model.PotInfoObject;
-import com.example.genie.domain.pot.model.PotObject;
+import com.example.genie.domain.pot.dto.PotInfoDto;
+import com.example.genie.domain.pot.dto.PotDto;
 import com.example.genie.domain.pot.repository.PotRepository;
 import com.example.genie.domain.user.dto.UserInfo;
 import com.example.genie.domain.user.entity.User;
@@ -40,18 +40,18 @@ public class UserService {
         return userUtils.getUser(authentication);
     }
     //user가 가입한 Pot List 가져오기
-    public Page<PotObject> getUserApplyPotList(Authentication authentication, Pageable pageable){
+    public Page<PotDto> getUserApplyPotList(Authentication authentication, Pageable pageable){
         User user = userUtils.getUser(authentication);
         Page<Pot> potList = applyRepository.findPotByUser_Id(user.getId(), State.APPROVED, PageRequest.of(pageable.getPageNumber()-1, pageable.getPageSize()));
-        Page<PotObject> potObjects = potList.map(pot -> PotMapper.toPotObject(pot));
+        Page<PotDto> potObjects = potList.map(pot -> PotMapper.toPotObject(pot));
         return potObjects;
     }
 
     //user가 만든 Pot List 가져오기
-    public Page<PotObject> getUserPotList(Authentication authentication, Pageable pageable){
+    public Page<PotDto> getUserPotList(Authentication authentication, Pageable pageable){
         User user = userUtils.getUser(authentication);
         Page<Pot> potList = potRepository.findByMasterId(user.getId(), PageRequest.of(pageable.getPageNumber()-1, pageable.getPageSize()));
-        Page<PotObject> potObjects = potList.map(pot -> PotMapper.toPotObject(pot));
+        Page<PotDto> potObjects = potList.map(pot -> PotMapper.toPotObject(pot));
         return potObjects;
     }
 

@@ -6,7 +6,7 @@ import com.example.genie.domain.interest.mapper.InterestMapper;
 import com.example.genie.domain.interest.repository.InterestRepository;
 import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.pot.mapper.PotMapper;
-import com.example.genie.domain.pot.model.PotObject;
+import com.example.genie.domain.pot.dto.PotDto;
 import com.example.genie.domain.pot.service.PotService;
 import com.example.genie.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +48,7 @@ public class InterestService {
     }
 
     @Transactional(readOnly = true)
-    public Page<PotObject> getUserInterestPotList(Authentication authentication, Pageable pageable){
+    public Page<PotDto> getUserInterestPotList(Authentication authentication, Pageable pageable){
         User user = userUtils.getUser(authentication);
         Page<Pot> pots = interestRepository.findPotByUser_Id(user.getId(), PageRequest.of(pageable.getPageNumber()-1, pageable.getPageSize()));
         return pots.map(PotMapper::toPotObject);

@@ -2,7 +2,7 @@ package com.example.genie.domain.auth.service;
 
 import com.example.genie.domain.auth.form.UserForm;
 import com.example.genie.domain.reliability.service.ReliabilityService;
-import com.example.genie.domain.reliability.model.ReliabilityInfoObject;
+import com.example.genie.domain.reliability.dto.ReliabilityInfoDto;
 import com.example.genie.domain.user.entity.User;
 import com.example.genie.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +50,6 @@ public class AuthUserService implements org.springframework.security.core.userde
         String encodedUserPw = passwordEncoder.encode(userForm.getUserPw());
         userForm.setUserPw(encodedUserPw);
         User user = userRepository.save(userForm.toEntity()); //새로운 회원 생성
-        reliabilityService.addReliability(user, new ReliabilityInfoObject("회원가입", 50));
+        reliabilityService.addReliability(user, new ReliabilityInfoDto("회원가입", 50));
     }
 }

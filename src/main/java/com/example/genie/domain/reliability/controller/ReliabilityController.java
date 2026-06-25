@@ -1,7 +1,7 @@
 package com.example.genie.domain.reliability.controller;
 
 import com.example.genie.domain.reliability.service.ReliabilityService;
-import com.example.genie.domain.reliability.model.ReliabilityInfoObject;
+import com.example.genie.domain.reliability.dto.ReliabilityInfoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +22,7 @@ public class ReliabilityController {
     //신뢰도 내역 확인 화면
     @GetMapping
     public String getReliability(Authentication authentication, Model model, @PageableDefault(page = 0, size = 10) Pageable pageable){
-        Page<ReliabilityInfoObject> reliabilityInfoObjectList = reliabilityService.getUserReliabilities(authentication, pageable);
+        Page<ReliabilityInfoDto> reliabilityInfoObjectList = reliabilityService.getUserReliabilities(authentication, pageable);
         model.addAttribute("reliabilityList", reliabilityInfoObjectList);
         return "reliability/reliability";
     }

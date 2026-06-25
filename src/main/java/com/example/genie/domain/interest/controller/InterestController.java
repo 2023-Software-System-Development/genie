@@ -2,7 +2,7 @@ package com.example.genie.domain.interest.controller;
 
 import com.example.genie.domain.interest.entity.Interest;
 import com.example.genie.domain.interest.service.InterestService;
-import com.example.genie.domain.pot.model.PotObject;
+import com.example.genie.domain.pot.dto.PotDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -22,7 +22,7 @@ public class InterestController {
     private final InterestService interestService;
     @GetMapping("/user/interestList")
     public String getUserInterestList(Authentication authentication, Model model, @PageableDefault(page = 1, size = 6) Pageable pageable){
-        Page<PotObject> interestPotList = interestService.getUserInterestPotList(authentication, pageable);
+        Page<PotDto> interestPotList = interestService.getUserInterestPotList(authentication, pageable);
         model.addAttribute("interestPotList", interestPotList);
         return "myPage/heart";
     }

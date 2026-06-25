@@ -1,6 +1,6 @@
 package com.example.genie.domain.user.controller;
 
-import com.example.genie.domain.pot.model.PotObject;
+import com.example.genie.domain.pot.dto.PotDto;
 import com.example.genie.domain.user.dto.UserInfo;
 import com.example.genie.domain.user.entity.User;
 import com.example.genie.domain.user.service.UserService;
@@ -31,7 +31,7 @@ public class UserController {
 
     @GetMapping("/joinPotList")
     public String getUserJoinPotList(Authentication authentication, Model model, @PageableDefault(page = 1, size = 6) Pageable pageable){
-        Page<PotObject> userApplyPotList = userService.getUserApplyPotList(authentication, pageable);
+        Page<PotDto> userApplyPotList = userService.getUserApplyPotList(authentication, pageable);
         model.addAttribute("userApplyPotList", userApplyPotList);
 
         return "myPage/mypot_joinList";
@@ -39,7 +39,7 @@ public class UserController {
 
     @GetMapping("/potList")
     public String getUserPotList(Authentication authentication, Model model, @PageableDefault(page = 1, size = 6) Pageable pageable){
-        Page<PotObject> userPotList = userService.getUserPotList(authentication, pageable);
+        Page<PotDto> userPotList = userService.getUserPotList(authentication, pageable);
         model.addAttribute("userPotList", userPotList);
 
         return "myPage/mypot_list";

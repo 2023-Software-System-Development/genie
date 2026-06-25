@@ -1,16 +1,16 @@
-package com.example.genie.domain.report.model;
+package com.example.genie.domain.report.dto;
 
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class ReportObject {
+public class ReportDto {
 
     public final Long reportId;
     private final String contents;
 
     @Builder
-    public ReportObject (Long reportId, String contents) {
+    public ReportDto (Long reportId, String contents) {
         this.reportId = reportId;
         this.contents = contents;
     }

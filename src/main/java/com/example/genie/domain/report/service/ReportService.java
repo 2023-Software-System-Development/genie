@@ -4,11 +4,11 @@ import com.example.genie.domain.reliability.entity.Reliability;
 import com.example.genie.domain.reliability.mapper.ReliabilityMapper;
 import com.example.genie.domain.reliability.repository.ReliabilityRepository;
 import com.example.genie.domain.report.entity.Report;
-import com.example.genie.domain.report.model.Type;
+import com.example.genie.domain.report.dto.Type;
 import com.example.genie.domain.report.form.ReportForm;
 import com.example.genie.domain.report.mapper.ReportMapper;
-import com.example.genie.domain.report.model.ReportInfoObject;
-import com.example.genie.domain.report.model.ReportObject;
+import com.example.genie.domain.report.dto.ReportInfoDto;
+import com.example.genie.domain.report.dto.ReportDto;
 import com.example.genie.domain.report.repository.ReportRepository;
 import com.example.genie.domain.user.entity.User;
 import com.example.genie.domain.user.repository.UserRepository;
@@ -69,7 +69,7 @@ public class ReportService {
     }
 
     @Transactional(readOnly = true)
-    public List<ReportObject> getReportObjectList() {
+    public List<ReportDto> getReportObjectList() {
         List<Report> reports = reportRepository.findReportByIsConfirmedFalse();
         return reports.stream()
                 .map(ReportMapper::toReportObject)
@@ -77,7 +77,7 @@ public class ReportService {
     }
 
     @Transactional(readOnly = true)
-    public ReportInfoObject getReport(Long reportId) {
+    public ReportInfoDto getReport(Long reportId) {
         Report report = reportRepository.findById(reportId).orElseThrow(() -> new EntityNotFoundException("Report not found"));
         return ReportMapper.toReportInfoObject(report);
     }

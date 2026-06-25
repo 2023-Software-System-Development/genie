@@ -2,16 +2,16 @@ package com.example.genie.domain.pot.mapper;
 
 import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.pot.form.PotCreateForm;
-import com.example.genie.domain.pot.model.PotInfoObject;
-import com.example.genie.domain.pot.model.PotObject;
+import com.example.genie.domain.pot.dto.PotInfoDto;
+import com.example.genie.domain.pot.dto.PotDto;
 import com.example.genie.domain.user.entity.User;
 
 import static com.example.genie.domain.pot.entity.State.RECRUITING;
 
 public class PotMapper {
 
-    public static PotObject toPotObject(Pot pot) {
-        return PotObject.builder()
+    public static PotDto toPotObject(Pot pot) {
+        return PotDto.builder()
                 .potId(pot.getId())
                 .potName(pot.getPotName())
                 .ottType(pot.getOttType())
@@ -25,8 +25,8 @@ public class PotMapper {
 
     }
 
-    public static PotInfoObject toPotInfoObject(Pot pot, boolean isMaster, boolean canSeeCredentials) {
-        return PotInfoObject.builder()
+    public static PotInfoDto toPotInfoObject(Pot pot, boolean isMaster, boolean canSeeCredentials) {
+        return PotInfoDto.builder()
                 .potId(pot.getId())
                 .potName(pot.getPotName())
                 .ottType(pot.getOttType())

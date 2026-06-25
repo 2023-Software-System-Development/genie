@@ -1,10 +1,10 @@
-package com.example.genie.domain.report.model;
+package com.example.genie.domain.report.dto;
 
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class ReportInfoObject {
+public class ReportInfoDto {
     public final Long reportId;
 
     private final Long userId; //신고한 사람 아이디
@@ -18,7 +18,7 @@ public class ReportInfoObject {
     private final String imageUrl;
 
     @Builder
-    public ReportInfoObject (Long reportId, Long userId, String contents, String userNickName, Integer type, String imageUrl) {
+    public ReportInfoDto (Long reportId, Long userId, String contents, String userNickName, Integer type, String imageUrl) {
         this.reportId = reportId;
         this.userId = userId;
         this.contents = contents;

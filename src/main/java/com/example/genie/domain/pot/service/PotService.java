@@ -9,8 +9,8 @@ import com.example.genie.domain.interest.repository.InterestRepository;
 import com.example.genie.domain.pot.entity.Pot;
 import com.example.genie.domain.pot.form.*;
 import com.example.genie.domain.pot.mapper.PotMapper;
-import com.example.genie.domain.pot.model.PotInfoObject;
-import com.example.genie.domain.pot.model.PotObject;
+import com.example.genie.domain.pot.dto.PotInfoDto;
+import com.example.genie.domain.pot.dto.PotDto;
 import com.example.genie.domain.pot.repository.PotRepository;
 import com.example.genie.domain.pot.repository.PotRepositoryCustom;
 import com.example.genie.domain.user.entity.User;
@@ -53,15 +53,15 @@ public class PotService {
     }
 
     @Transactional(readOnly = true)
-    public Page<PotObject> getPotListBySearch(PotSearchForm potSearchForm, Pageable pageable) {
+    public Page<PotDto> getPotListBySearch(PotSearchForm potSearchForm, Pageable pageable) {
         Page<Pot> pots = searchPots(potSearchForm, pageable);
         return pots.map(PotMapper::toPotObject);
     }
 
     @Transactional(readOnly = true)
-    public Page<PotObject> getPotListBySearch(Authentication authentication, PotSearchForm potSearchForm, Pageable pageable) {
+    public Page<PotDto> getPotListBySearch(Authentication authentication, PotSearchForm potSearchForm, Pageable pageable) {
         Page<Pot> pots = searchPots(potSearchForm, pageable);
-        Page<PotObject> potObjects = pots.map(PotMapper::toPotObject);
+        Page<PotDto> potObjects = pots.map(PotMapper::toPotObject);
 
         // 찜 여부를 한 번의 쿼리로 채워 N+1 제거
         User user = userUtils.getUser(authentication);
@@ -88,7 +88,7 @@ public class PotService {
     }
 
     @Transactional(readOnly = true)
-    public PotInfoObject getPot(Authentication authentication, Long potId) {
+    public PotInfoDto getPot(Authentication authentication, Long potId) {
         User user = userUtils.getUser(authentication);
         Pot pot = potRepository.findById(potId).orElseThrow(() -> new EntityNotFoundException("Pot not found"));
         boolean isMaster = pot.getMaster() != null && pot.getMaster().getId().equals(user.getId());
