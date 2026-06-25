@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/genie?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: ""
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      # update: 기존 스키마/데이터를 유지하며 변경분만 반영(데이터 보존).
+      # 스키마를 처음부터 새로 만들려면 create 로 바꿀 것(데이터 초기화됨).
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 10MB
+
+  thymeleaf:
+    cache: false
+
+server:
+  port: 8080

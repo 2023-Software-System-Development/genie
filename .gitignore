@@ -7,6 +7,8 @@ build/
 
 ### CUSTOM ###
 *.yml
+# application.yml은 민감정보(빈 DB 비번 + 로컬 설정)가 없어 clone 후 바로 실행되도록 포함한다
+!src/main/resources/application.yml
 
 ### STS ###
 .apt_generated

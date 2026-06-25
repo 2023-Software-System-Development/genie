@@ -195,15 +195,13 @@ genie/
 
 # 실행 방법
 
-> JDK 17 권장, MySQL 필요. 설정 파일(`application.yml`)은 보안을 위해 저장소에 포함되지 않습니다.
+> JDK 17 권장, 로컬 MySQL 필요. 설정 파일(`application.yml`)이 저장소에 포함되어 있어 별도 작성 없이 바로 실행됩니다. (datasource 기준: `localhost:3306`, 사용자 `root`, 비밀번호 없음)
 
 ```bash
 # 1. 데이터베이스 생성
 mysql -u root -e "CREATE DATABASE genie;"
 
-# 2. src/main/resources/application.yml 작성 (datasource, jpa, server.port 등)
-
-# 3. 실행
+# 2. 실행 (ddl-auto: update 로 테이블 자동 생성)
 ./gradlew bootRun
 # → http://localhost:8080
 ```
