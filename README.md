@@ -17,6 +17,7 @@
 - [주요 화면 및 기능 소개](#주요-화면-및-기능-소개)
 - [프로젝트 핵심 기술](#프로젝트-핵심-기술)
 - [시스템 아키텍처](#시스템-아키텍처)
+- [ERD](#erd)
 - [디렉토리 구조](#디렉토리-구조)
 - [실행 방법](#실행-방법)
 - [팀원 소개](#팀원-소개)
@@ -166,6 +167,84 @@ Browser
       ├─ Spring Data JPA + QueryDSL  # 도메인 영속성, 동적 검색
       └─ MySQL                       # 영구 데이터 저장
 ```
+
+# ERD
+
+7개 도메인 엔티티로 구성됩니다. 모든 엔티티는 공통으로 `created_date`, `modified_date`(BaseEntity 감사 필드)를 가집니다. `APPLY`와 `INTEREST`는 `(pot_id, user_id)` 복합 유니크 제약으로 중복 신청/찜을 막습니다.
+
+```mermaid
+erDiagram
+    USER ||--o{ POT : "팟장"
+    USER ||--o{ APPLY : "신청"
+    POT  ||--o{ APPLY : "신청접수"
+    USER ||--o{ CHAT : "작성"
+    POT  ||--o{ CHAT : "메시지"
+    USER ||--o{ INTEREST : "찜"
+    POT  ||--o{ INTEREST : "찜대상"
+    USER ||--o{ RELIABILITY : "신뢰도이력"
+    USER ||..o{ REPORT : "신고대상"
+
+    USER {
+        Long user_id PK
+        String user_login_id UK
+        String user_nick_name UK
+        String user_pw
+        String user_name
+        String email
+        String phone_number
+        Role role
+        Integer reliability_score
+    }
+    POT {
+        Long pot_id PK
+        Long user_id FK "팟장"
+        String pot_name
+        String ott_type
+        Integer price
+        Integer recruit
+        Integer remain
+        Integer term
+        String ott_id
+        String ott_pw
+        String bank_name
+        String account_number
+        State state
+    }
+    APPLY {
+        Long apply_id PK
+        Long pot_id FK
+        Long user_id FK "신청자"
+        State state
+    }
+    CHAT {
+        Long chat_id PK
+        Long pot_id FK
+        Long user_id FK "작성자"
+        String content
+    }
+    INTEREST {
+        Long interest_id PK
+        Long pot_id FK
+        Long user_id FK
+    }
+    RELIABILITY {
+        Long reliability_id PK
+        Long user_id FK
+        Integer score
+        String history
+    }
+    REPORT {
+        Long report_id PK
+        Long user_id "신고 대상"
+        String user_nick_name
+        int type
+        String contents
+        String image_url
+        Boolean is_confirmed
+    }
+```
+
+> `REPORT.user_id`는 JPA 연관관계가 아닌 단순 식별자 참조(soft reference)라서 점선으로 표시했습니다. 나머지 FK는 실제 연관관계입니다.
 
 # 디렉토리 구조
 
