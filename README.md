@@ -253,22 +253,26 @@ erDiagram
 ```text
 genie/
 ├── src/main/java/com/example/genie/
-│   ├── common/              # 공통 (Security/WebSocket 설정, 예외, 유틸, BaseEntity)
+│   ├── GenieApplication.java    # 애플리케이션 진입점
+│   ├── common/                  # 공통 (Security/WebSocket 설정, 예외, 유틸, BaseEntity)
 │   └── domain/
-│       ├── pot/             # 팟 생성/검색/시작 (핵심 도메인, QueryDSL 검색)
-│       ├── apply/           # 가입 신청 및 승인/거절
-│       ├── auth/            # 인증 (회원가입, 로그인, UserDetails)
-│       ├── user/            # 회원 정보, 마이페이지
-│       ├── chat/            # 팟 그룹 채팅
-│       ├── interest/        # 찜
-│       ├── reliability/     # 신뢰도 점수와 변동 이력
-│       └── report/          # 회원 신고, 증거 파일 업로드
+│       ├── pot/                 # 팟 생성/검색/시작 (핵심 도메인, QueryDSL 검색)
+│       ├── apply/               # 가입 신청 및 승인/거절
+│       ├── auth/                # 인증 (회원가입, 로그인, UserDetails)
+│       ├── user/                # 회원 정보, 마이페이지
+│       ├── chat/                # 팟 그룹 채팅
+│       ├── interest/            # 찜
+│       ├── reliability/         # 신뢰도 점수와 변동 이력
+│       └── report/              # 회원 신고, 증거 파일 업로드
 ├── src/main/resources/
-│   ├── templates/           # Thymeleaf 화면
+│   ├── application.yml          # 실행 설정 (datasource, JPA, 포트)
+│   ├── templates/               # Thymeleaf 화면 (도메인별 폴더)
 │   └── static/
-│       ├── css/             # clay.css (디자인 시스템)
-│       └── image/           # 로고, 히어로 일러스트
-├── docs/screenshots/        # 주요 화면 캡쳐
+│       ├── css/                 # clay.css (디자인 시스템)
+│       ├── js/                  # scripts.js
+│       └── image/               # 로고, 히어로 일러스트, OTT 아이콘
+├── src/test/java/com/example/genie/   # 단위 테스트 (PotMapperTest, PotTest 등)
+├── docs/screenshots/            # 주요 화면 캡쳐
 └── build.gradle
 ```
 
