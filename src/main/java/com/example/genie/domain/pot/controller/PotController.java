@@ -95,7 +95,7 @@ public class PotController {
         } catch (CustomException e) {
             model.addAttribute("errorMessage", e.getMessage());
         }
-        return "mainPage/home";
+        return "main/home";
     }
 
 

@@ -62,14 +62,14 @@ public class ReportController {
     public String getReportList(Model model) {
         List<ReportDto> reportObjectList = reportService.getReportObjectList();
         model.addAttribute("reportList", reportObjectList);
-        return "system/report";
+        return "admin/report";
     }
 
     @GetMapping("/{reportId}")
     public String getReport(@PathVariable Long reportId, Model model) {
         ReportInfoDto reportInfoObject = reportService.getReport(reportId);
         model.addAttribute("reportInfoObject", reportInfoObject);
-        return "system/reportInfo";
+        return "admin/reportInfo";
     }
 
 

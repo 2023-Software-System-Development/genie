@@ -24,7 +24,7 @@ public class InterestController {
     public String getUserInterestList(Authentication authentication, Model model, @PageableDefault(page = 1, size = 6) Pageable pageable){
         Page<PotDto> interestPotList = interestService.getUserInterestPotList(authentication, pageable);
         model.addAttribute("interestPotList", interestPotList);
-        return "myPage/heart";
+        return "mypage/heart";
     }
 
     @PostMapping("/interest/save/{potId}")

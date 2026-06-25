@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" href="/image/logo/favicon-v5.png">
-    <title>내가 가입한 팟 - genie</title>
+    <title>찜한 팟 - genie</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/clay.css">
@@ -15,27 +15,27 @@
     </script>
 </head>
 <body>
-<div th:include="/mainPage/navigator.html"></div>
+<div th:include="/main/navigator.html"></div>
 <div th:fragment="content" th:remove="tag">
     <div class="container section">
         <div class="stack-lg" style="margin-bottom:var(--s-lg);">
-            <p class="eyebrow">💜 MY GENIE</p>
-            <h1 class="display-sm">내가 가입한 팟</h1>
+            <p class="eyebrow">💜 MY WISHLIST</p>
+            <h1 class="display-sm">찜한 팟</h1>
         </div>
         <div class="grid" style="grid-template-columns:280px 1fr;align-items:start;">
             <!-- 왼쪽: mypage_menu.html -->
-            <div th:include="/myPage/mypage_menu.html"></div>
-            <!-- 오른쪽: 내가 가입한 팟 목록 -->
+            <div th:include="/mypage/mypage_menu.html"></div>
+            <!-- 오른쪽: 찜한 팟 목록 -->
             <div class="stack-lg">
-                <div th:if="${userApplyPotList.totalElements == 0}" class="card card--cream"
+                <div th:if="${interestPotList.totalElements == 0}" class="card card--cream"
                      style="text-align:center;padding:64px;">
                     <div style="font-size:48px;">💜</div>
-                    <p class="title-md" style="margin-top:12px;">아직 가입한 팟이 없어요</p>
-                    <p class="body-sm muted">마음에 드는 팟에 참여해 보세요.</p>
+                    <p class="title-md" style="margin-top:12px;">아직 찜한 팟이 없어요</p>
+                    <p class="body-sm muted">마음에 드는 팟을 찜해보세요.</p>
                 </div>
 
                 <div class="grid grid--2">
-                    <div th:each="pot, stat : ${userApplyPotList}" class="pot-card"
+                    <div th:each="pot, stat : ${interestPotList}" class="pot-card"
                          th:classappend="'pot-card--c' + ${stat.index % 5}"
                          th:onclick="'handleOuterClick(\'' + ${pot.potId} + '\')'">
                         <div class="pot-card__top">
@@ -50,19 +50,19 @@
                     </div>
                 </div>
 
-                <nav class="clay-pager" th:if="${userApplyPotList.totalPages > 1}"
-                     th:with="start=${T(java.lang.Math).floor(userApplyPotList.number/10)*10 + 1}, last=(${start + 9 < userApplyPotList.totalPages ? start + 9 : userApplyPotList.totalPages})">
-                    <span th:if="${userApplyPotList.first}" class="is-disabled">&lt;</span>
-                    <a th:unless="${userApplyPotList.first}"
-                       th:href="@{/user/joinPotList(page=${userApplyPotList.number})}" aria-label="Previous">&lt;</a>
+                <nav class="clay-pager" th:if="${interestPotList.totalPages > 1}"
+                     th:with="start=${T(java.lang.Math).floor(interestPotList.number/10)*10 + 1}, last=(${start + 9 < interestPotList.totalPages ? start + 9 : interestPotList.totalPages})">
+                    <span th:if="${interestPotList.first}" class="is-disabled">&lt;</span>
+                    <a th:unless="${interestPotList.first}"
+                       th:href="@{/user/interestList(page=${interestPotList.number})}" aria-label="Previous">&lt;</a>
 
                     <a th:each="page: ${#numbers.sequence(start, last)}"
-                       th:classappend="${page == userApplyPotList.number + 1} ? 'is-active'"
-                       th:text="${page}" th:href="@{/user/joinPotList(page=${page})}">1</a>
+                       th:classappend="${page == interestPotList.number + 1} ? 'is-active'"
+                       th:text="${page}" th:href="@{/user/interestList(page=${page})}">1</a>
 
-                    <span th:if="${userApplyPotList.last}" class="is-disabled">&gt;</span>
-                    <a th:unless="${userApplyPotList.last}"
-                       th:href="@{/user/joinPotList(page=${userApplyPotList.number + 2})}" aria-label="Next">&gt;</a>
+                    <span th:if="${interestPotList.last}" class="is-disabled">&gt;</span>
+                    <a th:unless="${interestPotList.last}"
+                       th:href="@{/user/interestList(page=${interestPotList.number + 2})}" aria-label="Next">&gt;</a>
                 </nav>
             </div>
         </div>

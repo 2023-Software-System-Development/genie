@@ -30,7 +30,7 @@ public class AuthUserController {
         Page<PotDto> potList = potService.getPotListBySearch(potSearchForm, pageable);
         model.addAttribute("potList", potList);
         model.addAttribute(potSearchForm);
-        return "mainPage/home";
+        return "main/home";
     }
     @GetMapping("/user/login")
     public String loginForm(@ModelAttribute PotSearchForm potSearchForm){

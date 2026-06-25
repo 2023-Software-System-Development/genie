@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/css/clay.css">
 </head>
 <body class="page-shell">
-<div th:include="/mainPage/navigator.html"></div>
+<div th:include="/main/navigator.html"></div>
 
 <!-- 히어로: 메인(전체) 뷰에서만 표시. 특정 OTT 필터/검색 결과에서는 숨김 -->
 <section class="container hero"
@@ -36,7 +36,7 @@
 
 <!-- 팟 목록 -->
 <section id="pots" class="section" style="padding:72px 0 var(--s-xxl); scroll-margin-top:80px;">
-    <div th:include="/mainPage/pots_list.html"></div>
+    <div th:include="/main/pots_list.html"></div>
 
     <div class="container">
         <nav class="clay-pager" th:if="${potList.totalPages > 1}"

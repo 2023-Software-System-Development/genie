@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="/css/clay.css">
 </head>
 <body>
-<div th:include="/mainPage/navigator.html"></div>
+<div th:include="/main/navigator.html"></div>
 <div th:fragment="content" th:remove="tag">
   <div class="container section">
     <div class="stack-lg" style="margin-bottom:var(--s-lg);">
@@ -18,9 +18,9 @@
     </div>
     <div class="grid" style="grid-template-columns:280px 1fr;align-items:start;">
       <!-- 왼쪽: mypage_menu.html -->
-      <div th:include="/myPage/mypage_menu.html"></div>
+      <div th:include="/mypage/mypage_menu.html"></div>
       <!-- 오른쪽: mypage_info.html -->
-      <div th:include="/myPage/mypage_info.html"></div>
+      <div th:include="/mypage/mypage_info.html"></div>
     </div>
   </div>
 </div>

@@ -26,7 +26,7 @@ public class UserController {
     public String getUserPage(Authentication authentication, Model model){
         User user = userService.findLoginUser(authentication);
         model.addAttribute(user);
-        return "myPage/mypage";
+        return "mypage/mypage";
     }
 
     @GetMapping("/joinPotList")
@@ -34,7 +34,7 @@ public class UserController {
         Page<PotDto> userApplyPotList = userService.getUserApplyPotList(authentication, pageable);
         model.addAttribute("userApplyPotList", userApplyPotList);
 
-        return "myPage/mypot_joinList";
+        return "mypage/mypot_joinList";
     }
 
     @GetMapping("/potList")
@@ -42,21 +42,21 @@ public class UserController {
         Page<PotDto> userPotList = userService.getUserPotList(authentication, pageable);
         model.addAttribute("userPotList", userPotList);
 
-        return "myPage/mypot_list";
+        return "mypage/mypot_list";
     }
 
     @GetMapping("/userList")
     public String getUserList(Model model){
        List<UserInfo> userList = userService.getAllUser();
        model.addAttribute("userList", userList);
-       return "system/userList";
+       return "admin/userList";
     }
 
     @GetMapping("/userInfo/{userId}")
     public String getUserInfo(@PathVariable Long userId, Model model){
         UserInfo user = userService.getUserInfo(userId);
         model.addAttribute("user", user);
-        return "system/userInfo";
+        return "admin/userInfo";
     }
 
     @PostMapping("/addRole")
