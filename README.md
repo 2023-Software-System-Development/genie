@@ -212,24 +212,22 @@ mysql -u root -e "CREATE DATABASE genie;"
 
 <table>
   <tr>
-    <th>이름</th>
-    <th>역할</th>
-    <th>GitHub</th>
-  </tr>
-  <tr>
-    <td align="center">손다현</td>
-    <td align="center">Backend / Frontend</td>
-    <td align="center"><a href="https://github.com/sondahyun">@sondahyun</a></td>
-  </tr>
-  <tr>
-    <td align="center">(팀원)</td>
-    <td align="center">(역할)</td>
-    <td align="center">(GitHub)</td>
-  </tr>
-  <tr>
-    <td align="center">(팀원)</td>
-    <td align="center">(역할)</td>
-    <td align="center">(GitHub)</td>
+    <td align="center">
+      <img width="120" src="https://avatars.githubusercontent.com/u/88223753?v=4"/><br/>
+      <a href="https://github.com/sondahyun">손다현</a>
+    </td>
+    <td align="center">
+      <img width="120" src="https://avatars.githubusercontent.com/u/88420412?v=4"/><br/>
+      <a href="https://github.com/gagle1231">gagle1231</a>
+    </td>
+    <td align="center">
+      <img width="120" src="https://avatars.githubusercontent.com/u/78543382?v=4"/><br/>
+      <a href="https://github.com/isprogrammingfun">seeun</a>
+    </td>
+    <td align="center">
+      <img width="120" src="https://avatars.githubusercontent.com/u/88223759?v=4"/><br/>
+      <a href="https://github.com/seungyeonk">seungyeonk</a>
+    </td>
   </tr>
 </table>
 
