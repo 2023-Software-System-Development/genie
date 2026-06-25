@@ -1,59 +1,58 @@
 package com.example.genie.common.config;
 
 import com.example.genie.domain.auth.controller.LoginFailureHandler;
-import com.example.genie.domain.auth.service.AuthUserService;
 import com.example.genie.domain.auth.service.Role;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * Spring Security 5.7+ 컴포넌트 기반 설정.
+ * 기존 WebSecurityConfigurerAdapter(@Deprecated)를 SecurityFilterChain/WebSecurityCustomizer 빈으로 대체.
+ * UserDetailsService(AuthUserService) + PasswordEncoder 빈은 DaoAuthenticationProvider로 자동 구성된다.
+ */
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
-    @Autowired
-    AuthUserService customUserDetailsService;
-    @Autowired
-    LoginFailureHandler loginFailureHandler;
+    private final LoginFailureHandler loginFailureHandler;
 
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/image/**");
+    /** 정적 리소스는 시큐리티 필터 체인에서 제외 */
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring().antMatchers("/css/**", "/js/**", "/image/**");
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserDetailsService);
-    }
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-            // 세션/폼 기반 앱이므로 CSRF 보호를 활성화한다(기본값). Thymeleaf 폼은 토큰이 자동 주입됨.
-            http.authorizeRequests() // 인증절차에 대한 설정을 진행
-                .antMatchers("/", "/user/signup", "/user/login", "/loginProc", "/pot/list").permitAll() // 설정된 url은 인증되지 않더라도 누구든 접근 가능
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // 세션/폼 기반 앱이므로 CSRF 보호는 기본값(활성)을 유지한다. Thymeleaf 폼은 토큰이 자동 주입됨.
+        http
+                .authorizeRequests() // 인증 절차에 대한 설정
+                    .antMatchers("/", "/user/signup", "/user/login", "/loginProc", "/pot/list").permitAll() // 누구나 접근 가능
                     .antMatchers("/report/list", "/report/{reportId}", "/report/{reportId}/confirm", "/report/{reportId}/reject",
-                            "/user/userList", "/user/userInfo/**", "/user/addRole").hasRole(Role.ADMIN.toString())
-                    .anyRequest().authenticated()// 위 페이지 외 인증이 되어야 접근가능(ROLE에 상관없이)
+                            "/user/userList", "/user/userInfo/**", "/user/addRole").hasRole(Role.ADMIN.toString()) // 관리자 전용
+                    .anyRequest().authenticated() // 그 외는 인증 필요
                 .and()
-                .formLogin().loginPage("/user/login?req=true")  // 접근이 차단된 페이지 클릭시 이동할 url
-                .loginProcessingUrl("/loginProc") // 로그인시 맵핑되는 url
-                .defaultSuccessUrl("/pot/list?ottType=all", true)
-                .usernameParameter("userLoginId")      // view form 태그 내에 로그인 할 id 에 맵핑되는 name ( form 의 name )
-                .passwordParameter("userPw")      // view form 태그 내에 로그인 할 password 에 맵핑되는 name ( form 의 name )
-                .failureHandler(loginFailureHandler) // 로그인 실패시 실행되는 메소드
-                .permitAll()
+                .formLogin()
+                    .loginPage("/user/login?req=true") // 접근 차단 시 이동할 url
+                    .loginProcessingUrl("/loginProc")  // 로그인 처리 url
+                    .defaultSuccessUrl("/pot/list?ottType=all", true)
+                    .usernameParameter("userLoginId")
+                    .passwordParameter("userPw")
+                    .failureHandler(loginFailureHandler)
+                    .permitAll()
                 .and()
-                .logout() // 로그아웃 설정
-                .logoutUrl("/user/logout") // 로그아웃시 맵핑되는 url
-                .logoutSuccessUrl("/") // 로그아웃 성공시 리다이렉트 주소
-                .invalidateHttpSession(true); // 세션 clear
+                .logout()
+                    .logoutUrl("/user/logout")
+                    .logoutSuccessUrl("/")
+                    .invalidateHttpSession(true);
+        return http.build();
     }
 }
